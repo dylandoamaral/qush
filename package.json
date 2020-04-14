@@ -1,0 +1,26 @@
+{
+  "name": "add-commit-push",
+  "version": "1.0.0",
+  "description": "A personnal one line command to add, push and commit in one line.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylandoamaral/add-commit-push.git"
+  },
+  "keywords": [
+    "cli",
+    "add",
+    "commit",
+    "push",
+    "git"
+  ],
+  "author": "ddoamaral",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dylandoamaral/add-commit-push/issues"
+  },
+  "homepage": "https://github.com/dylandoamaral/add-commit-push#readme"
+}
