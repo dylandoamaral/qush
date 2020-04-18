@@ -4,7 +4,8 @@
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "coverage": "codecov"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "@types/node": "^13.13.0",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
+    "codecov": "^3.6.5",
     "eslint": "^6.8.0",
     "jest": "^25.3.0",
     "ts-jest": "^25.4.0",
