@@ -4,7 +4,7 @@
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
-    "test": "tsc & node dist/index.js"
+    "test": "ts-node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/dylandoamaral/add-commit-push#readme",
   "devDependencies": {
     "@types/node": "^13.13.0",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
   }
 }
