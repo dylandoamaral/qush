@@ -4,7 +4,7 @@
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node dist/index.js"
+    "test": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
