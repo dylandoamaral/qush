@@ -4,7 +4,7 @@
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --config jest.config.json",
     "coverage": "codecov"
   },
   "repository": {
