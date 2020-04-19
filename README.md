@@ -25,14 +25,16 @@ it will add, commit then push the following message: "[project] add: my new comm
 
 the commit respect the following template "[project] action: message"
 
-the first argument is the action, here is the mapping of this argument:
+by default, acp will use the default preset
+
+the first argument is the action, here is the mapping of this argument for the default preset:
 - a => add
 - d => delete
 - r => replace
 - f => fix
 - s => setup
 
-the second argument is the target, here is the mapping of this argument:
+the second argument is the target, here is the mapping of this argument for the default preset:
 - d => documentation
 - t => test
 - p => project
