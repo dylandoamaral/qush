@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
-    "dev": "ts-node src/index.ts a p \"executor (generated commit)\""
+    "dev": "ts-node src/index.ts a p \"inquirer choice for execution\""
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,9 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/inquirer": "^6.5.0",
     "@types/minimist": "^1.2.0",
+    "inquirer": "^7.1.0",
     "minimist": "^1.2.5",
     "typedjson": "^1.5.1"
   }
