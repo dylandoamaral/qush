@@ -8,7 +8,7 @@
     "coverage": "codecov",
     "dev": "ts-node src/index.ts a p \"inquirer choice for execution\"",
     "build": "tsc -p .",
-    "publish": "npm run build && npm publish dist"
+    "publish": "npm run build && npm publish"
   },
   "bin": {
     "acp": "./dist/index.js"
