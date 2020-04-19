@@ -1,0 +1,43 @@
+{
+    "actions": [
+        {
+            "key": "a",
+            "value": "add"
+        },
+        {
+            "key": "d",
+            "value": "delete"
+        },
+        {
+            "key": "r",
+            "value": "refactor"
+        },
+        {
+            "key": "f",
+            "value": "fix"
+        },
+        {
+            "key": "s",
+            "value": "setup"
+        },
+        {
+            "key": "u",
+            "value": "update"
+        }
+    ],
+    "targets": [
+        {
+            "key": "d",
+            "value": "📕"
+        },
+        {
+            "key": "t",
+            "value": "👓"
+        },
+        {
+            "key": "p",
+            "value": "💻"
+        }
+    ],
+    "template": "<target> <action>: <message>"
+}

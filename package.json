@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
-    "dev": "ts-node src/index.ts a p \"inquirer choice for execution\"",
+    "dev": "ts-node src/index.ts a p \"preset personalisation\"",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish"
   },

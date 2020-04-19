@@ -4,6 +4,7 @@ import minimist from "minimist";
 import { TypedJSON } from "typedjson";
 import { execSync } from "child_process";
 import inquirer from "inquirer";
+import fs from "fs";
 
 import json from "./preset.default.json";
 import Preset from "./preset";
@@ -13,7 +14,9 @@ import { add, commit, push } from "./builder";
 const serializer = new TypedJSON(Preset);
 
 const args: minimist.ParsedArgs = minimist(process.argv.slice(2));
-const preset = serializer.parse(json);
+
+const config_path = `${process.cwd()}/acp.config.json`;
+const preset = fs.existsSync(config_path) ? serializer.parse(fs.readFileSync(config_path, { encoding: "utf8" })) : serializer.parse(json);
 
 try {
     validate(args._, preset);
