@@ -35,5 +35,5 @@
             "value": "project"
         }
     ],
-    "template": "[<target>]<action>: <message>"
+    "template": "[<target>] <action>: <message>"
 }

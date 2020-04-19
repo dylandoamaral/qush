@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { jsonObject, jsonMember, jsonMapMember } from "typedjson";
 
 @jsonObject
@@ -9,6 +8,6 @@ export default class Preset {
     @jsonMapMember(String, String)
     public targets: Map<string, string>;
 
-    @jsonMember
+    @jsonMember({ constructor: String })
     public template: string;
 }

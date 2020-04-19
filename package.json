@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
-    "dev": "ts-node src/index.ts a c \"a generated commit\""
+    "dev": "ts-node src/index.ts a p \"a generated commit\""
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,6 @@
   "dependencies": {
     "@types/minimist": "^1.2.0",
     "minimist": "^1.2.5",
-    "reflect-metadata": "^0.1.13",
     "typedjson": "^1.5.1"
   }
 }
