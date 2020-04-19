@@ -1,6 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import Preset from "./preset";
-import { error_validator_excess, error_validator_need_multiple, error_validator_need_none, error_validator_arguments, error_validator_map } from './error';
+import {
+    error_validator_excess,
+    error_validator_need_multiple,
+    error_validator_need_none,
+    error_validator_arguments,
+    error_validator_map,
+} from "./error";
 
 /**
  * check if a sequence exist and is uniq inside a sentence
@@ -17,7 +23,7 @@ const uniq = (sequence: string, sentence: string): boolean => {
  * @param sentence
  */
 const need = (sequence: string, sentence: string): void => {
-    if (!uniq(sequence, sentence)){
+    if (!uniq(sequence, sentence)) {
         if (sentence.includes(sequence)) throw new Error(error_validator_need_multiple(sequence, sentence));
         else throw new Error(error_validator_need_none(sequence, sentence));
     }
@@ -34,12 +40,12 @@ const excess = (sequence: string, sentence: string): void => {
 
 /**
  * check if a key exist inside a map and return an error otherwise
- * @param key 
- * @param map 
- * @param map_name 
+ * @param key
+ * @param map
+ * @param map_name
  */
 const exist = (key: string, map: Map<string, string>, map_name: string): void => {
-    if(!map.has(key)) throw new Error(error_validator_map(key, map, map_name));
+    if (!map.has(key)) throw new Error(error_validator_map(key, map, map_name));
 };
 
 const validate = (args: string[], preset: Preset): void => {

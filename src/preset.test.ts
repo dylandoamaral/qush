@@ -1,5 +1,5 @@
 import Preset from "./preset";
-import json from "./preset.test.json";
+import json from "./preset.default.json";
 import { TypedJSON } from "typedjson";
 
 test("the parsing from json to Preset", () => {

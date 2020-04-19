@@ -10,7 +10,7 @@
         },
         {
             "key": "r",
-            "value": "replace"
+            "value": "refactor"
         },
         {
             "key": "f",
@@ -19,6 +19,10 @@
         {
             "key": "s",
             "value": "setup"
+        },
+        {
+            "key": "u",
+            "value": "update"
         }
     ],
     "targets": [

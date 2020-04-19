@@ -5,7 +5,7 @@ import { TypedJSON } from "typedjson";
 import { execSync } from "child_process";
 import inquirer from "inquirer";
 
-import json from "./preset.test.json";
+import json from "./preset.default.json";
 import Preset from "./preset";
 import validate from "./validator";
 import { add, commit, push } from "./builder";

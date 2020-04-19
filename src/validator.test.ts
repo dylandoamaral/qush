@@ -1,5 +1,5 @@
 import Preset from "./preset";
-import json from "./preset.test.json";
+import json from "./preset.default.json";
 import { TypedJSON } from "typedjson";
 import validate from "./validator";
 import { error_validator_excess, error_validator_map, error_validator_need_multiple, error_validator_need_none, error_validator_arguments } from "./error";
