@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import minimist from "minimist";
 import { TypedJSON } from "typedjson";
 import { execSync } from "child_process";
