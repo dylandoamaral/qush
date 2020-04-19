@@ -1,0 +1,39 @@
+{
+    "actions": [
+        {
+            "key": "a",
+            "value": "add"
+        },
+        {
+            "key": "d",
+            "value": "delete"
+        },
+        {
+            "key": "r",
+            "value": "replace"
+        },
+        {
+            "key": "f",
+            "value": "fix"
+        },
+        {
+            "key": "s",
+            "value": "setup"
+        }
+    ],
+    "targets": [
+        {
+            "key": "d",
+            "value": "documentation"
+        },
+        {
+            "key": "t",
+            "value": "test"
+        },
+        {
+            "key": "p",
+            "value": "project"
+        }
+    ],
+    "template": "[<target>]<action>: <message>"
+}

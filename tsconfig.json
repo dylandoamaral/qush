@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictNullChecks": false,
+    "emitDecoratorMetadata": true,
     "declaration": true,
     "importHelpers": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "module": "commonjs",
     "outDir": "dist",
     "rootDir": "src",
