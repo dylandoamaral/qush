@@ -1,13 +1,14 @@
 {
   "name": "add-commit-push",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
     "dev": "ts-node src/index.ts a p \"inquirer choice for execution\"",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "publish": "npm run build && npm publish dist"
   },
   "bin": {
     "acp": "./dist/index.js"
