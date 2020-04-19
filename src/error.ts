@@ -31,3 +31,7 @@ export const error_validator_map = (key: string, map: Map<string, string>, map_n
         Array.from(map).map(([key, value]) => `${key}: ${value}`).map((c) => `    - ${c}`).join("\n"),
     ].join("\n");
 };
+
+export const error_translator_undefined = (field: string): string => {
+    return `Error: can't find ${field} field inside the json`;
+}

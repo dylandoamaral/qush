@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
-    "dev": "ts-node src/index.ts a d \"npm badge\"",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish"
   },

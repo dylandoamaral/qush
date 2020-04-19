@@ -1,43 +1,16 @@
 {
-    "actions": [
-        {
-            "key": "a",
-            "value": "add"
-        },
-        {
-            "key": "d",
-            "value": "delete"
-        },
-        {
-            "key": "r",
-            "value": "refactor"
-        },
-        {
-            "key": "f",
-            "value": "fix"
-        },
-        {
-            "key": "s",
-            "value": "setup"
-        },
-        {
-            "key": "u",
-            "value": "update"
-        }
-    ],
-    "targets": [
-        {
-            "key": "d",
-            "value": "documentation"
-        },
-        {
-            "key": "t",
-            "value": "test"
-        },
-        {
-            "key": "p",
-            "value": "project"
-        }
-    ],
+    "actions": {
+        "a": "add",
+        "d": "delete",
+        "r": "refactor",
+        "f": "fix",
+        "s": "setup",
+        "u": "update"
+    },
+    "targets": {
+        "d": "documentation",
+        "t": "test",
+        "p": "project"
+    },
     "template": "[<target>] <action>: <message>"
 }
