@@ -5,6 +5,7 @@ import json from "./preset.test.json";
 import Preset from "./preset";
 import validate from "./validator";
 import { add, commit, push } from "./builder";
+import { execSync } from "child_process";
 
 const serializer = new TypedJSON(Preset);
 
@@ -14,8 +15,7 @@ const preset = serializer.parse(json);
 try {
     validate(args._, preset);
     const commands = [add(), commit(args._, preset), push()];
-    console.log(commands); 
-    // then execute them
+    commands.forEach((command) => execSync(command));
 } catch (e) {
     console.error(e);
 }
