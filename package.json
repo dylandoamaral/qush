@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config jest.config.json",
     "coverage": "codecov",
-    "dev": "ts-node src/index.ts a p \"preset personalisation\"",
+    "dev": "ts-node src/index.ts f d \"readme default actions\"",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish"
   },

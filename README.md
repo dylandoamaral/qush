@@ -30,9 +30,10 @@ by default, acp will use the default preset
 the first argument is the action, here is the mapping of this argument for the default preset:
 - a => add
 - d => delete
-- r => replace
+- r => refactor
 - f => fix
 - s => setup
+- u => update
 
 the second argument is the target, here is the mapping of this argument for the default preset:
 - d => documentation
