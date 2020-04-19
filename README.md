@@ -23,7 +23,7 @@ acp a p "my new commit"
 
 it will add, commit then push the following message: "[project] add: my new commit"
 
-the commit respect the following template "[<project>] <action>: <message>"
+the commit respect the following template "[project] action: message"
 
 the first argument is the action, here is the mapping of this argument:
 - a => add
