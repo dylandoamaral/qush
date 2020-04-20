@@ -1,6 +1,6 @@
 {
   "name": "add-commit-push",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
