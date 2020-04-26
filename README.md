@@ -78,7 +78,7 @@ will only commit these two files.
 
 if none of these flags are mentionned, then "git add ." will be used.
 
-### The flag -Y or --yess 
+### The flag -Y or --yes
 
 the flag allow you to push without any confirmation to win even more time.
 
