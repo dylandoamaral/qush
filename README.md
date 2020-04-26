@@ -95,3 +95,4 @@ the flag allow you to push without any confirmation to win even more time.
 - add source (-S/--source) flag
 - add source (-Y/--yes) flag
 - fix branch to point to the current branc and not master
+- fix acp tried to push when the proejct was not up to date

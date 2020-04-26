@@ -31,35 +31,44 @@ try {
             console.log(line);
         });
     } else {
-        const branch = execSync("git branch --show-current").toString();
-        const sources = get_flags(args, "S", "source");
-        validate(args._, preset);
-        const adds = sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
-        const commands = [...adds, commit(args._, preset), push(branch)];
+        execSync("git fetch");
+        const local = execSync("git rev-parse @{u}").toString();
+        const remote = execSync("git rev-parse HEAD").toString();
+        if (local === remote) {
+            const branch = execSync("git branch --show-current").toString();
+            const sources = get_flags(args, "S", "source");
+            validate(args._, preset);
+            const adds = sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
+            const commands = [...adds, commit(args._, preset), push(branch)];
 
-        if (yes) {
-            ["Acp execute these following commands for you", commands.map((c) => `    - ${c}`).join("\n")].forEach((command) => console.log(command));
-            commands.forEach((command) => execSync(command));
-        } else {
-            inquirer
-                .prompt([
-                    {
-                        type: "confirm",
-                        name: "value",
-                        message: [
-                            "Acp is going to execute these following commands for you",
-                            commands.map((c) => `    - ${c}`).join("\n"),
-                            "Are you agree to run them ?",
-                        ].join("\n"),
-                        default: function () {
-                            return false;
+            if (yes) {
+                ["Acp execute these following commands for you", commands.map((c) => `    - ${c}`).join("\n")].forEach((command) =>
+                    console.log(command)
+                );
+                commands.forEach((command) => execSync(command));
+            } else {
+                inquirer
+                    .prompt([
+                        {
+                            type: "confirm",
+                            name: "value",
+                            message: [
+                                "Acp is going to execute these following commands for you",
+                                commands.map((c) => `    - ${c}`).join("\n"),
+                                "Are you agree to run them ?",
+                            ].join("\n"),
+                            default: function () {
+                                return false;
+                            },
                         },
-                    },
-                ])
-                .then((answers) => {
-                    if (answers.value) commands.forEach((command) => execSync(command));
-                    else console.log("commands canceled with sucess !");
-                });
+                    ])
+                    .then((answers) => {
+                        if (answers.value) commands.forEach((command) => execSync(command));
+                        else console.log("commands canceled with sucess !");
+                    });
+            }
+        }else{
+            throw new Error("Error: the current repository is not up to data, you should pull before use this command.");
         }
     }
 } catch (e) {
