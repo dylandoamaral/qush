@@ -54,6 +54,12 @@ the second argument is the target, here is the mapping of this argument for the 
 - t => test
 - p => project
 
+## Preset
+
+you can add your own preset in the root of your github project to customise the commit message template.
+
+the file should be named "acp.config.json", you can see an example in the github repository of this project.
+
 ## Tags available
 
 you can also add several **tags** into that command
