@@ -23,7 +23,7 @@ describe("the help_lines", () => {
 
     it("should return the correct format", () => {
         const lines = help_lines(object);
-        expect(lines.length).toEqual(13);
+        expect(lines.length).toEqual(14);
         expect(lines[0]).toEqual(help_part("available commands:"));
     });
 });

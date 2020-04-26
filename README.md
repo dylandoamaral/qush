@@ -60,7 +60,7 @@ you can also add several **tags** into that command
 
 ### The flag -H or --help
 
-show the helper of acp.
+the flag show the helper of acp.
 
 it also can help you to see what is the current preset used by acp.
 
@@ -78,6 +78,10 @@ will only commit these two files.
 
 if none of these flags are mentionned, then "git add ." will be used.
 
+### The flag -Y or --yess 
+
+the flag allow you to push without any confirmation to win even more time.
+
 ## Changelog
 
 ### v0.0.0
@@ -89,4 +93,5 @@ if none of these flags are mentionned, then "git add ." will be used.
 
 - add source (-H/--help) flag
 - add source (-S/--source) flag
+- add source (-Y/--yes) flag
 - fix branch to point to the current branc and not master

@@ -33,6 +33,7 @@ export const help_lines = (preset: Preset): string[] => {
         help_part("flags:"),
         help_flags("use particular source files/folders instead of . during the git add command (you can use this tag multiple times in one command to add more source files/folders)", "-S", "--source"),
         help_flags("show the helper", "-H", "--help"),
+        help_flags("automatically push without confirmation", "-Y", "--yes"),
         help_part("more information:"),
         `${space}${"https://github.com/dylandoamaral/add-commit-push"}`
     ];
