@@ -11,7 +11,7 @@ import Preset from "./preset";
 import validate from "./validator";
 import { add, commit, push } from "./builder";
 import { typify } from "./translator";
-import { get_sources } from "./sources";
+import { get_flags } from "./flags";
 
 const serializer = new TypedJSON(Preset);
 
@@ -22,7 +22,7 @@ const raw = fs.existsSync(config_path) ? JSON.parse(fs.readFileSync(config_path,
 const preset = serializer.parse(typify(raw));
 
 try {
-    const sources = get_sources(args["S"], args["source"]);
+    const sources = get_flags(args, "-S", "--source");
     validate(args._, preset);
     const adds = sources.length === 0 ? [add(".")] : sources.map(source => add(source));
     const commands = [...adds, commit(args._, preset), push()];

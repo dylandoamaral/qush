@@ -4,6 +4,6 @@ export const to_array_string = (value: undefined | string | string[]): string[] 
     else return value;
 };
 
-export const get_sources = (...args: ( undefined | string | string[])[]): string[] => {
-    return args.flatMap(arg => to_array_string(arg));
+export const get_flags = (args: any, ...flags: string[]): string[] => {
+    return flags.map(flag => args[flag]).flatMap(arg => to_array_string(arg));
 };
