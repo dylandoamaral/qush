@@ -8,7 +8,7 @@
     "coverage": "codecov",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish",
-    "dev": "ts-node src/index.ts a p \"test commit\" -S README.md --source jest.config.json"
+    "dev": "ts-node src/index.ts -H"
   },
   "bin": {
     "acp": "./dist/index.js"
@@ -45,6 +45,7 @@
   "dependencies": {
     "@types/inquirer": "^6.5.0",
     "@types/minimist": "^1.2.0",
+    "chalk": "^4.0.0",
     "inquirer": "^7.1.0",
     "minimist": "^1.2.5",
     "typedjson": "^1.5.1"

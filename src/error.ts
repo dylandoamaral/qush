@@ -1,4 +1,4 @@
-const error_commands = (): string[] => {
+export const commands = (): string[] => {
     return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"].map((c) => `    - ${c}`);
 };
 
@@ -6,7 +6,7 @@ export const error_validator_excess = (delimiter: string, template: string): str
     return [
         `Error: ${delimiter} exists inside the template ${template} but you didn't give enough arguments to accept these one`,
         "You can change the template according to these following structure :",
-        ...error_commands(),
+        ...commands(),
     ].join("\n");
 };
 
@@ -21,7 +21,7 @@ export const error_validator_need_multiple = (delimiter: string, template: strin
 export const error_validator_arguments = (): string => {
     return [
         "Error: acp take between 1 and 3 arguments to work. The command should respect one of the following structure:",
-        ...error_commands(),
+        ...commands(),
     ].join("\n");
 };
 

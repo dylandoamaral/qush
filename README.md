@@ -58,6 +58,12 @@ the second argument is the target, here is the mapping of this argument for the 
 
 you can also add several **tags** into that command
 
+### The flag -H or --help
+
+show the helper of acp.
+
+it also can help you to see what is the current preset used by acp.
+
 ### The flag -S or --source 
 
 the flag allow you to add only several source files inside the commit. 
@@ -81,5 +87,6 @@ if none of these flags are mentionned, then "git add ." will be used.
 
 ### v0.1.0
 
+- add source (-H/--help) flag
 - add source (-S/--source) flag
 - fix branch to point to the current branc and not master
