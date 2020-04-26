@@ -41,9 +41,11 @@ the second argument is the target, here is the mapping of this argument for the 
 - t => test
 - p => project
 
+## Tags available
+
 you can also add several **tags** into that command
 
-### "-S" or "--source" 
+### The flag -S or --source 
 
 the flag allow you to add only several source files inside the commit. 
 
