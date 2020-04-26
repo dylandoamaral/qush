@@ -72,3 +72,14 @@ will only commit these two files.
 
 if none of these flags are mentionned, then "git add ." will be used.
 
+## Changelog
+
+### v0.0.0
+
+- add acp command
+- add presets
+
+### v0.1.0
+
+- add source (-S/--source) flag
+- fix branch to point to the current branc and not master
