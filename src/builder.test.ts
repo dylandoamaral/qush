@@ -43,6 +43,6 @@ describe("the commit builder", () => {
 
 describe("the push builder", () => {
     it("should return git push origin master", () => {
-        expect(push()).toBe("git push origin master");
+        expect(push("master")).toBe("git push origin master");
     });
 });

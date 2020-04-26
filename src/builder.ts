@@ -20,6 +20,6 @@ export const commit = (args: string[], preset: Preset): string => {
     return `git commit -m "${message}"`;
 };
 
-export const push = (): string => {
-    return "git push origin master";
+export const push = (branch: string): string => {
+    return `git push origin ${branch}`;
 };
