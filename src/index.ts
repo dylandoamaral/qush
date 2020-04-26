@@ -23,7 +23,8 @@ const preset = serializer.parse(typify(raw));
 
 try {
     const branch = execSync("git branch --show-current").toString();
-    const sources = get_flags(args, "-S", "--source");
+    const sources = get_flags(args, "S", "source");
+    console.log(sources);
     validate(args._, preset);
     const adds = sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
     const commands = [...adds, commit(args._, preset), push(branch)];
