@@ -11,7 +11,10 @@
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "lib": [
+      "es2019"
+    ]
   },
   "include": [
     "src/**/*"

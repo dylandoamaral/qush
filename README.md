@@ -22,9 +22,9 @@ then run acp from your project folder
 acp a p "my new commit"
 ```
 
-it will add, commit then push the following message: "[project] add: my new commit"
+it will add, commit then push the following message: "[target] add: my new commit"
 
-the commit respect the following template "[project] action: message"
+the commit respect the following template "[target] action: message"
 
 by default, acp will use the default preset
 
@@ -40,4 +40,20 @@ the second argument is the target, here is the mapping of this argument for the 
 - d => documentation
 - t => test
 - p => project
+
+you can also add several **tags** into that command
+
+### "-S" or "--source" 
+
+the flag allow you to add only several source files inside the commit. 
+
+for example: 
+
+```bash
+acp a p "my new commit" -S README.md --source packages.json
+```
+
+will only commit these two files.
+
+if none of these flags are mentionned, then "git add ." will be used.
 

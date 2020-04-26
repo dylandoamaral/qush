@@ -34,4 +34,8 @@ export const error_validator_map = (key: string, map: Map<string, string>, map_n
 
 export const error_translator_undefined = (field: string): string => {
     return `Error: can't find ${field} field inside the json`;
-}
+};
+
+export const error_builder_add_nopath = (field: string): string => {
+    return `Error: can't find the file "${field}"`;
+};
