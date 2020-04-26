@@ -1,4 +1,8 @@
 {
+    "name": "default",
+    "contributors": [
+        "dylandoamaral"
+    ],
     "actions": [
         {
             "key": "a",

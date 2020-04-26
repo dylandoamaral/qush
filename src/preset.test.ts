@@ -7,6 +7,8 @@ test("the parsing from json to Preset", () => {
     const object = serializer.parse(json);
 
     expect(object).toBeInstanceOf(Preset);
+    expect(object.name).toBe(json.name);
+    expect(object.contributors).toEqual(json.contributors);
     expect(object.template).toBe(json.template);
     expect(object.actions.get("a")).toBe("add");
     expect(object.targets.get("d")).toBe("documentation");

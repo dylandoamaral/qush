@@ -1,4 +1,8 @@
 {
+    "name": "default preset",
+    "contributors": [
+        "dylandoamaral"
+    ],
     "actions": {
         "a": "add",
         "d": "delete",

@@ -1,7 +1,13 @@
-import { jsonObject, jsonMember, jsonMapMember } from "typedjson";
+import { jsonObject, jsonMember, jsonArrayMember, jsonMapMember } from "typedjson";
 
 @jsonObject
 export default class Preset {
+    @jsonMember({ constructor: String })
+    public name: string;
+
+    @jsonArrayMember(String)
+    public contributors: string;
+
     @jsonMapMember(String, String)
     public actions: Map<string, string>;
 

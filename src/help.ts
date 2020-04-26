@@ -18,7 +18,7 @@ export const help_lines = (preset: Preset): string[] => {
     return [
         help_part("available commands:"),
         commands().join("\n"),
-        help_part("template: "),
+        help_part(`template (${preset.name}): `),
         `${space}${preset.template}`,
         help_part("targets:"),
         Array.from(preset.targets)

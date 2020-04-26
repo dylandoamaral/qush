@@ -21,6 +21,6 @@ export const typify = (json: any): any => {
     const targets = map_to_typed_map(json.targets);
 
     return {
-        actions, targets, template: json.template
+        name: json.name, contributors: json.contributors, actions, targets, template: json.template
     };
 };
