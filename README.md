@@ -16,6 +16,11 @@ acp is my own CLI to add, commit and push in one line.
 - because I can
 - because I wanted to use typescript for one of my project
 
+## Prerequisites
+
+- [nodejs](https://nodejs.org/en/)
+- [git](https://git-scm.com/downloads)
+
 ## How it works
 
 install acp globally
