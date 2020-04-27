@@ -103,3 +103,7 @@ the flag allow you to push without any confirmation to win even more time.
 - add name and contributors to acp config file
 - fix branch to point to the current branc and not master
 - fix acp tried to push when the proejct was not up to date
+
+#### v0.1.1
+
+- fix default configuration returned an error

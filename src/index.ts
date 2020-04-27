@@ -6,7 +6,7 @@ import { execSync } from "child_process";
 import inquirer from "inquirer";
 import fs from "fs";
 
-import json from "./preset.typed.json";
+import json from "./preset.default.json";
 import Preset from "./preset";
 import validate from "./validator";
 import { add, commit, push } from "./builder";
