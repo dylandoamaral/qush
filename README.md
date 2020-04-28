@@ -26,7 +26,7 @@ acp is my own CLI to add, commit and push in one line.
 install acp globally
 
 ```bash
-npm -i add-commit-push -g
+npm i add-commit-push -g
 ```
 
 then run acp from your project folder
