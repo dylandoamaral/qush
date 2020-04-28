@@ -22,6 +22,14 @@ const config_path = `${process.cwd()}/acp.config.json`;
 const raw = fs.existsSync(config_path) ? JSON.parse(fs.readFileSync(config_path, { encoding: "utf8" })) : json;
 const preset = serializer.parse(typify(raw));
 
+const get_commit_id = (args: string, name: string) => {
+    try{
+        return execSync(`git rev-parse ${args}`, {stdio: "ignore"}).toString();
+    }catch{
+        return `${name}: failed`;
+    }
+};
+
 try {
     const help = args["H"] === true || args["help"] === true;
     const yes = args["Y"] === true || args["yes"] === true;
@@ -32,9 +40,15 @@ try {
         });
     } else {
         execSync("git fetch");
-        const local = execSync("git rev-parse @{u}").toString();
-        const remote = execSync("git rev-parse HEAD").toString();
-        if (local === remote) {
+        const remote = get_commit_id("@{u}", "remote");
+        const base = get_commit_id("@ @{u}", "base");
+        const local = get_commit_id("@", "local");
+
+        if(local === remote){
+            console.log("There is nothing to push");
+        }else if(local === base){
+            console.log("The current repository is not up to data, you have to pull before use this command.");
+        }else{
             const branch = execSync("git branch --show-current").toString();
             const sources = get_flags(args, "S", "source");
             validate(args._, preset);
@@ -67,8 +81,6 @@ try {
                         else console.log("commands canceled with sucess !");
                     });
             }
-        }else{
-            throw new Error("Error: the current repository is not up to data, you should pull before use this command.");
         }
     }
 } catch (e) {
