@@ -108,6 +108,6 @@ the flag allow you to push without any confirmation to win even more time.
 
 - fix default configuration returned an error
 
-#### v0.1.1
+#### v0.1.2
 
 - fix new branch commit returned error due to "git rev-parse @{u}"
