@@ -35,7 +35,7 @@ then run acp from your project folder
 acp a p "my new commit"
 ```
 
-it will add, commit then push the following message: "[target] add: my new commit"
+it will add, commit then push the following message: "[project] add: my new commit"
 
 the commit respect the following template "[target] action: message"
 
