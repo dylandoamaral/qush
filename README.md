@@ -111,3 +111,7 @@ the flag allow you to push without any confirmation to win even more time.
 #### v0.1.2
 
 - fix new branch commit returned error due to "git rev-parse @{u}"
+
+#### v0.1.3
+
+- fix up to date repository returned error

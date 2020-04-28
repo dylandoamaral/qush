@@ -22,6 +22,7 @@ const config_path = `${process.cwd()}/acp.config.json`;
 const raw = fs.existsSync(config_path) ? JSON.parse(fs.readFileSync(config_path, { encoding: "utf8" })) : json;
 const preset = serializer.parse(typify(raw));
 
+
 const get_commit_id = (args: string, name: string) => {
     try{
         return execSync(`git rev-parse ${args}`, {stdio: "ignore"}).toString();
@@ -39,12 +40,13 @@ try {
             console.log(line);
         });
     } else {
+        const update = execSync("git status --porcelain").toString() === "" ? true : false; 
+
         execSync("git fetch");
-        const remote = get_commit_id("@{u}", "remote");
         const base = get_commit_id("@ @{u}", "base");
         const local = get_commit_id("@", "local");
 
-        if(local === remote){
+        if(update){
             console.log("There is nothing to push");
         }else if(local === base){
             console.log("The current repository is not up to data, you have to pull before use this command.");
