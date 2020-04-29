@@ -2,7 +2,13 @@ import Preset from "./preset";
 import json from "./preset.typed.json";
 import { TypedJSON } from "typedjson";
 import validate from "./validator";
-import { error_validator_excess, error_validator_map, error_validator_need_multiple, error_validator_need_none, error_validator_arguments } from "./error";
+import {
+    error_validator_excess,
+    error_validator_map,
+    error_validator_need_multiple,
+    error_validator_need_none,
+    error_validator_arguments,
+} from "./error";
 
 describe("the validator", () => {
     const serializer = new TypedJSON(Preset);
@@ -43,7 +49,9 @@ describe("the validator", () => {
     it("should fail if the delimiter is not inside the templace", () => {
         const empty_template = "no delimiter";
         const empty_json = { ...json, template: empty_template };
-        expect(() => validate(["my commit"], serializer.parse(empty_json))).toThrow(error_validator_need_none("<message>", empty_template));
+        expect(() => validate(["my commit"], serializer.parse(empty_json))).toThrow(
+            error_validator_need_none("<message>", empty_template)
+        );
     });
 
     it("should fail if the action is not inside actions map for 2 arguments", () => {

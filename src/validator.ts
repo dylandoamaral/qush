@@ -50,26 +50,26 @@ const exist = (key: string, map: Map<string, string>, map_name: string): void =>
 
 const validate = (args: string[], preset: Preset): void => {
     switch (args.length) {
-    case 1:
-        need("<message>", preset.template);
-        excess("<action>", preset.template);
-        excess("<target>", preset.template);
-        break;
-    case 2:
-        need("<message>", preset.template);
-        need("<action>", preset.template);
-        excess("<target>", preset.template);
-        exist(args[0], preset.actions, "actions");
-        break;
-    case 3:
-        need("<message>", preset.template);
-        need("<action>", preset.template);
-        need("<target>", preset.template);
-        exist(args[0], preset.actions, "actions");
-        exist(args[1], preset.targets, "targets");
-        break;
-    default:
-        throw new Error(error_validator_arguments());
+        case 1:
+            need("<message>", preset.template);
+            excess("<action>", preset.template);
+            excess("<target>", preset.template);
+            break;
+        case 2:
+            need("<message>", preset.template);
+            need("<action>", preset.template);
+            excess("<target>", preset.template);
+            exist(args[0], preset.actions, "actions");
+            break;
+        case 3:
+            need("<message>", preset.template);
+            need("<action>", preset.template);
+            need("<target>", preset.template);
+            exist(args[0], preset.actions, "actions");
+            exist(args[1], preset.targets, "targets");
+            break;
+        default:
+            throw new Error(error_validator_arguments());
     }
 };
 

@@ -28,7 +28,10 @@ export const error_validator_arguments = (): string => {
 export const error_validator_map = (key: string, map: Map<string, string>, map_name: string): string => {
     return [
         `Error: the key ${key} don't exist inside ${map_name} map. Values found inside the map:`,
-        Array.from(map).map(([key, value]) => `${key}: ${value}`).map((c) => `    - ${c}`).join("\n"),
+        Array.from(map)
+            .map(([key, value]) => `${key}: ${value}`)
+            .map((c) => `    - ${c}`)
+            .join("\n"),
     ].join("\n");
 };
 

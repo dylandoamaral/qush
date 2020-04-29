@@ -12,7 +12,8 @@ describe("the get_flags", () => {
     const args = {
         "-a": "d",
         "-b": ["e", "f"]
-    }
+    };
+    
     it("should return the correct format", () => {
         expect(get_flags(args)).toEqual([]);
         expect(get_flags(args, "-a")).toEqual(["d"]);

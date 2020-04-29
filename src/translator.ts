@@ -3,7 +3,8 @@ import { error_translator_undefined } from "./error";
 export const map_to_typed_map = (field: any): any => {
     return Object.keys(field).map((key) => {
         return {
-            key, value: field[key]
+            key,
+            value: field[key],
         };
     });
 };
@@ -21,6 +22,10 @@ export const typify = (json: any): any => {
     const targets = map_to_typed_map(json.targets);
 
     return {
-        name: json.name, contributors: json.contributors, actions, targets, template: json.template
+        name: json.name,
+        contributors: json.contributors,
+        actions,
+        targets,
+        template: json.template,
     };
 };
