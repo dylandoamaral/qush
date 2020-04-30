@@ -2,6 +2,8 @@ import { map_to_typed_map, typify } from "./translator";
 import default_json from "../../preset.default.json";
 import typed_json from "../../preset.typed.json";
 import { error_translator_undefined } from "../../utils/error";
+import { getOrElse, fold, isLeft } from "fp-ts/lib/Either";
+import { pipe } from "fp-ts/lib/pipeable";
 
 describe("the map_to_typed_map", () => {
     it("should return the correct format", () => {
@@ -20,7 +22,10 @@ describe("the map_to_typed_map", () => {
 
 describe("the translator", () => {
     it("should return the correct format", () => {
-        const mtjm = typify(default_json);
+        const mtjm = pipe(
+            typify(default_json),
+            getOrElse(() => null)
+        );
 
         expect(mtjm.actions.length).toBe(6);
         expect(mtjm.targets.length).toBe(3);
@@ -33,7 +38,15 @@ describe("the translator", () => {
             const typed = field as "actions" | "targets" | "template";
             error_json[typed] = undefined;
 
-            expect(() => typify(error_json)).toThrow(error_translator_undefined(field));
+            const validation = typify(error_json);
+            const result = pipe(
+                validation,
+                fold(errors => errors, () => [])
+            );
+
+            expect(isLeft(validation)).toBe(true);
+            expect(result.length).toBe(1);
+            expect(result).toContain(error_translator_undefined(field));
         });
     }
 });

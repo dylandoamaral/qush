@@ -5,6 +5,8 @@ import { TypedJSON } from "typedjson";
 import fs from "fs";
 
 import json from "./preset.default.json";
+import typed_json from "./preset.typed.json";
+
 import Preset from "./preset";
 import validate from "./command/acp/validator";
 import { typify } from "./command/acp/translator";
@@ -14,6 +16,7 @@ import { pipe } from "fp-ts/lib/pipeable";
 import { space } from "./utils/format";
 import { execute } from "./command/acp/acp";
 import { fold } from "fp-ts/lib/Either";
+import { getOrElse } from "fp-ts/lib/Either";
 
 const serializer = new TypedJSON(Preset);
 
@@ -21,7 +24,12 @@ const args: minimist.ParsedArgs = minimist(process.argv.slice(2));
 
 const config_path = `${process.cwd()}/acp.config.json`;
 const raw = fs.existsSync(config_path) ? JSON.parse(fs.readFileSync(config_path, { encoding: "utf8" })) : json;
-const preset = serializer.parse(typify(raw));
+const preset = serializer.parse(
+    pipe(
+        typify(raw),
+        getOrElse(() => typed_json)
+    )
+);
 
 const show_error = (errors: string[]): void => {
     console.error("Error(s) occured during the acp process.");
