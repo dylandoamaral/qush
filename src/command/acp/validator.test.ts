@@ -176,13 +176,13 @@ describe("the validator", () => {
 
     it("should failed with wrong sources", () => {
         const validation = validate(
-            minimistWrapper(["a", "p", "my commit", "-S", "./README.md", "--source", "./code.no"]),
+            minimistWrapper(["a", "p", "my commit", "-S", "README.md", "--source", "code.no"]),
             preset
         );
         const result = eitherFolded(validation);
-
+        
         expect(isLeft(validation)).toBe(true);
         expect(result.length).toBe(1);
-        expect(result).toContain(error_source_unexist("./code.no"));
+        expect(result).toContain(error_source_unexist("code.no"));
     });
 });
