@@ -1,15 +1,13 @@
-import json from "./preset.typed.json";
+import json from "../../preset.typed.json";
 import { add, commit, push } from "./builder";
 import { TypedJSON } from "typedjson";
-import Preset from "./preset";
-import { error_builder_add_nopath } from "./error";
+import Preset from "../../preset";
 
 describe("the add builder", () => {
     it("should return git add .", () => {
         expect(add(".")).toBe("git add .");
         expect(add("package.json")).toBe("git add package.json");
         expect(add("src")).toBe("git add src");
-        expect(() => add("code.no")).toThrow(error_builder_add_nopath("code.no"));
     });
 });
 

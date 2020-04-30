@@ -1,10 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import Preset from "./preset";
-import { error_builder_add_nopath } from "./error";
-import fs from "fs";
+import Preset from "../../preset";
 
 export const add = (path: string): string => {
-    if (!fs.existsSync(path)) throw new Error(error_builder_add_nopath(path));
     return `git add ${path}`;
 };
 

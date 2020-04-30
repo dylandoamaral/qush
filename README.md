@@ -115,3 +115,8 @@ the flag allow you to push without any confirmation to win even more time.
 #### v0.1.3
 
 - fix up to date repository returned error
+
+### v0.2.0
+
+- refactor in a functional way
+- the command show every error of the command in once and not the first one encountered 
