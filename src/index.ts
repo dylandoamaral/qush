@@ -33,7 +33,7 @@ const preset = serializer.parse(
 
 const show_error = (errors: string[]): void => {
     console.error("Error(s) occured during the acp process.");
-    errors.forEach((error) => `${space}${error}`);
+    errors.forEach((error) => console.error(`${space}${error}`));
 };
 
 try {
