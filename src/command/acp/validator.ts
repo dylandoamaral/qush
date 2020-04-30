@@ -8,10 +8,14 @@ import {
     error_validator_map,
     error_validator_uptodate,
     error_validator_pull,
+    error_source_unexist,
 } from "../../utils/error";
 import { execSync } from "child_process";
 // eslint-disable-next-line no-unused-vars
 import { toAcp, Acp } from "./acp";
+import fs from "fs";
+// eslint-disable-next-line no-unused-vars
+import minimist from "minimist";
 
 // eslint-disable-next-line no-unused-vars
 import { Either, left, right, map, getValidation } from "fp-ts/lib/Either";
@@ -19,8 +23,8 @@ import { Either, left, right, map, getValidation } from "fp-ts/lib/Either";
 import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
 import { sequenceT } from "fp-ts/lib/Apply";
-// eslint-disable-next-line no-unused-vars
-import minimist from "minimist";
+import { array } from "fp-ts/lib/Array";
+import { get_flags } from "../../utils/command";
 
 /**
  * A bunch of validation before executing our acp commands
@@ -144,6 +148,18 @@ const validate_preset = (args: string[], preset: Preset): Either<NonEmptyArray<s
     }
 };
 
+const validate_source = (source: string): Either<NonEmptyArray<string>, void> =>
+    fs.existsSync(source) === false ? left([error_source_unexist(source)]) : right(null);
+
+const validate_sources = (sources: string[]): Either<NonEmptyArray<string>, void> => {
+    const validations: Either<NonEmptyArray<string>, void>[] = sources.map(validate_source);
+
+    return pipe(
+        array.sequence(applicativeValidation)(validations),
+        map(() => null)
+    );
+};
+
 /**
  * validate a command according to his preset and his arguments
  * @param args
@@ -151,7 +167,12 @@ const validate_preset = (args: string[], preset: Preset): Either<NonEmptyArray<s
  */
 const validate = (args: minimist.ParsedArgs, preset: Preset): Either<NonEmptyArray<string>, Acp> => {
     return pipe(
-        sequenceT(applicativeValidation)(validate_notuptodate(), validate_needpull(), validate_preset(args._, preset)),
+        sequenceT(applicativeValidation)(
+            validate_notuptodate(),
+            validate_needpull(),
+            validate_preset(args._, preset),
+            validate_sources(get_flags(args, "S", "source"))
+        ),
         map(() => toAcp([args, preset]))
     );
 };

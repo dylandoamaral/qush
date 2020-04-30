@@ -45,6 +45,6 @@ export const error_translator_undefined = (field: string): string => {
     return `can't find ${field} field inside the json`;
 };
 
-export const error_builder_add_nopath = (field: string): string => {
+export const error_source_unexist = (field: string): string => {
     return `can't find the file "${field}"`;
 };

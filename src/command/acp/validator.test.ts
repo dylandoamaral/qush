@@ -9,6 +9,7 @@ import {
     error_validator_need_multiple,
     error_validator_need,
     error_validator_arguments,
+    error_source_unexist,
 } from "../../utils/error";
 
 // eslint-disable-next-line no-unused-vars
@@ -153,5 +154,35 @@ describe("the validator", () => {
         expect(isLeft(validation)).toBe(true);
         expect(result.length).toBe(1);
         expect(result).toContain(error_validator_need_multiple("<message>", twice_template));
+    });
+
+    it("should fail if the preset has multiple times a delimiter", () => {
+        const validation = validate(minimistWrapper(["a", "p", "my commit"]), twice_preset);
+        const result = eitherFolded(validation);
+
+        expect(isLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(error_validator_need_multiple("<message>", twice_template));
+    });
+
+    it("should succeed with good sources", () => {
+        const validation = validate(
+            minimistWrapper(["a", "p", "my commit", "-S", "./README.md", "--source", "./acp.config.json"]),
+            preset
+        );
+
+        expect(isRight(validation)).toBe(true);
+    });
+
+    it("should failed with wrong sources", () => {
+        const validation = validate(
+            minimistWrapper(["a", "p", "my commit", "-S", "./README.md", "--source", "./code.no"]),
+            preset
+        );
+        const result = eitherFolded(validation);
+
+        expect(isLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(error_source_unexist("./code.no"));
     });
 });
