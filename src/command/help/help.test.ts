@@ -1,8 +1,8 @@
 import { help_part, help_flags, help_lines } from "./help";
 import chalk from "chalk";
 
-import Preset from "./preset";
-import json from "./preset.typed.json";
+import Preset from "../../preset";
+import json from "../../preset.typed.json";
 import { TypedJSON } from "typedjson";
 
 describe("the help_part", () => {

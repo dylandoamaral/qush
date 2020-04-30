@@ -9,7 +9,7 @@
     "coverage": "codecov",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish",
-    "dev": "ts-node src/index.ts a p \"yes flags\""
+    "dev": "ts-node src/index.ts r p \"functional style and project structure\""
   },
   "bin": {
     "acp": "./dist/index.js"
@@ -47,6 +47,7 @@
     "@types/inquirer": "^6.5.0",
     "@types/minimist": "^1.2.0",
     "chalk": "^4.0.0",
+    "fp-ts": "^2.5.4",
     "inquirer": "^7.1.0",
     "minimist": "^1.2.5",
     "typedjson": "^1.5.1"

@@ -1,14 +1,13 @@
-import { commands } from "./error";
 import chalk from "chalk";
 
 // eslint-disable-next-line no-unused-vars
-import Preset from "./preset";
+import Preset from "../../preset";
+import { commands } from "../../utils/command";
+import { space } from "../../utils/format";
 
 export const help_part = (value: string): string => {
     return chalk`{bold ${value}}`;
 };
-
-const space = "    - ";
 
 export const help_flags = (description: string, ...flags: string[]): string => {
     return `${space}${flags.map((flag) => `"${flag}"`).join(" or ")} => ${description}`;

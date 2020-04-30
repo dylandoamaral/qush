@@ -1,4 +1,4 @@
-import { error_translator_undefined } from "./error";
+import { error_translator_undefined } from "../../utils/error";
 
 export const map_to_typed_map = (field: any): any => {
     return Object.keys(field).map((key) => {

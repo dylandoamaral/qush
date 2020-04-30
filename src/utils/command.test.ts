@@ -1,4 +1,4 @@
-import { to_array_string, get_flags } from "./flags";
+import { to_array_string, get_flags } from "./command";
 
 describe("the to_array_string", () => {
     it("should return the correct format", () => {

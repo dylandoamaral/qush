@@ -1,7 +1,7 @@
 import { map_to_typed_map, typify } from "./translator";
-import default_json from "./preset.default.json";
-import typed_json from "./preset.typed.json";
-import { error_translator_undefined } from "./error";
+import default_json from "../../preset.default.json";
+import typed_json from "../../preset.typed.json";
+import { error_translator_undefined } from "../../utils/error";
 
 describe("the map_to_typed_map", () => {
     it("should return the correct format", () => {

@@ -1,8 +1,8 @@
-import json from "./preset.typed.json";
+import json from "../../preset.typed.json";
 import { add, commit, push } from "./builder";
 import { TypedJSON } from "typedjson";
-import Preset from "./preset";
-import { error_builder_add_nopath } from "./error";
+import Preset from "../../preset";
+import { error_builder_add_nopath } from "../../utils/error";
 
 describe("the add builder", () => {
     it("should return git add .", () => {

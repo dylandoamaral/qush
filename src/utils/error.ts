@@ -1,6 +1,4 @@
-export const commands = (): string[] => {
-    return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"].map((c) => `    - ${c}`);
-};
+import { commands } from "./command";
 
 export const error_validator_excess = (delimiter: string, template: string): string => {
     return [
@@ -10,8 +8,16 @@ export const error_validator_excess = (delimiter: string, template: string): str
     ].join("\n");
 };
 
-export const error_validator_need_none = (delimiter: string, template: string): string => {
+export const error_validator_need = (delimiter: string, template: string): string => {
     return `Error: impossible to find ${delimiter} inside the template ${template}`;
+};
+
+export const error_validator_uptodate = (): string => {
+    return "nothing to push, the repository is up to data";
+};
+
+export const error_validator_pull = (): string => {
+    return "the current repository is not up to data, you have to pull before use this command.";
 };
 
 export const error_validator_need_multiple = (delimiter: string, template: string): string => {
