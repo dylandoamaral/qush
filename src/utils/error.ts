@@ -1,5 +1,5 @@
 import { commands } from "./command";
-import { space_2 } from './format';
+import { space_2 } from "./format";
 
 export const error_validator_excess = (delimiter: string, template: string): string => {
     return [
@@ -11,6 +11,10 @@ export const error_validator_excess = (delimiter: string, template: string): str
 
 export const error_validator_need = (delimiter: string, template: string): string => {
     return `impossible to find ${delimiter} inside the template ${template}`;
+};
+
+export const error_validator_norepo = (): string => {
+    return "the command is running outside à git repository";
 };
 
 export const error_validator_uptodate = (): string => {
@@ -38,7 +42,7 @@ export const error_validator_map = (key: string, map: Map<string, string>, map_n
         Array.from(map)
             .map(([key, value]) => `${key}: ${value}`)
             .map((c) => `${space_2}${c}`)
-            .join("\n")
+            .join("\n"),
     ].join("\n");
 };
 

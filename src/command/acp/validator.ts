@@ -9,6 +9,7 @@ import {
     error_validator_uptodate,
     error_validator_pull,
     error_source_unexist,
+    error_validator_norepo,
 } from "../../utils/error";
 import { execSync } from "child_process";
 // eslint-disable-next-line no-unused-vars
@@ -18,7 +19,7 @@ import fs from "fs";
 import minimist from "minimist";
 
 // eslint-disable-next-line no-unused-vars
-import { Either, left, right, map, getValidation } from "fp-ts/lib/Either";
+import { Either, left, right, map, getValidation, fold, isRight } from "fp-ts/lib/Either";
 // eslint-disable-next-line no-unused-vars
 import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
@@ -31,6 +32,21 @@ import { get_flags } from "../../utils/command";
  */
 
 const applicativeValidation = getValidation(getSemigroup<string>());
+
+/**
+ * Validate if the command is running inside a repository
+ * TODO: this is still not functionnal
+ * ! effect due to execSync call
+ */
+export const validate_isrepo = (): Either<NonEmptyArray<string>, void> => {
+    if (process.env.ACP_TEST === "true") return right(null);
+    try {
+        execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" });
+        return right(null);
+    } catch {
+        return left([error_validator_norepo()]);
+    }
+};
 
 /**
  * Validate if the repository is not up to date compare to the remote one
@@ -62,6 +78,21 @@ const validate_needpull = (): Either<NonEmptyArray<string>, void> => {
     const local = get_commit_id("@", "local");
 
     return base === local ? left([error_validator_pull()]) : right(null);
+};
+
+/**
+ * Validate all validation that refer to git
+ */
+const validate_git = (): Either<NonEmptyArray<string>, void> => {
+    if (isRight(validate_isrepo())) {
+        // only called if we are inside a repository
+        return pipe(
+            sequenceT(applicativeValidation)(validate_notuptodate(), validate_needpull()),
+            map(() => null)
+        );
+    } else {
+        return validate_isrepo();
+    }
 };
 
 /**
@@ -172,8 +203,7 @@ const validate_sources = (sources: string[]): Either<NonEmptyArray<string>, void
 const validate = (args: minimist.ParsedArgs, preset: Preset): Either<NonEmptyArray<string>, Acp> => {
     return pipe(
         sequenceT(applicativeValidation)(
-            validate_notuptodate(),
-            validate_needpull(),
+            validate_git(),
             validate_preset(args._, preset),
             validate_sources(get_flags(args, "S", "source"))
         ),
