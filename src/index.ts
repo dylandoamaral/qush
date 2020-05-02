@@ -38,7 +38,7 @@ const show_error = (errors: string[]): void => {
 
 const help = args["H"] === true || args["help"] === true;
 
-if (help) {
+if (help || args._.length == 0) {
     help_lines(preset).forEach((line) => {
         console.log(line);
     });
