@@ -3,9 +3,8 @@ import { space_2 } from "./format";
 
 export const error_validator_excess = (delimiter: string, template: string): string => {
     return [
-        `${delimiter} exists inside the template ${template} but you didn't give enough arguments to accept these one`,
-        "You can change the template according to these following structure :",
-        ...commands(),
+        `${delimiter} exists inside the template ${template} but you didn't give enough arguments to accept these one. You can change the template according to these following structure :`,
+        ...commands().map((c) => `${space_2}${c}`),
     ].join("\n");
 };
 
