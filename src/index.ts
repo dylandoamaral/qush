@@ -36,16 +36,12 @@ const show_error = (errors: string[]): void => {
     errors.forEach((error) => console.error(`${space}${error}`));
 };
 
-try {
-    const help = args["H"] === true || args["help"] === true;
+const help = args["H"] === true || args["help"] === true;
 
-    if (help) {
-        help_lines(preset).forEach((line) => {
-            console.log(line);
-        });
-    } else {
-        pipe(validate(args, preset), fold(show_error, execute));
-    }
-} catch (e) {
-    console.error(e);
+if (help) {
+    help_lines(preset).forEach((line) => {
+        console.log(line);
+    });
+} else {
+    pipe(validate(args, preset), fold(show_error, execute));
 }

@@ -38,9 +38,9 @@ const applicativeValidation = getValidation(getSemigroup<string>());
  * ! effect due to execSync call
  */
 const validate_notuptodate = (): Either<NonEmptyArray<string>, void> => {
-    if(process.env.ACP_TEST === "true") return right(null);
+    if (process.env.ACP_TEST === "true") return right(null);
     return execSync("git status --porcelain").toString() === "" ? left([error_validator_uptodate()]) : right(null);
-}
+};
 
 /**
  * Validate if the repository doesn't need pull
@@ -48,7 +48,7 @@ const validate_notuptodate = (): Either<NonEmptyArray<string>, void> => {
  * ! effect due to execSync call
  */
 const validate_needpull = (): Either<NonEmptyArray<string>, void> => {
-    if(process.env.ACP_TEST === "true") return right(null);
+    if (process.env.ACP_TEST === "true") return right(null);
 
     const get_commit_id = (args: string, name: string) => {
         try {
