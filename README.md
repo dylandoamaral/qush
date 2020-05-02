@@ -42,17 +42,17 @@ the commit respect the following template "[target] action: message"
 by default, acp will use the default preset
 
 the first argument is the action, here is the mapping of this argument for the default preset:
-- a => add
-- d => delete
-- r => refactor
-- f => fix
-- s => setup
-- u => update
+- a → add
+- d → delete
+- r → refactor
+- f → fix
+- s → setup
+- u → update
 
 the second argument is the target, here is the mapping of this argument for the default preset:
-- d => documentation
-- t => test
-- p => project
+- d → documentation
+- t → test
+- p → project
 
 ## Preset
 
@@ -101,8 +101,8 @@ the flag allow you to push without any confirmation to win even more time.
 - add source (-S/--source) flag
 - add source (-Y/--yes) flag
 - add name and contributors to acp config file
-- fix branch to point to the current branc and not master
-- fix acp tried to push when the proejct was not up to date
+- fix branch to point to the current branch and not master
+- error handling when the command is trying to push something when the repository need a pull
 
 #### v0.1.1
 
@@ -114,9 +114,15 @@ the flag allow you to push without any confirmation to win even more time.
 
 #### v0.1.3
 
-- fix up to date repository returned error
+- error handling when the command is running when the repository is already up to date
 
 ### v0.2.0
 
 - refactor in a functional way
-- the command show every error of the command in once and not the first one encountered 
+- the command shows every errors and not only the first one encountered 
+
+#### v0.2.1
+
+- error handling when the command is running outside a repository
+- format for errors that show a list of possibilities such as the error when there is too much arguments
+- fix readme errors and formulations
