@@ -16,7 +16,7 @@ export const help_flags = (description: string, ...flags: string[]): string => {
 export const help_lines = (preset: Preset): string[] => {
     return [
         help_part("available commands:"),
-        commands().join("\n"),
+        commands().map(c => `${space}${c}`).join("\n"),
         help_part(`template (${preset.name}): `),
         `${space}${preset.template}`,
         help_part("targets:"),

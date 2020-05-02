@@ -1,5 +1,5 @@
 export const commands = (): string[] => {
-    return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"].map((c) => `    - ${c}`);
+    return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"];
 };
 
 export const to_array_string = (value: undefined | string | string[]): string[] => {
