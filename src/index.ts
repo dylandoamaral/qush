@@ -1,23 +1,16 @@
 #!/usr/bin/env node
 
-import minimist from "minimist";
-import { TypedJSON } from "typedjson";
-import fs from "fs";
-
-import json from "./preset.default.json";
-import typed_json from "./preset.typed.json";
-
-import Preset from "./preset";
-import validate from "./command/acp/validator";
-import { typify } from "./command/acp/translator";
-import { help_lines } from "./command/help/help";
-
 import { pipe } from "fp-ts/lib/pipeable";
-import { space } from "./utils/format";
-import { execute } from "./command/acp/acp";
-import { fold } from "fp-ts/lib/Either";
-import { getOrElse } from "fp-ts/lib/Either";
+import {
+  loadArguments,
+  routeCommands,
+  executeCommand,
+  showError,
+} from "./command/command";
+import { IO } from "fp-ts/lib/IO";
+import { getOrElse } from "fp-ts/lib/IOEither";
 
+/** 
 const serializer = new TypedJSON(Preset);
 
 const args: minimist.ParsedArgs = minimist(process.argv.slice(2));
@@ -30,6 +23,7 @@ const preset = serializer.parse(
         getOrElse(() => typed_json)
     )
 );
+
 
 const show_error = (errors: string[]): void => {
     console.error("Error(s) occured during the acp process.");
@@ -45,3 +39,14 @@ if (help || args._.length == 0) {
 } else {
     pipe(validate(args, preset), fold(show_error, execute));
 }
+*/
+
+// start here
+const program: IO<void> = pipe(
+  loadArguments(),
+  routeCommands,
+  executeCommand,
+  getOrElse(showError)
+);
+
+program();

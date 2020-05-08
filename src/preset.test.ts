@@ -13,3 +13,7 @@ test("the parsing from json to Preset", () => {
     expect(object.actions.get("a")).toBe("add");
     expect(object.targets.get("d")).toBe("documentation");
 });
+
+test("load preset step", () => {
+    
+})
