@@ -1,6 +1,11 @@
-import Preset, { mapToTypedMap } from "./preset";
-import json from "./preset.typed.json";
+import Preset, { mapToTypedMap, typify } from "./preset";
+import json from "./asset/preset.typed.json";
 import { TypedJSON } from "typedjson";
+import { pipe } from 'fp-ts/lib/pipeable';
+import default_json from './asset/preset.default.json';
+import typed_json from './asset/preset.typed.json';
+import { getOrElse, fold, isLeft } from 'fp-ts/lib/Either';
+import { errorUndefinedField } from './utils/error';
 
 test("the parsing from json to Preset", () => {
     const serializer = new TypedJSON(Preset);
@@ -29,8 +34,8 @@ describe("the mapToTypedMap function", () => {
     });
 });
 
-describe("the translator", () => {
-    /**
+
+describe("the translator from config to typedjson", () => {
     it("should return the correct format", () => {
         const mtjm = pipe(
             typify(default_json),
@@ -41,7 +46,7 @@ describe("the translator", () => {
         expect(mtjm.targets.length).toBe(3);
         expect(mtjm).toEqual(typed_json);
     });
-    
+
     for (const field of ["actions", "targets", "template"]) {
         it(`should return an error if ${field} targets is undefine`, () => {
             let error_json = { ...default_json };
@@ -56,8 +61,7 @@ describe("the translator", () => {
 
             expect(isLeft(validation)).toBe(true);
             expect(result.length).toBe(1);
-            expect(result).toContain(error_translator_undefined(field));
+            expect(result).toContain(errorUndefinedField(field));
         });
     }
-    */
 });

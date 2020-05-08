@@ -1,9 +1,13 @@
-import { helpPart, helpFlags, helpLines } from "./help";
+import { helpPart, helpFlags, helpLines, helpCommand } from "./help";
 import chalk from "chalk";
 
 import Preset from "../../preset";
-import json from "../../preset.typed.json";
+import json from "../../asset/preset.typed.json";
 import { TypedJSON } from "typedjson";
+import minimist from 'minimist';
+import { minimistWrapper } from '../../utils/utest';
+import { constVoid } from 'fp-ts/lib/function';
+import { isIORight } from '../../utils/functionnal';
 
 describe("the help_part", () => {
     it("should return the correct format", () => {
@@ -27,4 +31,8 @@ describe("the help_lines", () => {
         expect(lines[0]).toEqual(helpPart("available commands:"));
     });
 });
+
+describe("the command", () => {
+    expect(isIORight(helpCommand(minimistWrapper(["-H"])).execute())).toEqual(true);
+})
 

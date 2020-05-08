@@ -4,9 +4,11 @@ import { IOEither } from "fp-ts/lib/IOEither";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { helpCommand } from "./help/help";
 import { acpCommand } from './acp/acp';
+import { space } from '../utils/format';
 
 export interface Command {
   arguments: minimist.ParsedArgs;
+  name: string;
   execute(args?: minimist.ParsedArgs): IOEither<NonEmptyArray<string>, void>;
 }
 
@@ -29,7 +31,7 @@ export const loadArguments: IO<minimist.ParsedArgs> = () =>
   minimist(process.argv.slice(2));
 
 export const routeCommands = (args: minimist.ParsedArgs): Command => {
-  if (args["H"] != undefined) return helpCommand(args);
+  if (args["H"] != undefined || args["help"] != undefined ) return helpCommand(args);
   else if (args["_"].length == 0) return helpCommand(args);
   else return acpCommand(args);
 };
@@ -43,5 +45,5 @@ export const showError = (errors: NonEmptyArray<string>): IO<void> => () =>
 
 export const buildError = (errors: NonEmptyArray<string>): string => {
   return `Errors:
-${errors.map((error) => ` - ${error}`).join("\n")}`;
+${errors.map((error) => `${space}${error}`).join("\n")}`;
 };

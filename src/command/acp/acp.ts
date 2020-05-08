@@ -25,15 +25,8 @@ export const processAcp = (acp: Acp): IO<void> =>
     mapIO((branch) =>
       pipe(
         getFlags(acp.args, "S", "source"),
-        (sources) =>
-          sources.length === 0
-            ? [add(".")]
-            : sources.map((source) => add(source)),
-        (adds) => [
-          ...adds,
-          commit(acp.args._ as string[], acp.preset),
-          push(branch),
-        ],
+        sourcesToAdds,
+        addsToCommands(acp)(branch),
         (commands) => {
           inquirer
             .prompt([
@@ -60,8 +53,24 @@ export const processAcp = (acp: Acp): IO<void> =>
     )
   );
 
+export const sourcesToAdds = (sources: string[]): string[] => sources.length === 0
+? [add(".")]
+: sources.map((source) => add(source))
+
+export const addsToCommands = (acp: Acp) => (branch: string) => (adds: string[]): string[] => [
+  ...adds,
+  commit(acp.args._ as string[], acp.preset),
+  push(branch),
+]
+
 export const acpCommand = (args: minimist.ParsedArgs): Command => ({
   arguments: args,
+  name: "acp",
   execute: () =>
-    pipe(loadPreset(), chain(validate(args)), map(processAcp), map(func => func())),
+    pipe(
+      loadPreset(),
+      chain(validate(args)),
+      map(processAcp),
+      map((func) => func())
+    ),
 });

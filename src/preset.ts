@@ -12,12 +12,12 @@ import {
   map,
   IOEither,
 } from "fp-ts/lib/IOEither";
-import json from "./preset.default.json";
+import json from "./asset/preset.default.json";
 import { pipe } from "fp-ts/lib/pipeable";
 import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
 import { Either, getValidation, left, right, map as mapEither } from "fp-ts/lib/Either";
 import { sequenceT } from "fp-ts/lib/Apply";
-import { error_translator_undefined } from "./utils/error";
+import { errorUndefinedField } from "./utils/error";
 import { merge } from './utils/functionnal';
 
 @jsonObject
@@ -48,7 +48,7 @@ const validateTypify = (
   object: any
 ): Either<NonEmptyArray<string>, void> =>
   object[field] === undefined
-    ? left([error_translator_undefined(field)])
+    ? left([errorUndefinedField(field)])
     : right(null);
 
 export const mapToTypedMap = (field: any): any => {
@@ -64,7 +64,7 @@ export const mapToTypedMap = (field: any): any => {
  * convert the acp config json to a file compatible with typedJson
  * @param json
  */
-const convert = (json: any): any => {
+export const convert = (json: any): any => {
   const actions = mapToTypedMap(json.actions);
   const targets = mapToTypedMap(json.targets);
 
@@ -77,7 +77,7 @@ const convert = (json: any): any => {
   };
 };
 
-const parse = (object: any): Preset => {
+export const parse = (object: any): Preset => {
   const serializer = new TypedJSON(Preset);
   return serializer.parse(object);
 };
@@ -86,7 +86,7 @@ const parse = (object: any): Preset => {
  * valide then test an acp config json to a file compatible with typedJson
  * @param json
  */
-const typify = (json: any): Either<NonEmptyArray<string>, any> => {
+export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
   const applicativeValidation = getValidation(getSemigroup<string>());
 
   return pipe(

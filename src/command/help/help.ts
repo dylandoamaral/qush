@@ -49,6 +49,7 @@ export const helpLines = (preset: Preset): string[] => {
 
 export const helpCommand = (args: minimist.ParsedArgs): Command => ({
   arguments: args,
+  name: "help",
   execute: () =>
     pipe(
         loadPreset(),
