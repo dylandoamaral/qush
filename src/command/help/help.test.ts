@@ -1,4 +1,4 @@
-import { help_part, help_flags, help_lines } from "./help";
+import { helpPart, helpFlags, helpLines } from "./help";
 import chalk from "chalk";
 
 import Preset from "../../preset";
@@ -7,13 +7,13 @@ import { TypedJSON } from "typedjson";
 
 describe("the help_part", () => {
     it("should return the correct format", () => {
-        expect(help_part("a")).toEqual(chalk.bold("a"));
+        expect(helpPart("a")).toEqual(chalk.bold("a"));
     });
 });
 
 describe("the help_flags", () => {
     it("should return the correct format", () => {
-        expect(help_flags("d", "a", "b")).toEqual("    - \"a\" or \"b\" => d");
+        expect(helpFlags("d", "a", "b")).toEqual("    - \"a\" or \"b\" => d");
     });
 });
 
@@ -22,9 +22,9 @@ describe("the help_lines", () => {
     const object = serializer.parse(json);
 
     it("should return the correct format", () => {
-        const lines = help_lines(object);
+        const lines = helpLines(object);
         expect(lines.length).toEqual(14);
-        expect(lines[0]).toEqual(help_part("available commands:"));
+        expect(lines[0]).toEqual(helpPart("available commands:"));
     });
 });
 

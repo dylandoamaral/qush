@@ -1,5 +1,5 @@
-import { commands } from "./command";
 import { space_2 } from "./format";
+import { commands } from '../command/command';
 
 export const errorTemplateExcess = (delimiter: string, template: string): string => {
     return [
@@ -49,7 +49,7 @@ export const errorNotKeyInMap = (key: string, map: Map<string, string>, map_name
     ].join("\n");
 };
 
-export const error_translator_undefined = (field: string): string => {
+export const errorUndefinedField = (field: string): string => {
     return `can't find ${field} field inside the json`;
 };
 

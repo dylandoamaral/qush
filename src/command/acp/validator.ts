@@ -14,7 +14,6 @@ import {
 } from "../../utils/error";
 import { execSync } from "child_process";
 // eslint-disable-next-line no-unused-vars
-import { toAcp, Acp } from "./acp";
 import fs from "fs";
 // eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
@@ -45,7 +44,8 @@ import {
   fromEither,
 } from "fp-ts/lib/IOEither";
 import { constVoid } from "fp-ts/lib/function";
-import { getFlags } from '../../utils/command';
+import { Acp, toAcp } from './acp';
+import { getFlags } from '../command';
 
 /**
  * A bunch of validation before executing our acp commands

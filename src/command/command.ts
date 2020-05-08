@@ -2,13 +2,28 @@ import minimist from "minimist";
 import { IO } from "fp-ts/lib/IO";
 import { IOEither } from "fp-ts/lib/IOEither";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { helpCommand } from "./help/command";
-import { acpCommand } from './acp/command';
+import { helpCommand } from "./help/help";
+import { acpCommand } from './acp/acp';
 
 export interface Command {
   arguments: minimist.ParsedArgs;
   execute(args?: minimist.ParsedArgs): IOEither<NonEmptyArray<string>, void>;
 }
+
+export const commands = (): string[] => {
+  return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"];
+};
+
+export const toArrayString = (value: undefined | string | string[]): string[] => {
+  if (value === undefined) return [];
+  else if (typeof value === "string") return [value];
+  else return value;
+};
+
+export const getFlags = (args: any, ...flags: string[]): string[] => {
+  return flags.map((flag) => args[flag]).flatMap((arg) => toArrayString(arg));
+};
+
 
 export const loadArguments: IO<minimist.ParsedArgs> = () =>
   minimist(process.argv.slice(2));
