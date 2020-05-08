@@ -1,43 +1,60 @@
+import minimist from "minimist";
+import { Command, commands } from "../command";
+import { map } from "fp-ts/lib/IOEither";
 import chalk from "chalk";
-
-// eslint-disable-next-line no-unused-vars
-import Preset from "../../preset";
-import { commands } from "../../utils/command";
 import { space } from "../../utils/format";
+import Preset, { loadPreset } from '../../preset';
+import { pipe } from 'fp-ts/lib/pipeable';
 
-export const help_part = (value: string): string => {
-    return chalk`{bold ${value}}`;
+export const helpFlags = (description: string, ...flags: string[]): string => {
+  return `${space}${flags
+    .map((flag) => `"${flag}"`)
+    .join(" or ")} => ${description}`;
 };
 
-export const help_flags = (description: string, ...flags: string[]): string => {
-    return `${space}${flags.map((flag) => `"${flag}"`).join(" or ")} => ${description}`;
+export const helpPart = (value: string): string => {
+  return chalk`{bold ${value}}`;
 };
 
-export const help_lines = (preset: Preset): string[] => {
-    return [
-        help_part("available commands:"),
-        commands().map(c => `${space}${c}`).join("\n"),
-        help_part(`template (${preset.name}): `),
-        `${space}${preset.template}`,
-        help_part("targets:"),
-        Array.from(preset.targets)
-            .map(([key, value]) => `${key}: ${value}`)
-            .map((c) => `${space}${c}`)
-            .join("\n"),
-        help_part("actions:"),
-        Array.from(preset.actions)
-            .map(([key, value]) => `${key}: ${value}`)
-            .map((c) => `${space}${c}`)
-            .join("\n"),
-        help_part("flags:"),
-        help_flags(
-            "use particular source files/folders instead of . during the git add command (you can use this tag multiple times in one command to add more source files/folders)",
-            "-S",
-            "--source"
-        ),
-        help_flags("show the helper", "-H", "--help"),
-        help_flags("automatically push without confirmation", "-Y", "--yes"),
-        help_part("more information:"),
-        `${space}${"https://github.com/dylandoamaral/add-commit-push"}`,
-    ];
+export const helpLines = (preset: Preset): string[] => {
+  return [
+    helpPart("available commands:"),
+    commands()
+      .map((c) => `${space}${c}`)
+      .join("\n"),
+    helpPart(`template (${preset.name}): `),
+    `${space}${preset.template}`,
+    helpPart("targets:"),
+    Array.from(preset.targets)
+      .map(([key, value]) => `${key}: ${value}`)
+      .map((c) => `${space}${c}`)
+      .join("\n"),
+    helpPart("actions:"),
+    Array.from(preset.actions)
+      .map(([key, value]) => `${key}: ${value}`)
+      .map((c) => `${space}${c}`)
+      .join("\n"),
+    helpPart("flags:"),
+    helpFlags(
+      "use particular source files/folders instead of . during the git add command (you can use this tag multiple times in one command to add more source files/folders)",
+      "-S",
+      "--source"
+    ),
+    helpFlags("show the helper", "-H", "--help"),
+    helpFlags("automatically push without confirmation", "-Y", "--yes"),
+    helpPart("more information:"),
+    `${space}${"https://github.com/dylandoamaral/add-commit-push"}`,
+  ];
 };
+
+export const helpCommand = (args: minimist.ParsedArgs): Command => ({
+  arguments: args,
+  name: "help",
+  execute: () =>
+    pipe(
+        loadPreset(),
+        map(helpLines),
+        map(lines => lines.join("\n")),
+        map(console.log)
+    ),
+});

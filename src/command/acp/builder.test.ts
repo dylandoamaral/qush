@@ -1,4 +1,4 @@
-import json from "../../preset.typed.json";
+import json from "../../asset/preset.typed.json";
 import { add, commit, push } from "./builder";
 import { TypedJSON } from "typedjson";
 import Preset from "../../preset";
