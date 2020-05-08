@@ -3,6 +3,7 @@ import { IO } from "fp-ts/lib/IO";
 import { IOEither } from "fp-ts/lib/IOEither";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { helpCommand } from "./help/command";
+import { acpCommand } from './acp/command';
 
 export interface Command {
   arguments: minimist.ParsedArgs;
@@ -15,7 +16,7 @@ export const loadArguments: IO<minimist.ParsedArgs> = () =>
 export const routeCommands = (args: minimist.ParsedArgs): Command => {
   if (args["H"] != undefined) return helpCommand(args);
   else if (args["_"].length == 0) return helpCommand(args);
-  else return helpCommand(args);
+  else return acpCommand(args);
 };
 
 export const executeCommand = (

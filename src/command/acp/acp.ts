@@ -2,7 +2,6 @@
 import Preset from "../../preset";
 import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
-import { get_flags } from "../../utils/command";
 // eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
 import inquirer from "inquirer";
@@ -17,6 +16,7 @@ export const toAcp = ([args, preset]: [minimist.ParsedArgs, Preset]): Acp => ({
     preset,
 });
 
+/**
 export const execute = (acp: Acp) => {
     const branch = execSync("git branch --show-current").toString();
     const sources = get_flags(acp.args, "S", "source");
@@ -53,3 +53,4 @@ export const execute = (acp: Acp) => {
             });
     }
 };
+ */

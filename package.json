@@ -9,7 +9,7 @@
     "coverage": "codecov",
     "build": "tsc -p .",
     "publish": "npm run build && npm publish",
-    "dev": "ts-node src/index.ts r p \"functional style and project structure\" -H"
+    "dev": "ts-node src/index.ts r p \"acp command in a functional way\""
   },
   "bin": {
     "acp": "./dist/index.js"
