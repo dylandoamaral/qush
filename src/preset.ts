@@ -101,9 +101,9 @@ export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
   );
 };
 
-export const loadPreset = (): IOEither<NonEmptyArray<string>, Preset> => {
-  const config_path = `${process.cwd()}/acp.config.json`;
-
+export const loadPreset = (root: string): IOEither<NonEmptyArray<string>, Preset> => {
+  const config_path = `${root}/acp.config.json`;
+   
   return pipe(
     tryCatch(
       () => fs.readFileSync(config_path, { encoding: "utf8" }), // right

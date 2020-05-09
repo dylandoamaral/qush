@@ -52,7 +52,7 @@ export const helpCommand = (args: minimist.ParsedArgs): Command => ({
   name: "help",
   execute: () =>
     pipe(
-        loadPreset(),
+        loadPreset(process.cwd()),
         map(helpLines),
         map(lines => lines.join("\n")),
         map(console.log)

@@ -46,6 +46,7 @@ import {
 import { constVoid } from "fp-ts/lib/function";
 import { Acp, toAcp } from './acp';
 import { getFlags } from '../command';
+import { findGitRoot } from '../../utils/git';
 
 /**
  * A bunch of validation before executing our acp commands
@@ -111,13 +112,13 @@ const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
 /**
  * Validate all validation that refer to git
  */
-const validateGit = (): IOEither<NonEmptyArray<string>, void> =>
+export const validateGit = (): IOEither<NonEmptyArray<string>, string> =>
   pipe(
     gitIsInstalled,
     chain(() => folderIsGitRepo),
     chain(folderIsNotUpToDate),
     chain(folderDontNeedPull),
-    mapIOEither(constVoid)
+    mapIOEither(findGitRoot())
   );
 
 /**
@@ -249,7 +250,6 @@ const validate = (args: minimist.ParsedArgs) => (
 ): IOEither<NonEmptyArray<string>, Acp> => {
   return pipe(
     sequenceT(ioeitherApplicativeValidation)(
-      validateGit(),
       fromEither(validatePreset(args._, preset)),
       fromEither(validateSources(getFlags(args, "S", "source")))
     ),

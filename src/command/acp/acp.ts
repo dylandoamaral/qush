@@ -3,7 +3,7 @@ import { Command, getFlags } from "../command";
 import { map, chain } from "fp-ts/lib/IOEither";
 import Preset, { loadPreset } from "../../preset";
 import { pipe } from "fp-ts/lib/pipeable";
-import validate from "./validator";
+import validate, { validateGit } from "./validator";
 import { IO, io, map as mapIO } from "fp-ts/lib/IO";
 import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
@@ -68,7 +68,8 @@ export const acpCommand = (args: minimist.ParsedArgs): Command => ({
   name: "acp",
   execute: () =>
     pipe(
-      loadPreset(),
+      validateGit(),
+      chain(loadPreset),
       chain(validate(args)),
       map(processAcp),
       map((func) => func())
