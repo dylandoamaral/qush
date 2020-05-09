@@ -4,12 +4,12 @@ import { TypedJSON } from "typedjson";
 import validate from "./validator";
 
 import {
-  errorTemplateExcess,
-  errorNotKeyInMap,
-  errorTemplateMultiple,
-  errorTemplateNeed,
-  errorNumberArguments,
-  errorNoFile,
+    errorTemplateExcess,
+    errorNotKeyInMap,
+    errorTemplateMultiple,
+    errorTemplateNeed,
+    errorNumberArguments,
+    errorNoFile,
 } from "../../utils/error";
 
 // eslint-disable-next-line no-unused-vars
@@ -22,7 +22,7 @@ import { Acp } from "./acp";
 import minimist from "minimist";
 import { isIORight, isIOLeft } from "../../utils/functionnal";
 import { IOEither } from "fp-ts/lib/IOEither";
-import { minimistWrapper } from '../../utils/utest';
+import { minimistWrapper } from "../../utils/utest";
 
 const serializer = new TypedJSON(Preset);
 const preset = serializer.parse(json);
@@ -44,192 +44,192 @@ const twice_json = { ...json, template: twice_template };
 const twice_preset = serializer.parse(twice_json);
 
 const eitherFolded = (
-  validation: IOEither<NonEmptyArray<string>, Acp>
+    validation: IOEither<NonEmptyArray<string>, Acp>
 ): string[] =>
-  pipe(
-    validation(),
-    fold(
-      (errors) => errors,
-      () => []
-    )
-  );
+    pipe(
+        validation(),
+        fold(
+            (errors) => errors,
+            () => []
+        )
+    );
 
 describe("the validation process for preset", () => {
-  it("should fail if the preset has multiple times a delimiter", () => {
-    const validation = validate(minimistWrapper(["y", "x", "my commit"]))(
-      preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the preset has multiple times a delimiter", () => {
+        const validation = validate(minimistWrapper(["y", "x", "my commit"]))(
+            preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(2);
-    expect(result).toContain(errorNotKeyInMap("y", preset.actions, "actions"));
-    expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(2);
+        expect(result).toContain(errorNotKeyInMap("y", preset.actions, "actions"));
+        expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
+    });
 
-  it("should fail if the preset has multiple times a delimiter", () => {
-    const validation = validate(minimistWrapper(["a", "p", "my commit"]))(
-      twice_preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the preset has multiple times a delimiter", () => {
+        const validation = validate(minimistWrapper(["a", "p", "my commit"]))(
+            twice_preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(
-      errorTemplateMultiple("<message>", twice_template)
-    );
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(
+            errorTemplateMultiple("<message>", twice_template)
+        );
+    });
 
-  it("should fail if the preset has multiple times a delimiter", () => {
-    const validation = validate(minimistWrapper(["a", "p", "my commit"]))(
-      twice_preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the preset has multiple times a delimiter", () => {
+        const validation = validate(minimistWrapper(["a", "p", "my commit"]))(
+            twice_preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(
-      errorTemplateMultiple("<message>", twice_template)
-    );
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(
+            errorTemplateMultiple("<message>", twice_template)
+        );
+    });
 });
 describe("the validation process for arguments", () => {
-  it(`should succeed if there is 3 arguments with the template ${json.template}`, () => {
-    expect(
-      isIORight(validate(minimistWrapper(["a", "p", "my commit"]))(preset))
-    ).toBe(true);
-  });
+    it(`should succeed if there is 3 arguments with the template ${json.template}`, () => {
+        expect(
+            isIORight(validate(minimistWrapper(["a", "p", "my commit"]))(preset))
+        ).toBe(true);
+    });
 
-  it(`should succeed if there is 2 arguments with the template ${two_template}`, () => {
-    expect(
-      isIORight(validate(minimistWrapper(["a", "my commit"]))(two_preset))
-    ).toBe(true);
-  });
+    it(`should succeed if there is 2 arguments with the template ${two_template}`, () => {
+        expect(
+            isIORight(validate(minimistWrapper(["a", "my commit"]))(two_preset))
+        ).toBe(true);
+    });
 
-  it(`should succeed if there is 1 argument with the template ${two_template}`, () => {
-    expect(
-      isIORight(validate(minimistWrapper(["my commit"]))(one_preset))
-    ).toBe(true);
-  });
+    it(`should succeed if there is 1 argument with the template ${two_template}`, () => {
+        expect(
+            isIORight(validate(minimistWrapper(["my commit"]))(one_preset))
+        ).toBe(true);
+    });
 
-  it("should fail if there is more than 3 arguments", () => {
-    const validation = validate(
-      minimistWrapper(["a", "x", "my commit", "should not be here"])
-    )(preset);
-    const result = eitherFolded(validation);
+    it("should fail if there is more than 3 arguments", () => {
+        const validation = validate(
+            minimistWrapper(["a", "x", "my commit", "should not be here"])
+        )(preset);
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorNumberArguments());
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorNumberArguments());
+    });
 
-  it("should fail if the target is missing", () => {
-    const validation = validate(minimistWrapper(["a", "my commit"]))(preset);
-    const result = eitherFolded(validation);
+    it("should fail if the target is missing", () => {
+        const validation = validate(minimistWrapper(["a", "my commit"]))(preset);
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorTemplateExcess("<target>", preset.template));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorTemplateExcess("<target>", preset.template));
+    });
 
-  it("should fail if the action and the target is missing", () => {
-    const validation = validate(minimistWrapper(["my commit"]))(preset);
-    const result = eitherFolded(validation);
+    it("should fail if the action and the target is missing", () => {
+        const validation = validate(minimistWrapper(["my commit"]))(preset);
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(2);
-    expect(result).toContain(errorTemplateExcess("<target>", preset.template));
-    expect(result).toContain(errorTemplateExcess("<action>", preset.template));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(2);
+        expect(result).toContain(errorTemplateExcess("<target>", preset.template));
+        expect(result).toContain(errorTemplateExcess("<action>", preset.template));
+    });
 
-  it("should fail if the delimiter is not inside the templace", () => {
-    const validation = validate(minimistWrapper(["my commit"]))(no_preset);
-    const result = eitherFolded(validation);
+    it("should fail if the delimiter is not inside the templace", () => {
+        const validation = validate(minimistWrapper(["my commit"]))(no_preset);
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(
-      errorTemplateNeed("<message>", no_preset.template)
-    );
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(
+            errorTemplateNeed("<message>", no_preset.template)
+        );
+    });
 
-  it("should fail if the action is not inside actions map for 2 arguments", () => {
-    const validation = validate(minimistWrapper(["x", "my commit"]))(
-      two_preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the action is not inside actions map for 2 arguments", () => {
+        const validation = validate(minimistWrapper(["x", "my commit"]))(
+            two_preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorNotKeyInMap("x", preset.actions, "actions"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorNotKeyInMap("x", preset.actions, "actions"));
+    });
 
-  it("should fail if the action is not inside actions map for 3 arguments", () => {
-    const validation = validate(minimistWrapper(["x", "p", "my commit"]))(
-      preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the action is not inside actions map for 3 arguments", () => {
+        const validation = validate(minimistWrapper(["x", "p", "my commit"]))(
+            preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorNotKeyInMap("x", preset.actions, "actions"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorNotKeyInMap("x", preset.actions, "actions"));
+    });
 
-  it("should fail if the target is not inside actions map for 3 arguments", () => {
-    const validation = validate(minimistWrapper(["a", "x", "my commit"]))(
-      preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if the target is not inside actions map for 3 arguments", () => {
+        const validation = validate(minimistWrapper(["a", "x", "my commit"]))(
+            preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
+    });
 
-  it("should fail if both the action and the target is not inside actions map for 3 arguments", () => {
-    const validation = validate(minimistWrapper(["y", "x", "my commit"]))(
-      preset
-    );
-    const result = eitherFolded(validation);
+    it("should fail if both the action and the target is not inside actions map for 3 arguments", () => {
+        const validation = validate(minimistWrapper(["y", "x", "my commit"]))(
+            preset
+        );
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(2);
-    expect(result).toContain(errorNotKeyInMap("y", preset.actions, "actions"));
-    expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(2);
+        expect(result).toContain(errorNotKeyInMap("y", preset.actions, "actions"));
+        expect(result).toContain(errorNotKeyInMap("x", preset.targets, "targets"));
+    });
 
-  it("should succeed with good sources", () => {
-    const validation = validate(
-      minimistWrapper([
-        "a",
-        "p",
-        "my commit",
-        "-S",
-        "./README.md",
-        "--source",
-        "./acp.config.json",
-      ])
-    )(preset);
+    it("should succeed with good sources", () => {
+        const validation = validate(
+            minimistWrapper([
+                "a",
+                "p",
+                "my commit",
+                "-S",
+                "./README.md",
+                "--source",
+                "./acp.config.json",
+            ])
+        )(preset);
 
-    expect(isIORight(validation)).toBe(true);
-  });
+        expect(isIORight(validation)).toBe(true);
+    });
 
-  it("should failed with wrong sources", () => {
-    const validation = validate(
-      minimistWrapper([
-        "a",
-        "p",
-        "my commit",
-        "-S",
-        "README.md",
-        "--source",
-        "code.no",
-      ])
-    )(preset);
-    const result = eitherFolded(validation);
+    it("should failed with wrong sources", () => {
+        const validation = validate(
+            minimistWrapper([
+                "a",
+                "p",
+                "my commit",
+                "-S",
+                "README.md",
+                "--source",
+                "code.no",
+            ])
+        )(preset);
+        const result = eitherFolded(validation);
 
-    expect(isIOLeft(validation)).toBe(true);
-    expect(result.length).toBe(1);
-    expect(result).toContain(errorNoFile("code.no"));
-  });
+        expect(isIOLeft(validation)).toBe(true);
+        expect(result.length).toBe(1);
+        expect(result).toContain(errorNoFile("code.no"));
+    });
 });

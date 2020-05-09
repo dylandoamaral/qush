@@ -1,16 +1,16 @@
 import {
-  jsonObject,
-  jsonMember,
-  jsonArrayMember,
-  jsonMapMember,
-  TypedJSON,
+    jsonObject,
+    jsonMember,
+    jsonArrayMember,
+    jsonMapMember,
+    TypedJSON,
 } from "typedjson";
 import fs from "fs";
 import { IO, map as mapIO } from "fp-ts/lib/IO";
 import {
-  tryCatch,
-  map,
-  IOEither,
+    tryCatch,
+    map,
+    IOEither,
 } from "fp-ts/lib/IOEither";
 import json from "./asset/preset.default.json";
 import { pipe } from "fp-ts/lib/pipeable";
@@ -18,7 +18,7 @@ import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
 import { Either, getValidation, left, right, map as mapEither } from "fp-ts/lib/Either";
 import { sequenceT } from "fp-ts/lib/Apply";
 import { errorUndefinedField } from "./utils/error";
-import { merge } from './utils/functionnal';
+import { merge } from "./utils/functionnal";
 
 @jsonObject
 export default class Preset {
@@ -44,20 +44,20 @@ export default class Preset {
  * @param sentence
  */
 const validateTypify = (
-  field: string,
-  object: any
+    field: string,
+    object: any
 ): Either<NonEmptyArray<string>, void> =>
-  object[field] === undefined
-    ? left([errorUndefinedField(field)])
-    : right(null);
+    object[field] === undefined
+        ? left([errorUndefinedField(field)])
+        : right(null);
 
 export const mapToTypedMap = (field: any): any => {
-  return Object.keys(field).map((key) => {
-    return {
-      key,
-      value: field[key]['value'],
-    };
-  });
+    return Object.keys(field).map((key) => {
+        return {
+            key,
+            value: field[key]["value"],
+        };
+    });
 };
 
 /**
@@ -65,21 +65,21 @@ export const mapToTypedMap = (field: any): any => {
  * @param json
  */
 export const convert = (json: any): any => {
-  const actions = mapToTypedMap(json.actions);
-  const targets = mapToTypedMap(json.targets);
+    const actions = mapToTypedMap(json.actions);
+    const targets = mapToTypedMap(json.targets);
 
-  return {
-    name: json.name,
-    contributors: json.contributors,
-    actions,
-    targets,
-    template: json.template,
-  };
+    return {
+        name: json.name,
+        contributors: json.contributors,
+        actions,
+        targets,
+        template: json.template,
+    };
 };
 
 export const parse = (object: any): Preset => {
-  const serializer = new TypedJSON(Preset);
-  return serializer.parse(object);
+    const serializer = new TypedJSON(Preset);
+    return serializer.parse(object);
 };
 
 /**
@@ -87,31 +87,31 @@ export const parse = (object: any): Preset => {
  * @param json
  */
 export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
-  const applicativeValidation = getValidation(getSemigroup<string>());
+    const applicativeValidation = getValidation(getSemigroup<string>());
 
-  return pipe(
-    sequenceT(applicativeValidation)(
-      validateTypify("contributors", json),
-      validateTypify("name", json),
-      validateTypify("actions", json),
-      validateTypify("targets", json),
-      validateTypify("template", json)
-    ),
-    mapEither(() => convert(json))
-  );
+    return pipe(
+        sequenceT(applicativeValidation)(
+            validateTypify("contributors", json),
+            validateTypify("name", json),
+            validateTypify("actions", json),
+            validateTypify("targets", json),
+            validateTypify("template", json)
+        ),
+        mapEither(() => convert(json))
+    );
 };
 
 export const loadPreset = (root: string): IOEither<NonEmptyArray<string>, Preset> => {
-  const config_path = `${root}/acp.config.json`;
+    const config_path = `${root}/acp.config.json`;
    
-  return pipe(
-    tryCatch(
-      () => fs.readFileSync(config_path, { encoding: "utf8" }), // right
-      () => json as any // left
-    ),
-    map(JSON.parse),
-    merge,
-    mapIO(typify),
-    map(parse)
-  );
+    return pipe(
+        tryCatch(
+            () => fs.readFileSync(config_path, { encoding: "utf8" }), // right
+            () => json as any // left
+        ),
+        map(JSON.parse),
+        merge,
+        mapIO(typify),
+        map(parse)
+    );
 };

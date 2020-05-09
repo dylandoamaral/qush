@@ -15,63 +15,63 @@ export interface Acp {
 }
 
 export const toAcp = ([args, preset]: [minimist.ParsedArgs, Preset]): Acp => ({
-  args,
-  preset,
+    args,
+    preset,
 });
 
 export const processAcp = (acp: Acp): IO<void> =>
-  pipe(
-    io.of(execSync("git branch --show-current").toString()),
-    mapIO((branch) =>
-      pipe(
-        getFlags(acp.args, "S", "source"),
-        sourcesToAdds,
-        addsToCommands(acp)(branch),
-        (commands) => {
-          inquirer
-            .prompt([
-              {
-                type: "confirm",
-                name: "value",
-                message: [
-                  "Acp is going to execute these following commands for you",
-                  commands.map((c) => `    - ${c}`).join("\n"),
-                  "Are you agree to run them ?",
-                ].join("\n"),
-                default: function () {
-                  return false;
-                },
-              },
-            ])
-            .then((answers) => {
-              if (answers.value)
-                commands.forEach((command) => execSync(command));
-              else console.log("commands canceled with sucess !");
-            });
-        }
-      )
-    )
-  );
+    pipe(
+        io.of(execSync("git branch --show-current").toString()),
+        mapIO((branch) =>
+            pipe(
+                getFlags(acp.args, "S", "source"),
+                sourcesToAdds,
+                addsToCommands(acp)(branch),
+                (commands) => {
+                    inquirer
+                        .prompt([
+                            {
+                                type: "confirm",
+                                name: "value",
+                                message: [
+                                    "Acp is going to execute these following commands for you",
+                                    commands.map((c) => `    - ${c}`).join("\n"),
+                                    "Are you agree to run them ?",
+                                ].join("\n"),
+                                default: function () {
+                                    return false;
+                                },
+                            },
+                        ])
+                        .then((answers) => {
+                            if (answers.value)
+                                commands.forEach((command) => execSync(command));
+                            else console.log("commands canceled with sucess !");
+                        });
+                }
+            )
+        )
+    );
 
 export const sourcesToAdds = (sources: string[]): string[] => sources.length === 0
-? [add(".")]
-: sources.map((source) => add(source))
+    ? [add(".")]
+    : sources.map((source) => add(source));
 
 export const addsToCommands = (acp: Acp) => (branch: string) => (adds: string[]): string[] => [
-  ...adds,
-  commit(acp.args._ as string[], acp.preset),
-  push(branch),
-]
+    ...adds,
+    commit(acp.args._ as string[], acp.preset),
+    push(branch),
+];
 
 export const acpCommand = (args: minimist.ParsedArgs): Command => ({
-  arguments: args,
-  name: "acp",
-  execute: () =>
-    pipe(
-      validateGit(),
-      chain(loadPreset),
-      chain(validate(args)),
-      map(processAcp),
-      map((func) => func())
-    ),
+    arguments: args,
+    name: "acp",
+    execute: () =>
+        pipe(
+            validateGit(),
+            chain(loadPreset),
+            chain(validate(args)),
+            map(processAcp),
+            map((func) => func())
+        ),
 });

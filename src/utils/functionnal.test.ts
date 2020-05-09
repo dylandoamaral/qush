@@ -1,5 +1,5 @@
 import { stay, merge } from "./functionnal";
-import { IOEither, rightIO, leftIO } from 'fp-ts/lib/IOEither';
+import { IOEither, rightIO, leftIO } from "fp-ts/lib/IOEither";
 
 describe("the stay function", () => {
     it("should return the correct format", () => {

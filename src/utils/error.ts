@@ -1,5 +1,5 @@
 import { space_2 } from "./format";
-import { commands } from '../command/command';
+import { commands } from "../command/command";
 
 export const errorTemplateExcess = (delimiter: string, template: string): string => {
     return [
