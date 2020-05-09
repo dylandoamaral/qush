@@ -8,7 +8,7 @@
     "lint": "npx eslint src/**/*.ts --fix",
     "coverage": "codecov",
     "build": "tsc -p .",
-    "publish": "npm run build && npm publish"
+    "npm-publish": "npm run build && npm publish"
   },
   "bin": {
     "qush": "./dist/index.js"
