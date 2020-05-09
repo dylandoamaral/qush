@@ -73,7 +73,7 @@ export const mapToTypedMap = (field: any): any => {
 };
 
 /**
- * convert the acp config json to a file compatible with typedJson
+ * convert the qush config json to a file compatible with typedJson
  * @param json
  */
 export const convert = (json: any): any => {
@@ -95,7 +95,7 @@ export const parse = (object: any): Preset => {
 };
 
 /**
- * valide then test an acp config json to a file compatible with typedJson
+ * valide then test an qush config json to a file compatible with typedJson
  * @param json
  */
 export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
@@ -114,7 +114,7 @@ export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
 };
 
 export const loadPreset = (root: string): IOEither<NonEmptyArray<string>, Preset> => {
-    const config_path = `${root}/quimmit.config.json`;
+    const config_path = `${root}/qush.config.json`;
    
     return pipe(
         tryCatch(

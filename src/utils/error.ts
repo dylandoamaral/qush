@@ -35,7 +35,7 @@ export const errorTemplateMultiple = (delimiter: string, template: string): stri
 
 export const errorNumberArguments = (): string => {
     return [
-        "acp take between 1 and 3 arguments to work. The command should respect one of the following structure and depend of the preset's template:",
+        "qush take between 1 and 3 arguments to work. The command should respect one of the following structure and depend of the preset's template:",
         ...commands().map((c) => `${space_2}${c}`),
     ].join("\n");
 };

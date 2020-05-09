@@ -15,7 +15,7 @@ export interface Command {
 }
 
 export const commands = (): string[] => {
-    return ["acp <message>", "acp <action> <message>", "acp <action> <target> <message>"];
+    return ["qush <message>", "qush <action> <message>", "qush <action> <target> <message>"];
 };
 
 export const toArrayString = (value: undefined | string | string[]): string[] => {
@@ -47,6 +47,6 @@ export const showError = (errors: NonEmptyArray<string>): IO<void> => () =>
     console.error(buildError(errors));
 
 export const buildError = (errors: NonEmptyArray<string>): string => {
-    return `Errors:
+    return `Error(s):
 ${errors.map((error) => `${space}${error}`).join("\n")}`;
 };
