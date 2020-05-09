@@ -16,7 +16,6 @@ describe("the help_lines", () => {
 
     it("should return the correct format", () => {
         const lines = helpLines(object);
-        expect(lines.length).toEqual(16);
         expect(lines[0]).toEqual(bold("available commands:"));
     });
 });
