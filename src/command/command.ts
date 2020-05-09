@@ -6,7 +6,7 @@ import { helpCommand } from "./help/help";
 import { qushCommand } from "./qush/qush";
 import { space } from "../utils/format";
 import { aloneCommand } from "./alone/alone";
-import { presetCommand } from './preset/preset';
+import { presetCommand } from "./preset/preset";
 
 export interface Command {
   arguments: minimist.ParsedArgs;

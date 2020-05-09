@@ -1,12 +1,12 @@
-import Preset, { loadPreset } from '../../preset';
-import minimist from 'minimist';
-import { Command } from '../command';
-import { pipe } from 'fp-ts/lib/pipeable';
-import { map, chain, rightIO } from 'fp-ts/lib/IOEither';
-import { stringifyField, space } from '../../utils/format';
-import { bold } from 'chalk';
-import { gitIsInstalled, folderIsGitRepo } from '../qush/validator';
-import { findGitRoot } from '../../utils/git';
+import Preset, { loadPreset } from "../../preset";
+import minimist from "minimist";
+import { Command } from "../command";
+import { pipe } from "fp-ts/lib/pipeable";
+import { map, chain, rightIO } from "fp-ts/lib/IOEither";
+import { stringifyField, space } from "../../utils/format";
+import { bold } from "chalk";
+import { gitIsInstalled, folderIsGitRepo } from "../qush/validator";
+import { findGitRoot } from "../../utils/git";
 
 export const presetLines = (preset: Preset): string[] => {
     return [
