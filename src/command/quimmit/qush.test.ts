@@ -1,4 +1,4 @@
-import { sourcesToAdds, toAcp, addsToCommands } from "./acp";
+import { sourcesToAdds, toQush, addsToCommands } from "./qush";
 import { minimistWrapper } from "../../utils/utest";
 
 import typed_json from "../../asset/preset.typed.json";
@@ -14,18 +14,18 @@ describe("the sourcesToAdds function", () => {
 
 describe("the addsToCommands function", () => {
     it("should return the correct format", () => {
-        const acp = toAcp([
+        const Qush = toQush([
             minimistWrapper(["a", "p", "my commit"]),
             parse(typed_json),
         ]);
         const branch = "master";
-        expect(addsToCommands(acp)(branch)(["git add a", "git add b"])).toEqual([
+        expect(addsToCommands(Qush)(branch)(["git add a", "git add b"])).toEqual([
             "git add a",
             "git add b",
             "git commit -m \"[project] add: my commit\"",
             "git push origin master",
         ]);
-        expect(addsToCommands(acp)(branch)(["git add ."])).toEqual([
+        expect(addsToCommands(Qush)(branch)(["git add ."])).toEqual([
             "git add .",
             "git commit -m \"[project] add: my commit\"",
             "git push origin master",

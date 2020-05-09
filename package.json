@@ -1,22 +1,21 @@
 {
-  "name": "add-commit-push",
-  "version": "1.0.1-beta-fixed",
-  "description": "A personnal one line command to add, push and commit in one line.",
+  "name": "qush",
+  "version": "1.0.0",
+  "description": "Qush stand for quick push. It is a personnal one line command to add, push and commit in one line.",
   "main": "index.js",
   "scripts": {
     "test": "jest --config jest.config.json",
     "lint": "npx eslint src/**/*.ts --fix",
     "coverage": "codecov",
     "build": "tsc -p .",
-    "publish": "npm run build && npm publish",
-    "dev": "ts-node src/index.ts r p \"acp command in a functional way\""
+    "publish": "npm run build && npm publish"
   },
   "bin": {
-    "acp": "./dist/index.js"
+    "qush": "./dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dylandoamaral/add-commit-push.git"
+    "url": "git+https://github.com/dylandoamaral/qush.git"
   },
   "keywords": [
     "cli",
@@ -28,9 +27,9 @@
   "author": "ddoamaral",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dylandoamaral/add-commit-push/issues"
+    "url": "https://github.com/dylandoamaral/qush/issues"
   },
-  "homepage": "https://github.com/dylandoamaral/add-commit-push#readme",
+  "homepage": "https://github.com/dylandoamaral/qush#readme",
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.0",

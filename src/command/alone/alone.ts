@@ -7,7 +7,7 @@ import { right, map } from "fp-ts/lib/IOEither";
 export const aloneLines = (): string[] => {
     return [
         "",
-        figlet.textSync("ACP", {
+        figlet.textSync("QUSH", {
             font: "Graceful",
             horizontalLayout: "default",
             verticalLayout: "default",

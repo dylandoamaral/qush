@@ -18,7 +18,7 @@ import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { fold } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 // eslint-disable-next-line no-unused-vars
-import { Acp } from "./acp";
+import { Qush } from "./qush";
 import minimist from "minimist";
 import { isIORight, isIOLeft } from "../../utils/functionnal";
 import { IOEither } from "fp-ts/lib/IOEither";
@@ -44,7 +44,7 @@ const twice_json = { ...json, template: twice_template };
 const twice_preset = serializer.parse(twice_json);
 
 const eitherFolded = (
-    validation: IOEither<NonEmptyArray<string>, Acp>
+    validation: IOEither<NonEmptyArray<string>, Qush>
 ): string[] =>
     pipe(
         validation(),
@@ -207,7 +207,7 @@ describe("the validation process for arguments", () => {
                 "-S",
                 "./README.md",
                 "--source",
-                "./acp.config.json",
+                "./qush.config.json",
             ])
         )(preset);
 

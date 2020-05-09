@@ -3,7 +3,7 @@ import { IO } from "fp-ts/lib/IO";
 import { IOEither } from "fp-ts/lib/IOEither";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { helpCommand } from "./help/help";
-import { acpCommand } from "./acp/acp";
+import { qushCommand } from "./quimmit/qush";
 import { space } from "../utils/format";
 import { aloneCommand } from "./alone/alone";
 import { presetCommand } from './preset/preset';
@@ -36,7 +36,7 @@ export const routeCommands = (args: minimist.ParsedArgs): Command => {
     if (args["H"] != undefined || args["help"] != undefined ) return helpCommand(args);
     else if (args["P"] != undefined || args["preset"] != undefined ) return presetCommand(args);
     else if (args["_"].length == 0) return aloneCommand(args);
-    else return acpCommand(args);
+    else return qushCommand(args);
 };
 
 export const executeCommand = (

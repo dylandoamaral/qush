@@ -9,24 +9,24 @@ import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
 import inquirer from "inquirer";
 
-export interface Acp {
+export interface Qush {
   args: minimist.ParsedArgs;
   preset: Preset;
 }
 
-export const toAcp = ([args, preset]: [minimist.ParsedArgs, Preset]): Acp => ({
+export const toQush = ([args, preset]: [minimist.ParsedArgs, Preset]): Qush => ({
     args,
     preset,
 });
 
-export const processAcp = (acp: Acp): IO<void> =>
+export const processqush = (qush: Qush): IO<void> =>
     pipe(
         io.of(execSync("git branch --show-current").toString()),
         mapIO((branch) =>
             pipe(
-                getFlags(acp.args, "S", "source"),
+                getFlags(qush.args, "S", "source"),
                 sourcesToAdds,
-                addsToCommands(acp)(branch),
+                addsToCommands(qush)(branch),
                 (commands) => {
                     inquirer
                         .prompt([
@@ -34,7 +34,7 @@ export const processAcp = (acp: Acp): IO<void> =>
                                 type: "confirm",
                                 name: "value",
                                 message: [
-                                    "Acp is going to execute these following commands for you",
+                                    "qush is going to execute these following commands for you",
                                     commands.map((c) => `    - ${c}`).join("\n"),
                                     "Are you agree to run them ?",
                                 ].join("\n"),
@@ -57,21 +57,21 @@ export const sourcesToAdds = (sources: string[]): string[] => sources.length ===
     ? [add(".")]
     : sources.map((source) => add(source));
 
-export const addsToCommands = (acp: Acp) => (branch: string) => (adds: string[]): string[] => [
+export const addsToCommands = (qush: Qush) => (branch: string) => (adds: string[]): string[] => [
     ...adds,
-    commit(acp.args._ as string[], acp.preset),
+    commit(qush.args._ as string[], qush.preset),
     push(branch),
 ];
 
-export const acpCommand = (args: minimist.ParsedArgs): Command => ({
+export const qushCommand = (args: minimist.ParsedArgs): Command => ({
     arguments: args,
-    name: "acp",
+    name: "qush",
     execute: () =>
         pipe(
             validateGit(),
             chain(loadPreset),
             chain(validate(args)),
-            map(processAcp),
+            map(processqush),
             map((func) => func())
         ),
 });

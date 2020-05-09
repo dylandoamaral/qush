@@ -114,7 +114,7 @@ export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
 };
 
 export const loadPreset = (root: string): IOEither<NonEmptyArray<string>, Preset> => {
-    const config_path = `${root}/acp.config.json`;
+    const config_path = `${root}/quimmit.config.json`;
    
     return pipe(
         tryCatch(

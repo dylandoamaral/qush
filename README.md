@@ -1,12 +1,12 @@
-# add-commit-push
+# qush
 
-[![Build Status](https://travis-ci.org/dylandoamaral/add-commit-push.svg?branch=master)](https://travis-ci.org/dylandoamaral/add-commit-push)
-[![Codecov](https://codecov.io/gh/dylandoamaral/add-commit-push/branch/master/graph/badge.svg)](https://codecov.io/gh/dylandoamaral/add-commit-push)
-[![Version](https://img.shields.io/npm/v/add-commit-push.svg)](https://npmjs.org/package/add-commit-push)
+[![Build Status](https://travis-ci.org/dylandoamaral/qush.svg?branch=master)](https://travis-ci.org/dylandoamaral/qush)
+[![Codecov](https://codecov.io/gh/dylandoamaral/qush/branch/master/graph/badge.svg)](https://codecov.io/gh/dylandoamaral/qush)
+[![Version](https://img.shields.io/npm/v/qush.svg)](https://npmjs.org/package/qush)
 
 ## Description
 
-acp is my own CLI to add, commit and push in one line.
+qush is my own CLI to add, commit and push in one line.
 
 ## Why this project
 
@@ -23,23 +23,23 @@ acp is my own CLI to add, commit and push in one line.
 
 ## How it works
 
-install acp globally
+install qush globally
 
 ```bash
 npm i add-commit-push -g
 ```
 
-then run acp from your project folder
+then run qush from your project folder
 
 ```bash
-acp a p "my new commit"
+qush a p "my new commit"
 ```
 
 it will add, commit then push the following message: "[project] add: my new commit"
 
 the commit respect the following template "[target] action: message"
 
-by default, acp will use the default preset
+by default, qush will use the default preset
 
 the first argument is the action, here is the mapping of this argument for the default preset:
 - a → add
@@ -58,7 +58,7 @@ the second argument is the target, here is the mapping of this argument for the 
 
 you can add your own preset in the root of your github project to customise the commit message template.
 
-the file should be named "acp.config.json", you can see an example in the github repository of this project.
+the file should be named "qush.config.json", you can see an example in the github repository of this project.
 
 ## Tags available
 
@@ -66,13 +66,13 @@ you can also add several **tags** into that command
 
 ### The flag -H or --help
 
-the flag show the helper of acp.
+the flag show the helper of qush.
 
-it also can help you to see what is the current preset used by acp.
+it also can help you to see what is the current preset used by qush.
 
 ### The flag -P or --preset
 
-the flag show the current preset used by acp.
+the flag show the current preset used by qush.
 
 ### The flag -S or --source 
 
@@ -81,7 +81,7 @@ the flag allow you to add only several source files inside the commit.
 for example: 
 
 ```bash
-acp a p "my new commit" -S README.md --source packages.json
+qush a p "my new commit" -S README.md --source packages.json
 ```
 
 will only commit these two files.
@@ -94,48 +94,7 @@ the flag allow you to push without any confirmation to win even more time.
 
 ## Changelog
 
-### v0.0.0
-
-- add acp command
-- add presets
-
-### v0.1.0
-
-- add source (-H/--help) flag
-- add source (-S/--source) flag
-- add source (-Y/--yes) flag
-- add name and contributors to acp config file
-- fix branch to point to the current branch and not master
-- error handling when the command is trying to push something when the repository need a pull
-
-#### v0.1.1
-
-- fix default configuration returned an error
-
-#### v0.1.2
-
-- fix new branch commit returned error due to "git rev-parse @{u}"
-
-#### v0.1.3
-
-- error handling when the command is running when the repository is already up to date
-
-### v0.2.0
-
-- refactor in a functional way (only error handling)
-- the command shows every errors and not only the first one encountered 
-
-#### v0.2.1
-
-- error handling when the command is running outside a repository
-- format for errors that show a list of possibilities such as the error when there is too much arguments
-- fix readme errors and formulations
-
 ### v1.0.0
 
-- everything is functionnal now
-- acp can now run in subdirectories
-- split help command into preset and help commands
-- add an acp command without any arguments
-- add some new validations to avoid any fail from the user
-- add description for each fields in acp config file
+- rename acp to qush
+- everything is functionnal

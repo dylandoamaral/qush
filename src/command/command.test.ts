@@ -24,11 +24,11 @@ describe("the router", () => {
         ).toBe("help");
     });
 
-    it("should route to acp", () => {
-        expect(routeCommands(minimistWrapper(["example"])).name).toBe("acp");
-        expect(routeCommands(minimistWrapper(["a", "example"])).name).toBe("acp");
+    it("should route to qush", () => {
+        expect(routeCommands(minimistWrapper(["example"])).name).toBe("qush");
+        expect(routeCommands(minimistWrapper(["a", "example"])).name).toBe("qush");
         expect(routeCommands(minimistWrapper(["a", "p", "example"])).name).toBe(
-            "acp"
+            "qush"
         );
     });
 
