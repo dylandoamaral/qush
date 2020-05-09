@@ -26,7 +26,7 @@ qush is my own CLI to add, commit and push in one line.
 install qush globally
 
 ```bash
-npm i add-commit-push -g
+npm i qush -g
 ```
 
 then run qush from your project folder
