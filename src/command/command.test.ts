@@ -40,11 +40,11 @@ describe("the router", () => {
 
 describe("the error builder", () => {
     it("should return the correct format", () => {
-        expect(buildError(["a"])).toEqual(`Errors:
+        expect(buildError(["a"])).toEqual(`Error(s):
 ${space}a`);
     });
     it("should return the correct format", () => {
-        expect(buildError(["a", "b"])).toEqual(`Errors:
+        expect(buildError(["a", "b"])).toEqual(`Error(s):
 ${space}a
 ${space}b`);
     });
