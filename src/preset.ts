@@ -21,18 +21,27 @@ import { errorUndefinedField } from "./utils/error";
 import { merge } from "./utils/functionnal";
 
 @jsonObject
+export class Field{
+    @jsonMember({ constructor: String })
+    public value: string;
+
+    @jsonMember({ constructor: String })
+    public description: string;
+}
+
+@jsonObject
 export default class Preset {
   @jsonMember({ constructor: String })
   public name: string;
 
   @jsonArrayMember(String)
-  public contributors: string;
+  public contributors: Array<string>;
 
-  @jsonMapMember(String, String)
-  public actions: Map<string, string>;
+  @jsonMapMember(String, Field)
+  public actions: Map<string, Field>;
 
-  @jsonMapMember(String, String)
-  public targets: Map<string, string>;
+  @jsonMapMember(String, Field)
+  public targets: Map<string, Field>;
 
   @jsonMember({ constructor: String })
   public template: string;
@@ -55,7 +64,10 @@ export const mapToTypedMap = (field: any): any => {
     return Object.keys(field).map((key) => {
         return {
             key,
-            value: field[key]["value"],
+            value: {
+                value: field[key]["value"],
+                description: field[key]["description"]
+            }
         };
     });
 };

@@ -1,5 +1,6 @@
 import { space_2 } from "./format";
 import { commands } from "../command/command";
+import { Field } from '../preset';
 
 export const errorTemplateExcess = (delimiter: string, template: string): string => {
     return [
@@ -39,11 +40,11 @@ export const errorNumberArguments = (): string => {
     ].join("\n");
 };
 
-export const errorNotKeyInMap = (key: string, map: Map<string, string>, map_name: string): string => {
+export const errorNotKeyInMap = (key: string, map: Map<string, Field>, map_name: string): string => {
     return [
         `the key "${key}" don't exist inside ${map_name} map. Values found inside the preset:`,
         Array.from(map)
-            .map(([key, value]) => `${key}: ${value}`)
+            .map(([key, field]) => `${key}: ${field.value}`)
             .map((c) => `${space_2}${c}`)
             .join("\n"),
     ].join("\n");

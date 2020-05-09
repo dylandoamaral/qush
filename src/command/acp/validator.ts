@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import Preset from "../../preset";
+import Preset, { Field } from "../../preset";
 import {
     errorTemplateExcess,
     errorTemplateMultiple,
@@ -178,7 +178,7 @@ const validatePreset = (
    */
     const exist = (
         key: string,
-        map: Map<string, string>,
+        map: Map<string, Field>,
         map_name: string
     ): Either<NonEmptyArray<string>, void> => {
         if (!map.has(key)) return left([errorNotKeyInMap(key, map, map_name)]);

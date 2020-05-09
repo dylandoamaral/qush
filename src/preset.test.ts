@@ -15,8 +15,10 @@ test("the parsing from json to Preset", () => {
     expect(object.name).toBe(json.name);
     expect(object.contributors).toEqual(json.contributors);
     expect(object.template).toBe(json.template);
-    expect(object.actions.get("a")).toBe("add");
-    expect(object.targets.get("d")).toBe("documentation");
+    expect(object.actions.get("a")['value']).toBe("add");
+    expect(object.actions.get("a")['description']).toBe("to use when you add something new");
+    expect(object.targets.get("d")['value']).toBe("documentation");
+    expect(object.targets.get("d")['description']).toBe("to use when you comment some functionnalities");
 });
 
 describe("the mapToTypedMap function", () => {
@@ -24,19 +26,21 @@ describe("the mapToTypedMap function", () => {
         const mtjm = mapToTypedMap({
             a: {
                 value: "b",
-                description: "",
+                description: "c",
             },
-            c: {
-                value: "d",
-                description: "",
+            d: {
+                value: "e",
+                description: "f",
             },
         });
 
         expect(mtjm.length).toBe(2);
         expect(mtjm[0]["key"]).toBe("a");
-        expect(mtjm[0]["value"]).toBe("b");
-        expect(mtjm[1]["key"]).toBe("c");
-        expect(mtjm[1]["value"]).toBe("d");
+        expect(mtjm[0]["value"]["value"]).toBe("b");
+        expect(mtjm[0]["value"]["description"]).toBe("c");
+        expect(mtjm[1]["key"]).toBe("d");
+        expect(mtjm[1]["value"]["value"]).toBe("e");
+        expect(mtjm[1]["value"]["description"]).toBe("f");
     });
 });
 
