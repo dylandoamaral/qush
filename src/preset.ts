@@ -55,7 +55,7 @@ export const mapToTypedMap = (field: any): any => {
   return Object.keys(field).map((key) => {
     return {
       key,
-      value: field[key],
+      value: field[key]['value'],
     };
   });
 };

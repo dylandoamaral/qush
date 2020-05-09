@@ -1,20 +1,45 @@
 {
-    "name": "default",
-    "contributors": [
-        "dylandoamaral"
-    ],
-    "actions": {
-        "a": "add",
-        "d": "delete",
-        "r": "refactor",
-        "f": "fix",
-        "s": "setup",
-        "u": "update"
+  "name": "default",
+  "contributors": ["dylandoamaral"],
+  "actions": {
+    "a": {
+      "value": "add",
+      "description": "to be used when you add something new"
     },
-    "targets": {
-        "d": "documentation",
-        "t": "test",
-        "p": "project"
+    "d": {
+      "value": "delete",
+      "description": "to be used when you delete something old"
     },
-    "template": "[<target>] <action>: <message>"
+    "r": {
+      "value": "refactor",
+      "description": "to be used when you change an intern structure"
+    },
+    "f": {
+      "value": "fix",
+      "description": "to be used when you fix a bug"
+    },
+    "s": {
+      "value": "setup",
+      "description": "to be used when you setup something"
+    },
+    "u": {
+      "value": "update",
+      "description": "to be used when you update something"
+    }
+  },
+  "targets": {
+    "d": {
+      "value": "documentation",
+      "description": "to be used when you comment some functionnalities"
+    },
+    "t": {
+      "value": "test",
+      "description": "to be used when you make some tests"
+    },
+    "p": {
+      "value": "project",
+      "description": "to be used when you do something for the project"
+    }
+  },
+  "template": "[<target>] <action>: <message>"
 }
