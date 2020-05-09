@@ -31,6 +31,11 @@ describe("the router", () => {
             "acp"
         );
     });
+
+    it("should route to alone", () => {
+        expect(routeCommands(minimistWrapper([])).name).toBe("alone");
+        expect(routeCommands(minimistWrapper(["-wtf"])).name).toBe("alone");
+    });
 });
 
 describe("the error builder", () => {
