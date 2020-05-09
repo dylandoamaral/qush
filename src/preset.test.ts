@@ -15,10 +15,10 @@ test("the parsing from json to Preset", () => {
     expect(object.name).toBe(json.name);
     expect(object.contributors).toEqual(json.contributors);
     expect(object.template).toBe(json.template);
-    expect(object.actions.get("a")['value']).toBe("add");
-    expect(object.actions.get("a")['description']).toBe("to use when you add something new");
-    expect(object.targets.get("d")['value']).toBe("documentation");
-    expect(object.targets.get("d")['description']).toBe("to use when you comment some functionnalities");
+    expect(object.actions.get("a")["value"]).toBe("add");
+    expect(object.actions.get("a")["description"]).toBe("to use when you add something new");
+    expect(object.targets.get("d")["value"]).toBe("documentation");
+    expect(object.targets.get("d")["description"]).toBe("to use when you comment some functionnalities");
 });
 
 describe("the mapToTypedMap function", () => {

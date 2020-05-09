@@ -1,24 +1,13 @@
-import { helpPart, helpFlags, helpLines, helpCommand } from "./help";
-import chalk from "chalk";
-
-import Preset from "../../preset";
+import {  helpCommand, helpLines } from "./help";
+import { bold } from "chalk";
 import json from "../../asset/preset.typed.json";
+import Preset from "../../preset";
 import { TypedJSON } from "typedjson";
-import minimist from "minimist";
 import { minimistWrapper } from "../../utils/utest";
-import { constVoid } from "fp-ts/lib/function";
 import { isIORight } from "../../utils/functionnal";
 
-describe("the help_part", () => {
-    it("should return the correct format", () => {
-        expect(helpPart("a")).toEqual(chalk.bold("a"));
-    });
-});
-
-describe("the help_flags", () => {
-    it("should return the correct format", () => {
-        expect(helpFlags("d", "a", "b")).toEqual("    - \"a\" or \"b\" => d");
-    });
+describe("the command", () => {
+    expect(isIORight(helpCommand(minimistWrapper(["-H"])).execute())).toEqual(true);
 });
 
 describe("the help_lines", () => {
@@ -28,11 +17,6 @@ describe("the help_lines", () => {
     it("should return the correct format", () => {
         const lines = helpLines(object);
         expect(lines.length).toEqual(16);
-        expect(lines[0]).toEqual(helpPart("available commands:"));
+        expect(lines[0]).toEqual(bold("available commands:"));
     });
 });
-
-describe("the command", () => {
-    expect(isIORight(helpCommand(minimistWrapper(["-H"])).execute())).toEqual(true);
-});
-

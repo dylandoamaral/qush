@@ -70,6 +70,10 @@ the flag show the helper of acp.
 
 it also can help you to see what is the current preset used by acp.
 
+### The flag -P or --preset
+
+the flag show the current preset used by acp.
+
 ### The flag -S or --source 
 
 the flag allow you to add only several source files inside the commit. 
