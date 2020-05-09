@@ -98,3 +98,7 @@ the flag allow you to push without any confirmation to win even more time.
 
 - rename acp to qush
 - everything is functionnal
+
+### v1.0.1
+
+- (fix) the flag -P prompted the default preset instead of the local preset in sub directories of a project

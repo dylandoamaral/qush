@@ -1,7 +1,7 @@
 {
   "name": "qush",
-  "version": "1.0.0",
-  "description": "Qush stand for quick push. It is a personnal one line command to add, push and commit in one line.",
+  "version": "1.0.1",
+  "description": "Qush stand for quick push. It is a personnal one line command to add, commit and push as fast as possible.",
   "main": "index.js",
   "scripts": {
     "test": "jest --config jest.config.json",
