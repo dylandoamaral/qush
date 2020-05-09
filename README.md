@@ -122,7 +122,7 @@ the flag allow you to push without any confirmation to win even more time.
 
 ### v0.2.0
 
-- refactor in a functional way
+- refactor in a functional way (only error handling)
 - the command shows every errors and not only the first one encountered 
 
 #### v0.2.1
@@ -130,3 +130,12 @@ the flag allow you to push without any confirmation to win even more time.
 - error handling when the command is running outside a repository
 - format for errors that show a list of possibilities such as the error when there is too much arguments
 - fix readme errors and formulations
+
+### v1.0.0
+
+- everything is functionnal now
+- acp can now run in subdirectories
+- split help command into preset and help commands
+- add an acp command without any arguments
+- add some new validations to avoid any fail from the user
+- add description for each fields in acp config file
