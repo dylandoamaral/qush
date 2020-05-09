@@ -1,12 +1,12 @@
 import minimist from "minimist";
 import { Command, commands } from "../command";
-import { map } from "fp-ts/lib/IOEither";
+import { map, right } from "fp-ts/lib/IOEither";
 import chalk, { bold } from "chalk";
 import { space, stringifyField, stringifyFlags } from "../../utils/format";
 import Preset, { loadPreset, Field } from "../../preset";
 import { pipe } from "fp-ts/lib/pipeable";
 
-export const helpLines = (preset: Preset): string[] => {
+export const helpLines = (): string[] => {
   return [
     "",
     bold("available commands:"),
@@ -32,8 +32,7 @@ export const helpCommand = (args: minimist.ParsedArgs): Command => ({
   name: "help",
   execute: () =>
     pipe(
-      loadPreset(process.cwd()),
-      map(helpLines),
+      right(helpLines()),
       map((lines) => lines.join("\n")),
       map(console.log)
     ),

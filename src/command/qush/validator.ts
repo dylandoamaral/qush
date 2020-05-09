@@ -50,7 +50,7 @@ const applicativeValidation = getValidation(getSemigroup<string>());
 
 const ioeitherApplicativeValidation = getIOValidation(getSemigroup<string>());
 
-const gitIsInstalled: IOEither<NonEmptyArray<string>, void> = tryCatch(
+export const gitIsInstalled: IOEither<NonEmptyArray<string>, void> = tryCatch(
   () => pipe(execSync("git --version", { stdio: "ignore" }), constVoid),
   () => [errorGitIsInstalled()]
 );
@@ -58,7 +58,7 @@ const gitIsInstalled: IOEither<NonEmptyArray<string>, void> = tryCatch(
 /**
  * Validate if the command is running inside a repository
  */
-const folderIsGitRepo: IOEither<NonEmptyArray<string>, void> = tryCatch(
+export const folderIsGitRepo: IOEither<NonEmptyArray<string>, void> = tryCatch(
   () =>
     pipe(
       execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" }),

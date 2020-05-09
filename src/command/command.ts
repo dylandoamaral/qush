@@ -3,7 +3,7 @@ import { IO } from "fp-ts/lib/IO";
 import { IOEither } from "fp-ts/lib/IOEither";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { helpCommand } from "./help/help";
-import { qushCommand } from "./quimmit/qush";
+import { qushCommand } from "./qush/qush";
 import { space } from "../utils/format";
 import { aloneCommand } from "./alone/alone";
 import { presetCommand } from './preset/preset';
