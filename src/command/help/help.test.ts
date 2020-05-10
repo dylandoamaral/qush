@@ -3,10 +3,6 @@ import { bold } from "chalk";
 import { minimistWrapper } from "../../utils/utest";
 import { isIORight } from "../../utils/functionnal";
 
-describe("the command", () => {
-    expect(isIORight(helpCommand(minimistWrapper(["-H"])).execute())).toEqual(true);
-});
-
 describe("the help_lines", () => {
     it("should return the correct format", () => {
         const lines = helpLines();
