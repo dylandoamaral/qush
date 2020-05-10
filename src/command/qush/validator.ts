@@ -71,7 +71,8 @@ export const folderIsGitRepo: IOEither<NonEmptyArray<string>, void> = tryCatch(
  * Validate if the repository is not up to date compare to the remote one
  */
 const folderIsNotUpToDate = (): IOEither<NonEmptyArray<string>, void> => {
-    if (process.env.Qush_TEST === "true") return rightIO(constVoid);
+    if (process.env.QUSH_TEST === "true") return rightIO(constVoid);
+    
     return execSync("git status --porcelain").toString() === ""
         ? leftIO(() => [errorFolderIsNotUpToDate()])
         : rightIO(constVoid);
@@ -81,6 +82,8 @@ const folderIsNotUpToDate = (): IOEither<NonEmptyArray<string>, void> => {
  * Validate if the repository doesn't need pull
  */
 const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
+    if (process.env.QUSH_TEST === "true") return rightIO(constVoid);
+
     const needPull = ([base, local]: [string, string]): boolean => base === local;
 
     const base: IOEither<NonEmptyArray<string>, string> = tryCatch(

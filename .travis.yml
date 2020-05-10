@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - node
 env:
-  - ACP_TEST=true
+  - QUSH_TEST=true
 cache: npm
 install:
   - npm install
