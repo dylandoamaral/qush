@@ -28,7 +28,7 @@ export const presetCommand = (args: minimist.ParsedArgs): Command => ({
     name: "preset",
     execute: () =>
         pipe(
-            rightIO(findGitRoot()),
+            rightIO(findGitRoot),
             chain(root => loadPreset(root)),
             map(presetLines),
             map((lines) => lines.join("\n")),

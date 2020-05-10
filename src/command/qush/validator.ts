@@ -110,7 +110,7 @@ const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
  * Validate all validation that refer to the current repository
  * ! Always use it after a "gitIsInstalled" function
  */
-export const validateRepository = (): IOEither<NonEmptyArray<string>, void> =>
+export const validateRepository: IOEither<NonEmptyArray<string>, void> =
     pipe(
         folderIsGitRepo,
         chain(folderIsNotUpToDate),
@@ -246,7 +246,7 @@ const validate = (args: minimist.ParsedArgs) => (
 ): IOEither<NonEmptyArray<string>, Qush> => {
     return pipe(
         sequenceT(ioeitherApplicativeValidation)(
-            validateRepository(),
+            validateRepository,
             fromEither(validatePreset(args._, preset)),
             fromEither(validateSources(getFlags(args, "S", "source")))
         ),

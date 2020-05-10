@@ -4,12 +4,11 @@ import { execSync } from "child_process";
 import { IO } from "fp-ts/lib/IO";
 import { merge } from "./functionnal";
 
-export const findGitRoot = (): IO<string> => {
-    return pipe(
+export const findGitRoot: IO<string> = pipe(
         tryCatch(
             () => execSync("git rev-parse --show-toplevel").toString().trim(),
             () => process.cwd()
         ),
         merge
     );
-};
+

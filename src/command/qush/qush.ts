@@ -1,6 +1,6 @@
 import minimist from "minimist";
 import { Command, getFlags } from "../command";
-import { map, chain, rightIO } from "fp-ts/lib/IOEither";
+import { map, chain, rightIO, IOEither } from "fp-ts/lib/IOEither";
 import Preset, { loadPreset } from "../../preset";
 import { pipe } from "fp-ts/lib/pipeable";
 import validate, { gitIsInstalled } from "./validator";
@@ -9,6 +9,7 @@ import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
 import inquirer from "inquirer";
 import { findGitRoot } from '../../utils/git';
+import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray';
 
 export interface Qush {
   args: minimist.ParsedArgs;
@@ -70,8 +71,8 @@ export const qushCommand = (args: minimist.ParsedArgs): Command => ({
     execute: () =>
         pipe(
             gitIsInstalled,
-            chain(() => rightIO(findGitRoot())),
-            chain(root => loadPreset(root)),
+            chain(() => rightIO(findGitRoot)),
+            chain(loadPreset),
             chain(validate(args)),
             map(processQush),
             map((func) => func())
