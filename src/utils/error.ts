@@ -35,14 +35,14 @@ export const errorTemplateMultiple = (delimiter: string, template: string): stri
 
 export const errorNumberArguments = (): string => {
     return [
-        "qush take between 1 and 3 arguments to work. The command should respect one of the following structure and depend of the preset's template:",
+        "qush takes between 1 and 3 arguments to work. The command should respect one of the following structure and depend of the preset's template:",
         ...commands().map((c) => `${space_2}${c}`),
     ].join("\n");
 };
 
 export const errorNotKeyInMap = (key: string, map: Map<string, Field>, map_name: string): string => {
     return [
-        `the key "${key}" don't exist inside ${map_name} map. Values found inside the preset:`,
+        `the key "${key}" doesn't exist inside ${map_name} map. Values found inside the preset as ${map_name}:`,
         Array.from(map)
             .map(([key, field]) => `${key}: ${field.value}`)
             .map((c) => `${space_2}${c}`)

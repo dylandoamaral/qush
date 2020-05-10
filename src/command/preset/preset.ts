@@ -11,17 +11,15 @@ import { findGitRoot } from "../../utils/git";
 export const presetLines = (preset: Preset): string[] => {
     return [
         "",
-        `This repository use the preset ${
+        `This repository use the preset "${
             preset.name
-        } made by ${preset.contributors.join(", ")}: `,
+        }" made by ${preset.contributors.join(", ")}: `,
         bold("template: "),
         `${space}${preset.template}`,
         bold("targets:"),
         Array.from(preset.targets).map(stringifyField).join("\n"),
         bold("actions:"),
         Array.from(preset.actions).map(stringifyField).join("\n"),
-        bold("more information:"),
-        `${space}${"https://github.com/dylandoamaral/add-commit-push"}`,
     ];
 };
 
@@ -30,9 +28,7 @@ export const presetCommand = (args: minimist.ParsedArgs): Command => ({
     name: "preset",
     execute: () =>
         pipe(
-            gitIsInstalled,
-            chain(() => folderIsGitRepo),
-            chain(() => rightIO(findGitRoot())),
+            rightIO(findGitRoot()),
             chain(root => loadPreset(root)),
             map(presetLines),
             map((lines) => lines.join("\n")),

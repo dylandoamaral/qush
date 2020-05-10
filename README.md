@@ -102,3 +102,8 @@ the flag allow you to push without any confirmation to win even more time.
 #### v1.0.1
 
 - (fix) the flag -P prompted the default preset instead of the local preset in sub directories of a project
+
+#### v1.0.2
+
+- (fix) errors were not properly sequenced
+- (fix) correction of some grammatical errors
