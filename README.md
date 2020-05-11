@@ -111,3 +111,7 @@ the flag allow you to push without any confirmation to win even more time.
 #### v1.0.3
 
 - (fix) Unix compatibility
+
+#### v1.0.4
+
+- remove "For UNIX user" section in README
