@@ -8,18 +8,6 @@
 
 qush is my own CLI to add, commit and push in one line.
 
-## For UNIX user
-
-i made this project in windows, so this project use CRLF instead of LF (for now) and this particularity cause a problem in linux and mac system for the moment.
-
-the turn around: 
-
-```bash
-dos2unix /usr/local/lib/node_modules/qush/dist
-```
-
-thanks to [Simon Bazin](https://fr.linkedin.com/in/simon-bazin) for this solution.
-
 ## Why this project
 
 - because I was boring
@@ -119,3 +107,7 @@ the flag allow you to push without any confirmation to win even more time.
 
 - (fix) errors were not properly sequenced
 - (fix) correction of some grammatical errors
+
+#### v1.0.3
+
+- (fix) Unix compatibility
