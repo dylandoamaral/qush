@@ -6,10 +6,17 @@
   />
 </p>
 
-
-[![Build Status](https://travis-ci.org/dylandoamaral/qush.svg?branch=master)](https://travis-ci.org/dylandoamaral/qush)
-[![Codecov](https://codecov.io/gh/dylandoamaral/qush/branch/master/graph/badge.svg)](https://codecov.io/gh/dylandoamaral/qush)
-[![Version](https://img.shields.io/npm/v/qush.svg)](https://npmjs.org/package/qush)
+<p align="center">
+  <a href="https://travis-ci.org/github/dylandoamaral/qush">
+    <img src="https://travis-ci.org/dylandoamaral/qush.svg?branch=master" alt="Build status"/>
+  </a>
+    <a href="https://codecov.io/gh/dylandoamaral/qush">
+    <img src="https://codecov.io/gh/dylandoamaral/qush/branch/master/graph/badge.svg" alt="Codecov"/>
+  </a>
+    <a href="https://npmjs.org/package/qush">
+    <img src="https://img.shields.io/npm/v/qush.svg" alt="NPM version"/>
+  </a>
+</p>
 
 ## Description
 
