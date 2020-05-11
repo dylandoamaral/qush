@@ -1,4 +1,11 @@
-# qush
+<p align="center">
+  <img
+    src="https://github.com/dylandoamaral/qush/assets/qush.svg"
+    alt="Qush"
+    width="500"
+  />
+</p>
+
 
 [![Build Status](https://travis-ci.org/dylandoamaral/qush.svg?branch=master)](https://travis-ci.org/dylandoamaral/qush)
 [![Codecov](https://codecov.io/gh/dylandoamaral/qush/branch/master/graph/badge.svg)](https://codecov.io/gh/dylandoamaral/qush)
