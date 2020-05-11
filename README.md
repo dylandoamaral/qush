@@ -2,7 +2,7 @@
   <img
     src="https://raw.githubusercontent.com/dylandoamaral/qush/master/assets/qush.svg"
     alt="Qush"
-    width="500"
+    width="300"
   />
 </p>
 
