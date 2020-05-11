@@ -1,6 +1,6 @@
 <p align="center">
   <img
-    src="https://github.com/dylandoamaral/qush/assets/qush.svg"
+    src="https://raw.githubusercontent.com/dylandoamaral/qush/master/assets/qush.svg"
     alt="Qush"
     width="500"
   />
