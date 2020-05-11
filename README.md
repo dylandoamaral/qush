@@ -129,3 +129,7 @@ the flag allow you to push without any confirmation to win even more time.
 #### v1.0.4
 
 - remove "For UNIX user" section in README
+
+#### v1.0.5
+
+- add logo
