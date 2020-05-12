@@ -41,7 +41,7 @@ export const processQush = (qush: Qush): IO<void> =>
                 message: [
                   "qush is going to execute these following commands for you",
                   commands.map((c) => `    - ${c}`).join("\n"),
-                  "Are you agree to run them ?",
+                  "Do you agree to run them ?",
                 ].join("\n"),
                 default: function () {
                   return false;

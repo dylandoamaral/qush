@@ -24,7 +24,7 @@ qush is my own CLI to add, commit and push in one line.
 
 ## Why this project
 
-- because I was boring
+- because I was bored
 - because I was lazy and using add then commit then push was not optimized
 - because it forces me to respect a line of conduct for my commits
 - because I can
@@ -51,7 +51,7 @@ qush a p "my new commit"
 
 it will add, commit then push the following message: "[project] add: my new commit"
 
-the commit respect the following template "[target] action: message"
+the commit respects the following template "[target] action: message"
 
 by default, qush will use the default preset
 
@@ -80,17 +80,17 @@ you can also add several **tags** into that command
 
 ### The flag -H or --help
 
-the flag show the helper of qush.
+the flag shows the helper of qush.
 
 it also can help you to see what is the current preset used by qush.
 
 ### The flag -P or --preset
 
-the flag show the current preset used by qush.
+the flag shows the current preset used by qush.
 
 ### The flag -S or --source 
 
-the flag allow you to add only several source files inside the commit. 
+the flag allows you to add only several source files inside the commit. 
 
 for example: 
 
@@ -104,7 +104,7 @@ if none of these flags are mentionned, then "git add ." will be used.
 
 ### The flag -Y or --yes
 
-the flag allow you to push without any confirmation to win even more time.
+the flag allows you to push without any confirmation to win even more time.
 
 ## Changelog
 
