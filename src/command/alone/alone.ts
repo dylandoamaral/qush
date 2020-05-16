@@ -28,8 +28,8 @@ export const superAloneLines: IO<string[]> = pipe(
     pipe(() => fs.readFileSync(__dirname + "/logo.txt", "utf8"), map(aloneLines)),
     () =>
       aloneLines(
-        figlet.textSync("QUSH", {
-          font: "Graceful",
+        figlet.textSync("QusH", {
+          font: "Big",
           horizontalLayout: "default",
           verticalLayout: "default",
         })
