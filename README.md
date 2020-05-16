@@ -22,18 +22,10 @@
 
 qush is my own CLI to add, commit and push in one line.
 
-## Why use it ?
+## Why use it
 
 - it helps you to push a commit faster  (one single line instead of three)
 - it helps you to push a commit cleaner (a preset system to write consistent commits)
-
-## Why this project
-
-- because I was bored
-- because I was lazy and using add then commit then push was not optimized
-- because it forces me to respect a line of conduct for my commits
-- because I can
-- because I wanted to use typescript for one of my project
 
 ## Requirements
 
