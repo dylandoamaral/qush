@@ -22,6 +22,11 @@
 
 qush is my own CLI to add, commit and push in one line.
 
+## Why use it ?
+
+- it helps you to push a commit faster  (one single line instead of three)
+- it helps you to push a commit cleaner (a preset system to write consistent commits)
+
 ## Why this project
 
 - because I was bored
@@ -133,3 +138,8 @@ the flag allows you to push without any confirmation to win even more time.
 #### v1.0.5
 
 - add logo
+
+#### v1.0.6
+
+- (fix) pull detection to prevent a push
+- add logo in cli with the command qush alone
