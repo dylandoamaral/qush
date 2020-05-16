@@ -57,10 +57,11 @@ export const gitIsInstalled: IOEither<NonEmptyArray<string>, void> = tryCatch(
   () => [errorGitIsInstalled()]
 );
 
-const gitUpdateRemote: IOEither<NonEmptyArray<string>, void> = tryCatch(
-  () => pipe(execSync("git remote update", { stdio: "ignore" }), constVoid),
-  () => ["Can't run the command 'git remote update'"]
-);
+const gitUpdateRemote = (): IOEither<NonEmptyArray<string>, void> =>
+  tryCatch(
+    () => pipe(execSync("git remote update", { stdio: "ignore" }), constVoid),
+    () => ["Can't run the command 'git remote update'"]
+  );
 
 /**
  * Validate if the command is running inside a repository
@@ -87,10 +88,7 @@ const folderIsNotUpToDate = (): IOEither<NonEmptyArray<string>, void> =>
  */
 const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
   const checkStatus: IOEither<NonEmptyArray<string>, boolean> = tryCatch(
-    () =>
-      execSync("git status -uno", { stdio: "ignore" })
-        .toString()
-        .includes("git pull"),
+    () => execSync("git status -uno").toString().includes("git pull"),
     () => ["Can't run the command 'git status -uno'"]
   );
 
@@ -108,9 +106,9 @@ const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
  */
 export const validateRepository: IOEither<NonEmptyArray<string>, void> = pipe(
   folderIsGitRepo,
-  () => gitUpdateRemote,
-  folderIsNotUpToDate,
-  folderDontNeedPull
+  chain(gitUpdateRemote),
+  chain(folderDontNeedPull),
+  chain(folderIsNotUpToDate),
 );
 
 /**
