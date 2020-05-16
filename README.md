@@ -134,4 +134,7 @@ the flag allows you to push without any confirmation to win even more time.
 #### v1.0.6
 
 - (fix) pull detection to prevent a push
+
+#### v1.0.7
+
 - add logo in cli with the command qush alone
