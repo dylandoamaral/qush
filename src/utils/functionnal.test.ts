@@ -1,4 +1,5 @@
 import { stay, merge, condition } from "./functionnal";
+// eslint-disable-next-line no-unused-vars
 import { IOEither, rightIO, leftIO } from "fp-ts/lib/IOEither";
 
 describe("the stay function", () => {

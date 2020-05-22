@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// eslint-disable-next-line no-unused-vars
+import { IO } from "fp-ts/lib/IO";
 import { pipe } from "fp-ts/lib/pipeable";
 import {
     loadArguments,
@@ -7,7 +9,6 @@ import {
     executeCommand,
     showError,
 } from "./command/command";
-import { IO } from "fp-ts/lib/IO";
 import { getOrElse, chain, rightIO, map } from "fp-ts/lib/IOEither";
 
 const program: IO<void> = pipe(

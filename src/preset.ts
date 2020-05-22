@@ -1,27 +1,20 @@
-import {
-    jsonObject,
-    jsonMember,
-    jsonArrayMember,
-    jsonMapMember,
-    TypedJSON,
-} from "typedjson";
+// eslint-disable-next-line no-unused-vars
+import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
+// eslint-disable-next-line no-unused-vars
+import { Either, getValidation, left, right, map as mapEither } from "fp-ts/lib/Either";
+// eslint-disable-next-line no-unused-vars
+import { tryCatch, map, IOEither } from "fp-ts/lib/IOEither";
+import { jsonObject, jsonMember, jsonArrayMember, jsonMapMember, TypedJSON } from "typedjson";
 import fs from "fs";
-import { IO, map as mapIO } from "fp-ts/lib/IO";
-import {
-    tryCatch,
-    map,
-    IOEither,
-} from "fp-ts/lib/IOEither";
+import { map as mapIO } from "fp-ts/lib/IO";
 import json from "./asset/preset.default.json";
 import { pipe } from "fp-ts/lib/pipeable";
-import { NonEmptyArray, getSemigroup } from "fp-ts/lib/NonEmptyArray";
-import { Either, getValidation, left, right, map as mapEither } from "fp-ts/lib/Either";
 import { sequenceT } from "fp-ts/lib/Apply";
 import { errorUndefinedField } from "./utils/error";
 import { merge } from "./utils/functionnal";
 
 @jsonObject
-export class Field{
+export class Field {
     @jsonMember({ constructor: String })
     public value: string;
 
@@ -31,20 +24,20 @@ export class Field{
 
 @jsonObject
 export default class Preset {
-  @jsonMember({ constructor: String })
-  public name: string;
+    @jsonMember({ constructor: String })
+    public name: string;
 
-  @jsonArrayMember(String)
-  public contributors: Array<string>;
+    @jsonArrayMember(String)
+    public contributors: Array<string>;
 
-  @jsonMapMember(String, Field)
-  public actions: Map<string, Field>;
+    @jsonMapMember(String, Field)
+    public actions: Map<string, Field>;
 
-  @jsonMapMember(String, Field)
-  public targets: Map<string, Field>;
+    @jsonMapMember(String, Field)
+    public targets: Map<string, Field>;
 
-  @jsonMember({ constructor: String })
-  public template: string;
+    @jsonMember({ constructor: String })
+    public template: string;
 }
 
 /**
@@ -52,13 +45,8 @@ export default class Preset {
  * @param sequence
  * @param sentence
  */
-const validateTypify = (
-    field: string,
-    object: any
-): Either<NonEmptyArray<string>, void> =>
-    object[field] === undefined
-        ? left([errorUndefinedField(field)])
-        : right(null);
+const validateTypify = (field: string, object: any): Either<NonEmptyArray<string>, void> =>
+    object[field] === undefined ? left([errorUndefinedField(field)]) : right(null);
 
 export const mapToTypedMap = (field: any): any => {
     return Object.keys(field).map((key) => {
@@ -66,8 +54,8 @@ export const mapToTypedMap = (field: any): any => {
             key,
             value: {
                 value: field[key]["value"],
-                description: field[key]["description"]
-            }
+                description: field[key]["description"],
+            },
         };
     });
 };
@@ -115,7 +103,7 @@ export const typify = (json: any): Either<NonEmptyArray<string>, any> => {
 
 export const loadPreset = (root: string): IOEither<NonEmptyArray<string>, Preset> => {
     const config_path = `${root}/qush.config.json`;
-   
+
     return pipe(
         tryCatch(
             () => fs.readFileSync(config_path, { encoding: "utf8" }), // right

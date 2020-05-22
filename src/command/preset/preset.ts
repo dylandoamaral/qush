@@ -1,11 +1,13 @@
+// eslint-disable-next-line no-unused-vars
 import Preset, { loadPreset } from "../../preset";
+// eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
+// eslint-disable-next-line no-unused-vars
 import { Command } from "../command";
 import { pipe } from "fp-ts/lib/pipeable";
 import { map, chain, rightIO } from "fp-ts/lib/IOEither";
 import { stringifyField, space } from "../../utils/format";
 import { bold } from "chalk";
-import { gitIsInstalled, folderIsGitRepo } from "../qush/validator";
 import { findGitRoot } from "../../utils/git";
 
 export const presetLines = (preset: Preset): string[] => {

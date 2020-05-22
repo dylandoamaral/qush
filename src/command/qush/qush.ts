@@ -1,15 +1,18 @@
+// eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
+// eslint-disable-next-line no-unused-vars
 import { Command, getFlags } from "../command";
-import { map, chain, rightIO, IOEither } from "fp-ts/lib/IOEither";
+// eslint-disable-next-line no-unused-vars
 import Preset, { loadPreset } from "../../preset";
+// eslint-disable-next-line no-unused-vars
+import { io, map as mapIO, IO } from "fp-ts/lib/IO";
+import { chain, rightIO } from "fp-ts/lib/IOEither";
 import { pipe } from "fp-ts/lib/pipeable";
-import validate, { gitIsInstalled } from "./validator";
-import { IO, io, map as mapIO } from "fp-ts/lib/IO";
+import validate from "./validator";
 import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
 import inquirer from "inquirer";
-import { findGitRoot } from "../../utils/git";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { findGitRoot, gitIsInstalled } from "../../utils/git";
 
 export interface Qush {
   args: minimist.ParsedArgs;

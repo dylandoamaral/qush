@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
+// eslint-disable-next-line no-unused-vars
 import { Command, commands } from "../command";
 import { map, right } from "fp-ts/lib/IOEither";
-import chalk, { bold } from "chalk";
-import { space, stringifyField, stringifyFlags } from "../../utils/format";
-import Preset, { loadPreset, Field } from "../../preset";
+import { space, stringifyFlags } from "../../utils/format";
 import { pipe } from "fp-ts/lib/pipeable";
+import { bold } from "chalk";
 
 export const helpLines = (): string[] => {
     return [
@@ -30,6 +31,5 @@ export const helpLines = (): string[] => {
 export const helpCommand = (args: minimist.ParsedArgs): Command => ({
     arguments: args,
     name: "help",
-    execute: () =>
-        pipe(helpLines(), (lines) => right(lines.join("\n")), map(console.log)),
+    execute: () => pipe(helpLines(), (lines) => right(lines.join("\n")), map(console.log)),
 });

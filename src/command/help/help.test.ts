@@ -1,7 +1,5 @@
-import {  helpCommand, helpLines } from "./help";
 import { bold } from "chalk";
-import { minimistWrapper } from "../../utils/utest";
-import { isIORight } from "../../utils/functionnal";
+import { helpLines } from "./help";
 
 describe("the help_lines", () => {
     it("should return the correct format", () => {

@@ -1,16 +1,13 @@
+// eslint-disable-next-line no-unused-vars
 import minimist from "minimist";
+// eslint-disable-next-line no-unused-vars
+import { Command } from "../command";
+// eslint-disable-next-line no-unused-vars
+import { IO, map } from "fp-ts/lib/IO";
 import fs from "fs";
 import figlet from "figlet";
-import { Command } from "../command";
 import { pipe } from "fp-ts/lib/pipeable";
-import {
-    right,
-    IOEither,
-    tryCatch,
-    rightIO,
-    map as mapIoEither,
-} from "fp-ts/lib/IOEither";
-import { IO, map } from "fp-ts/lib/IO";
+import { tryCatch, rightIO, map as mapIoEither } from "fp-ts/lib/IOEither";
 import { merge } from "../../utils/functionnal";
 
 export const aloneLines = (title: string): string[] => {
