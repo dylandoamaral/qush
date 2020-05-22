@@ -1,6 +1,6 @@
 {
   "name": "qush",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Qush stand for quick push. It is a personnal one line command to add, commit and push as fast as possible.",
   "main": "index.js",
   "scripts": {
