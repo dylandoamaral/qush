@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { tryCatch, IOEither, leftIO, rightIO, chain } from "fp-ts/lib/IOEither";
+import { tryCatch, IOEither, leftIO, rightIO, chain, left, right } from "fp-ts/lib/IOEither";
 // eslint-disable-next-line no-unused-vars
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 // eslint-disable-next-line no-unused-vars
@@ -22,7 +22,10 @@ import {
  */
 export const findGitRoot: IO<string> = pipe(
     tryCatch(
-        () => execSync("git rev-parse --show-toplevel").toString().trim(),
+        () =>
+            execSync("git rev-parse --show-toplevel", { stdio: ["ignore", "pipe", "ignore"] })
+                .toString()
+                .trim(),
         () => process.cwd()
     ),
     merge
@@ -56,20 +59,25 @@ export const folderIsGitRepo: IOEither<NonEmptyArray<string>, void> = tryCatch(
  * Validate if the repository is not up to date compare to the remote one
  */
 export const folderIsNotUpToDate = (): IOEither<NonEmptyArray<string>, void> =>
-    execSync("git status --porcelain").toString() === "" ? leftIO(() => [errorFolderIsNotUpToDate()]) : rightIO(constVoid);
+    execSync("git status --porcelain", { stdio: ["ignore", "pipe", "ignore"] }).toString() === ""
+        ? left([errorFolderIsNotUpToDate()])
+        : rightIO(constVoid);
 
 /**
  * Validate if the repository doesn't need pull
  */
 export const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
     const checkStatus: IOEither<NonEmptyArray<string>, boolean> = tryCatch(
-        () => execSync("git status -uno").toString().includes("git pull"),
+        () =>
+            execSync("git status -uno", { stdio: ["ignore", "pipe", "ignore"] })
+                .toString()
+                .includes("git pull"),
         () => ["Can't run the command 'git status -uno'"]
     );
 
     const needPull = (pull: boolean): IOEither<NonEmptyArray<string>, void> => {
-        if (pull) return leftIO(() => [errorFolderDontNeedPull()]);
-        else return rightIO(null);
+        if (pull) return left([errorFolderDontNeedPull()]);
+        else return rightIO(constVoid);
     };
 
     return pipe(checkStatus, chain(needPull));
