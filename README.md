@@ -71,9 +71,9 @@ you can add your own preset in the root of your github project to customise the 
 
 the file should be named "qush.config.json", you can see an example in the github repository of this project.
 
-## Tags available
+## flags available
 
-you can also add several **tags** into that command
+you can also add several **flags** into that command
 
 ### The flag -H or --help
 
