@@ -12,13 +12,12 @@ import { merge } from "../../utils/functionnal";
 
 export const aloneLines = (title: string): string[] => {
     return [
-        "",
         title,
         "",
         "Qush is a command to add, commit and push in only one line of code, it also allows you to keep your commit log clean by providing presets to respect.",
         "For more informations: qush --help",
         "",
-        "current: v1.0.8"
+        "version 1.0.8"
     ];
 };
 

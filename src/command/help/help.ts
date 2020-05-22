@@ -9,7 +9,6 @@ import { bold } from "chalk";
 
 export const helpLines = (): string[] => {
     return [
-        "",
         bold("available commands:"),
         commands()
             .map((c) => `${space}${c}`)

@@ -12,7 +12,6 @@ import { findGitRoot } from "../../utils/git";
 
 export const presetLines = (preset: Preset): string[] => {
     return [
-        "",
         `The current space use the preset "${
             preset.name
         }" made by ${preset.contributors.join(", ")}: `,
