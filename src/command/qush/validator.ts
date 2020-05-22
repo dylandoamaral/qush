@@ -32,8 +32,6 @@ import {
   rightIO,
   getIOValidation,
   map as mapIOEither,
-  swap,
-  mapLeft as mapLeftIOEither,
   chain,
   fromEither,
   right as rightIOEither,
@@ -43,6 +41,7 @@ import { constVoid } from "fp-ts/lib/function";
 import { Qush, toQush } from "./qush";
 import { getFlags } from "../command";
 import { condition } from "../../utils/functionnal";
+import { gitUpdateRemote, folderIsGitRepo, folderDontNeedPull, folderIsNotUpToDate } from '../../utils/git';
 
 /**
  * A bunch of validation before executing our Qush commands
@@ -52,61 +51,13 @@ const applicativeValidation = getValidation(getSemigroup<string>());
 
 const ioeitherApplicativeValidation = getIOValidation(getSemigroup<string>());
 
-export const gitIsInstalled: IOEither<NonEmptyArray<string>, void> = tryCatch(
-  () => pipe(execSync("git --version", { stdio: "ignore" }), constVoid),
-  () => [errorGitIsInstalled()]
-);
-
-const gitUpdateRemote = (): IOEither<NonEmptyArray<string>, void> =>
-  tryCatch(
-    () => pipe(execSync("git remote update", { stdio: "ignore" }), constVoid),
-    () => ["Can't run the command 'git remote update'"]
-  );
-
-/**
- * Validate if the command is running inside a repository
- */
-export const folderIsGitRepo: IOEither<NonEmptyArray<string>, void> = tryCatch(
-  () =>
-    pipe(
-      execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" }),
-      constVoid
-    ),
-  () => [errorFolderIsGitRepo()]
-);
-
-/**
- * Validate if the repository is not up to date compare to the remote one
- */
-const folderIsNotUpToDate = (): IOEither<NonEmptyArray<string>, void> =>
-  execSync("git status --porcelain").toString() === ""
-    ? leftIO(() => [errorFolderIsNotUpToDate()])
-    : rightIO(constVoid);
-
-/**
- * Validate if the repository doesn't need pull
- */
-const folderDontNeedPull = (): IOEither<NonEmptyArray<string>, void> => {
-  const checkStatus: IOEither<NonEmptyArray<string>, boolean> = tryCatch(
-    () => execSync("git status -uno").toString().includes("git pull"),
-    () => ["Can't run the command 'git status -uno'"]
-  );
-
-  const needPull = (pull: boolean): IOEither<NonEmptyArray<string>, void> => {
-    if (pull) return leftIOEither([errorFolderDontNeedPull()]);
-    else return rightIOEither(null);
-  };
-
-  return pipe(checkStatus, chain(needPull));
-};
-
 /**
  * Validate all validation that refer to the current repository
  * ! Always use it after a "gitIsInstalled" function
  */
 export const validateRepository: IOEither<NonEmptyArray<string>, void> = pipe(
   folderIsGitRepo,
-  chain(gitUpdateRemote),
+  chain(() => gitUpdateRemote),
   chain(folderDontNeedPull),
   chain(folderIsNotUpToDate),
 );

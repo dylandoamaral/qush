@@ -17,6 +17,10 @@ export const errorGitIsInstalled = (): string => {
     return "the command git doesn't exist in this session";
 };
 
+export const errorUpdateRemoteFailed = (): string => {
+    return "impossible to update repository from remote";
+};
+
 export const errorFolderIsGitRepo = (): string => {
     return "the command is running outside à git repository";
 };
