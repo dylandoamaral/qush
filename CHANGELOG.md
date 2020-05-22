@@ -33,3 +33,10 @@
 ### v1.0.7
 
 - add logo in cli with the command qush alone
+
+### v1.0.8
+
+- update logo design
+- refactor code
+- add version number to alone command
+- move changelog to his own file
