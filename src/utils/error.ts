@@ -1,5 +1,6 @@
 import { space_2 } from "./format";
 import { commands } from "../command/command";
+// eslint-disable-next-line no-unused-vars
 import { Field } from "../preset";
 
 export const errorTemplateExcess = (delimiter: string, template: string): string => {

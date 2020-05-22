@@ -20,64 +20,64 @@ export const toQush = ([args, preset]: [
   minimist.ParsedArgs,
   Preset
 ]): Qush => ({
-  args,
-  preset,
+    args,
+    preset,
 });
 
 export const processQush = (qush: Qush): IO<void> =>
-  pipe(
-    io.of(execSync("git branch --show-current").toString()),
-    mapIO((branch) =>
-      pipe(
-        getFlags(qush.args, "S", "source"),
-        sourcesToAdds,
-        addsToCommands(qush)(branch),
-        (commands) => {
-          inquirer
-            .prompt([
-              {
-                type: "confirm",
-                name: "value",
-                message: [
-                  "qush is going to execute these following commands for you",
-                  commands.map((c) => `    - ${c}`).join("\n"),
-                  "Do you agree to run them ?",
-                ].join("\n"),
-                default: function () {
-                  return false;
-                },
-              },
-            ])
-            .then((answers) => {
-              if (answers.value)
-                commands.forEach((command) => execSync(command));
-              else console.log("commands canceled with sucess !");
-            });
-        }
-      )
-    )
-  );
+    pipe(
+        io.of(execSync("git branch --show-current").toString()),
+        mapIO((branch) =>
+            pipe(
+                getFlags(qush.args, "S", "source"),
+                sourcesToAdds,
+                addsToCommands(qush)(branch),
+                (commands) => {
+                    inquirer
+                        .prompt([
+                            {
+                                type: "confirm",
+                                name: "value",
+                                message: [
+                                    "qush is going to execute these following commands for you",
+                                    commands.map((c) => `    - ${c}`).join("\n"),
+                                    "Do you agree to run them ?",
+                                ].join("\n"),
+                                default: function () {
+                                    return false;
+                                },
+                            },
+                        ])
+                        .then((answers) => {
+                            if (answers.value)
+                                commands.forEach((command) => execSync(command));
+                            else console.log("commands canceled with sucess !");
+                        });
+                }
+            )
+        )
+    );
 
 export const sourcesToAdds = (sources: string[]): string[] =>
-  sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
+    sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
 
 export const addsToCommands = (qush: Qush) => (branch: string) => (
-  adds: string[]
+    adds: string[]
 ): string[] => [
-  ...adds,
-  commit(qush.args._ as string[], qush.preset),
-  push(branch),
+    ...adds,
+    commit(qush.args._ as string[], qush.preset),
+    push(branch),
 ];
 
 export const qushCommand = (args: minimist.ParsedArgs): Command => ({
-  arguments: args,
-  name: "qush",
-  execute: () =>
-    pipe(
-      gitIsInstalled,
-      chain(() => rightIO(findGitRoot)),
-      chain(loadPreset),
-      chain(validate(args)),
-      chain((qush) => rightIO(processQush(qush)))
-    ),
+    arguments: args,
+    name: "qush",
+    execute: () =>
+        pipe(
+            gitIsInstalled,
+            chain(() => rightIO(findGitRoot)),
+            chain(loadPreset),
+            chain(validate(args)),
+            chain((qush) => rightIO(processQush(qush)))
+        ),
 });

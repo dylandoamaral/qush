@@ -6,7 +6,6 @@ import {
     buildError,
 } from "./command";
 import { minimistWrapper } from "../utils/utest";
-import { helpCommand } from "./help/help";
 import { space } from "../utils/format";
 
 describe("the command functions", () => {
