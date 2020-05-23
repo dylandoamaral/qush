@@ -46,3 +46,7 @@
 - (fix) preset showed a fatal git error if the command was not in a repository
 - (fix) version 1.0.8 due to a functionnal programming error (rightIO(null) instead of rightIO(constVoid) or right(null))
 - remove first break line for each commands
+
+### v1.0.10
+
+- (fix) more information website was pointing to the old github repository instead of qush

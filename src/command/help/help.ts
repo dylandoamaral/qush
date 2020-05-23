@@ -23,7 +23,7 @@ export const helpLines = (): string[] => {
         stringifyFlags("show the project's preset", "-P", "--preset"),
         stringifyFlags("automatically push without confirmation", "-Y", "--yes"),
         bold("more information:"),
-        `${space}${"https://github.com/dylandoamaral/add-commit-push"}`,
+        `${space}${"https://github.com/dylandoamaral/qush"}`,
     ];
 };
 
