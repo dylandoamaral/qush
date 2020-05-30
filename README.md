@@ -25,7 +25,7 @@ qush is my own CLI to add, commit and push in one line.
 ## Why use it
 
 - it helps you to push a commit faster  (one single line instead of three)
-- it helps you to push a commit cleaner (a preset system to write consistent commits)
+- it helps you to push a commit cleaner (a config system to write consistent commits)
 
 ## Requirements
 
@@ -50,9 +50,9 @@ it will add, commit then push the following message: "[project] add: my new comm
 
 the commit respects the following template "[target] action: message"
 
-by default, qush will use the default preset
+by default, qush will use the default config
 
-the first argument is the action, here is the mapping of this argument for the default preset:
+the first argument is the action, here is the mapping of this argument for the default config:
 - a → add
 - d → delete
 - r → refactor
@@ -60,14 +60,14 @@ the first argument is the action, here is the mapping of this argument for the d
 - s → setup
 - u → update
 
-the second argument is the target, here is the mapping of this argument for the default preset:
+the second argument is the target, here is the mapping of this argument for the default config:
 - d → documentation
 - t → test
 - p → project
 
-## Preset
+## Config
 
-you can add your own preset in the root of your github project to customise the commit message template.
+you can add your own config in the root of your github project to customise the commit message template.
 
 the file should be named "qush.config.json", you can see an example in the github repository of this project.
 
@@ -79,15 +79,13 @@ you can also add several **flags** into that command
 
 the flag shows the helper of qush.
 
-it also can help you to see what is the current preset used by qush.
+### The flag -C or --config
 
-### The flag -P or --preset
-
-the flag shows the current preset used by qush.
+the flag shows the current config used by qush.
 
 ### The flag -S or --source 
 
-the flag allows you to add only several source files inside the commit. 
+the flag allows you to add only several source files/folders inside the commit. 
 
 for example: 
 
