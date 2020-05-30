@@ -47,10 +47,11 @@
     "@types/inquirer": "^6.5.0",
     "@types/minimist": "^1.2.0",
     "chalk": "^4.0.0",
+    "class-transformer": "^0.2.3",
     "figlet": "^1.4.0",
     "fp-ts": "^2.5.4",
     "inquirer": "^7.1.0",
     "minimist": "^1.2.5",
-    "typedjson": "^1.5.1"
+    "reflect-metadata": "^0.1.13"
   }
 }

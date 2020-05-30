@@ -1,8 +1,7 @@
+import json from "../../asset/default.config.json";
 import { sourcesToAdds, toQush, addsToCommands } from "./qush";
-import { minimistWrapper } from "../../utils/utest";
-
-import typed_json from "../../asset/preset.typed.json";
-import { parse } from "../../preset";
+import { plainToConfig } from "../../config";
+import minimist from "minimist";
 
 describe("the sourcesToAdds function", () => {
     it("should return the correct format", () => {
@@ -14,20 +13,18 @@ describe("the sourcesToAdds function", () => {
 
 describe("the addsToCommands function", () => {
     it("should return the correct format", () => {
-        const Qush = toQush([
-            minimistWrapper(["a", "p", "my commit"]),
-            parse(typed_json),
-        ]);
+        const Qush = toQush([minimist(["a", "p", "my commit"]), plainToConfig(JSON.stringify(json))]);
         const branch = "master";
+
         expect(addsToCommands(Qush)(branch)(["git add a", "git add b"])).toEqual([
             "git add a",
             "git add b",
-            "git commit -m \"[project] add: my commit\"",
+            'git commit -m "[project] add: my commit"',
             "git push origin master",
         ]);
         expect(addsToCommands(Qush)(branch)(["git add ."])).toEqual([
             "git add .",
-            "git commit -m \"[project] add: my commit\"",
+            'git commit -m "[project] add: my commit"',
             "git push origin master",
         ]);
     });

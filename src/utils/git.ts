@@ -20,15 +20,14 @@ import {
 /**
  * find the root of the current git project
  */
-export const findGitRoot: IO<string> = pipe(
+export const findGitRoot: IOEither<NonEmptyArray<string>,string> = pipe(
     tryCatch(
         () =>
             execSync("git rev-parse --show-toplevel", { stdio: ["ignore", "pipe", "ignore"] })
                 .toString()
                 .trim(),
-        () => process.cwd()
-    ),
-    merge
+        () => ["the console is not running inside a git repository"]
+    )
 );
 
 /**

@@ -9,7 +9,7 @@ import { helpCommand } from "./help/help";
 import { qushCommand } from "./qush/qush";
 import { space } from "../utils/format";
 import { aloneCommand } from "./alone/alone";
-import { presetCommand } from "./preset/preset";
+import { configCommand } from './config/config';
 
 export interface Command {
     arguments: minimist.ParsedArgs;
@@ -35,7 +35,7 @@ export const loadArguments: IO<minimist.ParsedArgs> = () => minimist(process.arg
 
 export const routeCommands = (args: minimist.ParsedArgs): Command => {
     if (args["H"] != undefined || args["help"] != undefined) return helpCommand(args);
-    else if (args["P"] != undefined || args["preset"] != undefined) return presetCommand(args);
+    else if (args["C"] != undefined || args["config"] != undefined) return configCommand(args);
     else if (args["_"].length == 0) return aloneCommand(args);
     else return qushCommand(args);
 };

@@ -1,64 +1,21 @@
-import { space_2 } from "./format";
-import { commands } from "../command/command";
-// eslint-disable-next-line no-unused-vars
-import { Field } from "../preset";
+export const errorGitIsInstalled = (): string => "the command git doesn't exist in this session";
 
-export const errorTemplateExcess = (delimiter: string, template: string): string => {
-    return [
-        `${delimiter} exists inside the template ${template} but you didn't give enough arguments to accept these one. You can change the template according to these following structure :`,
-        ...commands().map((c) => `${space_2}${c}`),
-    ].join("\n");
-};
+export const errorUpdateRemoteFailed = (): string => "impossible to update repository from remote";
 
-export const errorTemplateNeed = (delimiter: string, template: string): string => {
-    return `impossible to find ${delimiter} inside the template ${template}`;
-};
+export const errorFolderIsGitRepo = (): string => "the command is running outside à git repository";
 
-export const errorGitIsInstalled = (): string => {
-    return "the command git doesn't exist in this session";
-};
+export const errorFolderIsNotUpToDate = (): string => "nothing to push, the repository is up to data";
 
-export const errorUpdateRemoteFailed = (): string => {
-    return "impossible to update repository from remote";
-};
+export const errorFolderDontNeedPull = (): string =>
+    "the current repository is not up to data, you have to pull before use this command.";
 
-export const errorFolderIsGitRepo = (): string => {
-    return "the command is running outside à git repository";
-};
+export const errorNoFile = (field: string): string => `can't find the file "${field}"`;
 
-export const errorFolderIsNotUpToDate = (): string => {
-    return "nothing to push, the repository is up to data";
-};
+export const errorObjectHasNoAttribute = (ObjectName: string, attribute: string): string =>
+    `the ${ObjectName} has no attribute ${attribute}`;
 
-export const errorFolderDontNeedPull = (): string => {
-    return "the current repository is not up to data, you have to pull before use this command.";
-};
+export const errorObjectIsNotType = (attributeName: string, type: string): string =>
+    `the object  ${attributeName} is not of type ${type}`;
 
-export const errorTemplateMultiple = (delimiter: string, template: string): string => {
-    return `${delimiter} should exist only once inside the template ${template}`;
-};
-
-export const errorNumberArguments = (): string => {
-    return [
-        "qush takes between 1 and 3 arguments to work. The command should respect one of the following structure and depend of the preset's template:",
-        ...commands().map((c) => `${space_2}${c}`),
-    ].join("\n");
-};
-
-export const errorNotKeyInMap = (key: string, map: Map<string, Field>, map_name: string): string => {
-    return [
-        `the key "${key}" doesn't exist inside ${map_name} map. Values found inside the preset as ${map_name}:`,
-        Array.from(map)
-            .map(([key, field]) => `${key}: ${field.value}`)
-            .map((c) => `${space_2}${c}`)
-            .join("\n"),
-    ].join("\n");
-};
-
-export const errorUndefinedField = (field: string): string => {
-    return `can't find ${field} field inside the json`;
-};
-
-export const errorNoFile = (field: string): string => {
-    return `can't find the file "${field}"`;
-};
+export const errorObjectIsNotTypeArray = (attributeName: string, type: string): string =>
+    `the attribute ${attributeName} is not of type Array[${type}]`;

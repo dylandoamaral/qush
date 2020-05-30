@@ -1,12 +1,6 @@
-import {
-    toArrayString,
-    getFlags,
-    commands,
-    routeCommands,
-    buildError,
-} from "./command";
-import { minimistWrapper } from "../utils/utest";
+import { toArrayString, getFlags, commands, routeCommands, buildError } from "./command";
 import { space } from "../utils/format";
+import minimist from "minimist";
 
 describe("the command functions", () => {
     it("should return three commands when we ask for command example", () => {
@@ -16,24 +10,20 @@ describe("the command functions", () => {
 
 describe("the router", () => {
     it("should route to help", () => {
-        expect(routeCommands(minimistWrapper(["-H"])).name).toBe("help");
-        expect(routeCommands(minimistWrapper(["--help"])).name).toBe("help");
-        expect(
-            routeCommands(minimistWrapper(["a", "p", "example", "--help"])).name
-        ).toBe("help");
+        expect(routeCommands(minimist(["-H"])).name).toBe("help");
+        expect(routeCommands(minimist(["--help"])).name).toBe("help");
+        expect(routeCommands(minimist(["a", "p", "example", "--help"])).name).toBe("help");
     });
 
     it("should route to qush", () => {
-        expect(routeCommands(minimistWrapper(["example"])).name).toBe("qush");
-        expect(routeCommands(minimistWrapper(["a", "example"])).name).toBe("qush");
-        expect(routeCommands(minimistWrapper(["a", "p", "example"])).name).toBe(
-            "qush"
-        );
+        expect(routeCommands(minimist(["example"])).name).toBe("qush");
+        expect(routeCommands(minimist(["a", "example"])).name).toBe("qush");
+        expect(routeCommands(minimist(["a", "p", "example"])).name).toBe("qush");
     });
 
     it("should route to alone", () => {
-        expect(routeCommands(minimistWrapper([])).name).toBe("alone");
-        expect(routeCommands(minimistWrapper(["-wtf"])).name).toBe("alone");
+        expect(routeCommands(minimist([])).name).toBe("alone");
+        expect(routeCommands(minimist(["-wtf"])).name).toBe("alone");
     });
 });
 
