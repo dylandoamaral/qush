@@ -1,8 +1,6 @@
 language: node_js
 node_js:
   - node
-env:
-  - QUSH_TEST=true
 cache: npm
 install:
   - npm install

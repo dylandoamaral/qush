@@ -152,10 +152,10 @@ const validateSources = (sources: string[]): Either<NonEmptyArray<string>, void>
  * @param args
  * @param preset
  */
-const validate = (args: minimist.ParsedArgs) => (preset: Preset): IOEither<NonEmptyArray<string>, Qush> => {
+const validate = (args: minimist.ParsedArgs, test: boolean = false) => (preset: Preset): IOEither<NonEmptyArray<string>, Qush> => {
     return pipe(
         sequenceT(ioeitherApplicativeValidation)(
-            condition(process.env.QUSH_TEST === "true", validateRepository, rightIO(constVoid)), // Don't take in consideration validateRepository during tests
+            condition(test === true, validateRepository, rightIO(constVoid)), // Don't take in consideration validateRepository during tests
             fromEither(validatePreset(args._, preset)),
             fromEither(validateSources(getFlags(args, "S", "source")))
         ),

@@ -54,7 +54,7 @@ const eitherFolded = (validation: IOEither<NonEmptyArray<string>, Qush>): string
 
 describe("the validation process for preset", () => {
     it("should fail if the preset has multiple times a delimiter", () => {
-        const validation = validate(minimistWrapper(["y", "x", "my commit"]))(preset);
+        const validation = validate(minimistWrapper(["y", "x", "my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -64,7 +64,7 @@ describe("the validation process for preset", () => {
     });
 
     it("should fail if the preset has multiple times a delimiter", () => {
-        const validation = validate(minimistWrapper(["a", "p", "my commit"]))(twice_preset);
+        const validation = validate(minimistWrapper(["a", "p", "my commit"]), true)(twice_preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -73,7 +73,7 @@ describe("the validation process for preset", () => {
     });
 
     it("should fail if the preset has multiple times a delimiter", () => {
-        const validation = validate(minimistWrapper(["a", "p", "my commit"]))(twice_preset);
+        const validation = validate(minimistWrapper(["a", "p", "my commit"]), true)(twice_preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -83,19 +83,19 @@ describe("the validation process for preset", () => {
 });
 describe("the validation process for arguments", () => {
     it(`should succeed if there is 3 arguments with the template ${json.template}`, () => {
-        expect(isIORight(validate(minimistWrapper(["a", "p", "my commit"]))(preset))).toBe(true);
+        expect(isIORight(validate(minimistWrapper(["a", "p", "my commit"]), true)(preset))).toBe(true);
     });
 
     it(`should succeed if there is 2 arguments with the template ${two_template}`, () => {
-        expect(isIORight(validate(minimistWrapper(["a", "my commit"]))(two_preset))).toBe(true);
+        expect(isIORight(validate(minimistWrapper(["a", "my commit"]), true)(two_preset))).toBe(true);
     });
 
     it(`should succeed if there is 1 argument with the template ${two_template}`, () => {
-        expect(isIORight(validate(minimistWrapper(["my commit"]))(one_preset))).toBe(true);
+        expect(isIORight(validate(minimistWrapper(["my commit"]), true)(one_preset))).toBe(true);
     });
 
     it("should fail if there is more than 3 arguments", () => {
-        const validation = validate(minimistWrapper(["a", "x", "my commit", "should not be here"]))(preset);
+        const validation = validate(minimistWrapper(["a", "x", "my commit", "should not be here"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -104,7 +104,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the target is missing", () => {
-        const validation = validate(minimistWrapper(["a", "my commit"]))(preset);
+        const validation = validate(minimistWrapper(["a", "my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -113,7 +113,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the action and the target is missing", () => {
-        const validation = validate(minimistWrapper(["my commit"]))(preset);
+        const validation = validate(minimistWrapper(["my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -123,7 +123,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the delimiter is not inside the templace", () => {
-        const validation = validate(minimistWrapper(["my commit"]))(no_preset);
+        const validation = validate(minimistWrapper(["my commit"]), true)(no_preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -132,7 +132,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the action is not inside actions map for 2 arguments", () => {
-        const validation = validate(minimistWrapper(["x", "my commit"]))(two_preset);
+        const validation = validate(minimistWrapper(["x", "my commit"]), true)(two_preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -141,7 +141,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the action is not inside actions map for 3 arguments", () => {
-        const validation = validate(minimistWrapper(["x", "p", "my commit"]))(preset);
+        const validation = validate(minimistWrapper(["x", "p", "my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -150,7 +150,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if the target is not inside actions map for 3 arguments", () => {
-        const validation = validate(minimistWrapper(["a", "x", "my commit"]))(preset);
+        const validation = validate(minimistWrapper(["a", "x", "my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -159,7 +159,7 @@ describe("the validation process for arguments", () => {
     });
 
     it("should fail if both the action and the target is not inside actions map for 3 arguments", () => {
-        const validation = validate(minimistWrapper(["y", "x", "my commit"]))(preset);
+        const validation = validate(minimistWrapper(["y", "x", "my commit"]), true)(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
@@ -170,14 +170,18 @@ describe("the validation process for arguments", () => {
 
     it("should succeed with good sources", () => {
         const validation = validate(
-            minimistWrapper(["a", "p", "my commit", "-S", "./README.md", "--source", "./qush.config.json"])
+            minimistWrapper(["a", "p", "my commit", "-S", "./README.md", "--source", "./qush.config.json"]),
+            true
         )(preset);
 
         expect(isIORight(validation)).toBe(true);
     });
 
     it("should failed with wrong sources", () => {
-        const validation = validate(minimistWrapper(["a", "p", "my commit", "-S", "README.md", "--source", "code.no"]))(preset);
+        const validation = validate(
+            minimistWrapper(["a", "p", "my commit", "-S", "README.md", "--source", "code.no"]),
+            true
+        )(preset);
         const result = eitherFolded(validation);
 
         expect(isIOLeft(validation)).toBe(true);
