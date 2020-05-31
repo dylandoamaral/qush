@@ -17,7 +17,12 @@ import { getValidation, Either, left, right, map as eitherMap, chain } from "fp-
 import { sequenceT } from "fp-ts/lib/Apply";
 import { array } from "fp-ts/lib/Array";
 import { constVoid } from "fp-ts/lib/function";
-import { errorObjectHasNoAttribute, errorObjectIsNotType, errorObjectIsNotTypeArray } from "./utils/error";
+import {
+    errorObjectHasNoAttribute,
+    errorObjectIsNotType,
+    errorObjectIsNotTypeArray,
+    errorTemplateInstructionNotInInstructions,
+} from "./utils/error";
 
 export class Element {
     from: string;
@@ -256,6 +261,7 @@ export const validateConfig = (config: Config): Either<NonEmptyArray<string>, Co
             validateAttributeExistConfig("instructions"),
             chain(() => validateAttributeTypeArray(config.instructions, "instructions")("object")),
             chain(() => array.sequence(applicativeValidation)(config.instructions.map((v, i) => validateInstruction(v, i)))),
+            chain(() => validateCoherenceTemplateInstructions(config)),
             eitherMap(constVoid)
         );
 
@@ -266,7 +272,30 @@ export const validateConfig = (config: Config): Either<NonEmptyArray<string>, Co
             validateTemplate(config),
             validateInstructions(config)
         ),
+        chain(() => validateCoherenceTemplateInstructions(config)),
         eitherMap(() => config)
+    );
+};
+
+/**
+ * validate a preset according to the coherence between the template and the instructions
+ * @param config 
+ */
+export const validateCoherenceTemplateInstructions = (config: Config): Either<NonEmptyArray<string>, void> => {
+    const instructionNames = config.instructions.map((instruction) => instruction.name);
+    const instructionsInTemplate = config.template
+        .match(/<\w+>/g)
+        .map((instruction) => instruction.substring(1, instruction.length - 1))
+        .filter((instruction) => instruction !== "message");
+
+    return pipe(
+        array.sequence(applicativeValidation)(
+            instructionsInTemplate.map((v) => {
+                if (instructionNames.includes(v)) return right(constVoid);
+                return left([errorTemplateInstructionNotInInstructions(v)]);
+            })
+        ),
+        eitherMap(constVoid)
     );
 };
 

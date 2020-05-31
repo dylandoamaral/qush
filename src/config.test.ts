@@ -12,9 +12,10 @@ import {
     validateElement,
     validateInstruction,
     validateConfig,
+    validateCoherenceTemplateInstructions,
 } from "./config";
 import { isRight, isLeft, left } from "fp-ts/lib/Either";
-import { errorObjectHasNoAttribute } from "./utils/error";
+import { errorObjectHasNoAttribute, errorTemplateInstructionNotInInstructions } from "./utils/error";
 
 const config = plainToConfig(JSON.stringify(json));
 
@@ -142,6 +143,27 @@ describe("the config show functions", () => {
             delete unvalidConfig.name;
             expect(isLeft(validateConfig(unvalidConfig))).toEqual(true);
             expect(validateConfig(unvalidConfig)).toEqual(left([errorObjectHasNoAttribute("config", "name")]));
+        });
+
+        it("can validate the coherence between template and instruction", () => {
+            expect(isRight(validateCoherenceTemplateInstructions(config))).toEqual(true);
+        });
+
+        it("can unvalidate the incoherence between template and instruction", () => {
+            let unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction>"};
+
+            expect(isLeft(validateCoherenceTemplateInstructions(unvalidConfig))).toEqual(true);
+            expect(validateCoherenceTemplateInstructions(unvalidConfig)).toEqual(left([errorTemplateInstructionNotInInstructions("instruction")]));
+        });
+
+        it("can unvalidate multiple incoherences between template and instruction", () => {
+            let unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction> <instruction2>"};
+
+            expect(isLeft(validateCoherenceTemplateInstructions(unvalidConfig))).toEqual(true);
+            expect(validateCoherenceTemplateInstructions(unvalidConfig)).toEqual(left([
+                errorTemplateInstructionNotInInstructions("instruction"),
+                errorTemplateInstructionNotInInstructions("instruction2")
+            ]));
         });
     });
 

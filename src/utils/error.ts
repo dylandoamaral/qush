@@ -19,3 +19,6 @@ export const errorObjectIsNotType = (attributeName: string, type: string): strin
 
 export const errorObjectIsNotTypeArray = (attributeName: string, type: string): string =>
     `the attribute ${attributeName} is not of type Array[${type}]`;
+
+export const errorTemplateInstructionNotInInstructions = (instruction: string): string =>
+    `the template has the instruction "${instruction}" but this instruction doesn't not exist`;
