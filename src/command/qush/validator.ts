@@ -15,9 +15,9 @@ import { sequenceT } from "fp-ts/lib/Apply";
 import { array } from "fp-ts/lib/Array";
 import { getFlags } from "../command";
 import { gitUpdateRemote, folderIsGitRepo, folderDontNeedPull, folderIsNotUpToDate, gitIsInstalled } from "../../utils/git";
-import { errorNoFile } from "../../utils/error";
+import { errorNoFile, errorWrongNumberOfArguments } from "../../utils/error";
 // eslint-disable-next-line no-unused-vars
-import { Config } from "../../config";
+import { Config, getInstructionInTemplate } from "../../config";
 
 /**
  * A bunch of validation before executing our Qush commands
@@ -39,6 +39,11 @@ export const validateRepository: IOEither<NonEmptyArray<string>, void> = pipe(
     chain(folderIsNotUpToDate)
 );
 
+const validateArguments = (args: minimist.ParsedArgs) => (config: Config): Either<NonEmptyArray<string>, void> =>
+    args._.length !== getInstructionInTemplate(config.template).length + 1 // add the message to the instruction in template count
+        ? left([errorWrongNumberOfArguments(args._, config)])
+        : right(null);
+
 const validateSource = (source: string): Either<NonEmptyArray<string>, void> =>
     fs.existsSync(source) === false ? left([errorNoFile(source)]) : right(null);
 
@@ -58,7 +63,10 @@ const validateSources = (sources: string[]): Either<NonEmptyArray<string>, void>
  */
 export const validateCommand = (args: minimist.ParsedArgs) => (config: Config): IOEither<NonEmptyArray<string>, Qush> => {
     return pipe(
-        sequenceT(ioeitherApplicativeValidation)(fromEither(validateSources(getFlags(args, "S", "source")))),
+        sequenceT(ioeitherApplicativeValidation)(
+            fromEither(validateSources(getFlags(args, "S", "source"))),
+            fromEither(validateArguments(args)(config))
+        ),
         mapIOEither(() => toQush([args, config]))
     );
 };

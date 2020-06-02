@@ -10,7 +10,7 @@ import { validateRepository, validateCommand } from "./validator";
 import { execSync } from "child_process";
 import { add, commit, push } from "./builder";
 import inquirer from "inquirer";
-import { findGitRoot } from "../../utils/git";
+import { findGitRoot, gitIsInstalled } from "../../utils/git";
 // eslint-disable-next-line no-unused-vars
 import { Config, readConfig } from "../../config";
 import { sequenceT } from "fp-ts/lib/Apply";
@@ -68,7 +68,8 @@ export const qushCommand = (args: minimist.ParsedArgs): Command => ({
     name: "qush",
     execute: () =>
         pipe(
-            findGitRoot,
+            gitIsInstalled,
+            chain(() => findGitRoot),
             chain((path) => sequenceT(ioApplicativeValidation)(readConfig(path), validateRepository)),
             chain(([config]) => validateCommand(args)(config)),
             chain((qush) => rightIO(processQush(qush)))

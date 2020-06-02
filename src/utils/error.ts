@@ -1,3 +1,6 @@
+import { Config, getInstructionInTemplate } from "../config";
+import { space } from './format';
+
 export const errorGitIsInstalled = (): string => "the command git doesn't exist in this session";
 
 export const errorUpdateRemoteFailed = (): string => "impossible to update repository from remote";
@@ -22,3 +25,17 @@ export const errorObjectIsNotTypeArray = (attributeName: string, type: string): 
 
 export const errorTemplateInstructionNotInInstructions = (instruction: string): string =>
     `the template has the instruction "${instruction}" but this instruction doesn't not exist`;
+
+export const errorWrongNumberOfArguments = (args: string[], config: Config): string => {
+    const instructionInTemplate = getInstructionInTemplate(config.template);
+    const instructionNeeded = config.instructions
+        .map((instruction) => instruction.name)
+        .filter((instruction) => instructionInTemplate.includes(instruction))
+        .map((instruction) => `<${instruction}>`)
+        .join(" ");
+
+    return [
+        `the number of arguments is wrong, qush needs ${instructionInTemplate.length + 1} argument(s) but gets ${args.length}.`,
+        `${space.replace("-", " ")}qush expect => qush ${instructionNeeded} <message>.`,
+    ].join("\n");
+};

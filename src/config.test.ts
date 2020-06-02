@@ -13,6 +13,7 @@ import {
     validateInstruction,
     validateConfig,
     validateCoherenceTemplateInstructions,
+    getInstructionInTemplate,
 } from "./config";
 import { isRight, isLeft, left } from "fp-ts/lib/Either";
 import { errorObjectHasNoAttribute, errorTemplateInstructionNotInInstructions } from "./utils/error";
@@ -150,14 +151,14 @@ describe("the config show functions", () => {
         });
 
         it("can unvalidate the incoherence between template and instruction", () => {
-            let unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction>"};
+            const unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction>"};
 
             expect(isLeft(validateCoherenceTemplateInstructions(unvalidConfig))).toEqual(true);
             expect(validateCoherenceTemplateInstructions(unvalidConfig)).toEqual(left([errorTemplateInstructionNotInInstructions("instruction")]));
         });
 
         it("can unvalidate multiple incoherences between template and instruction", () => {
-            let unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction> <instruction2>"};
+            const unvalidConfig: Config = {...config, template: "[<target>] <action>: <message> <instruction> <instruction2>"};
 
             expect(isLeft(validateCoherenceTemplateInstructions(unvalidConfig))).toEqual(true);
             expect(validateCoherenceTemplateInstructions(unvalidConfig)).toEqual(left([
@@ -165,6 +166,18 @@ describe("the config show functions", () => {
                 errorTemplateInstructionNotInInstructions("instruction2")
             ]));
         });
+    });
+
+    test("the get instruction function in template", () => {
+        const template1 = "[<target>] <action>: <message>";
+        expect(getInstructionInTemplate(template1)).toContain("action");
+        expect(getInstructionInTemplate(template1)).toContain("target");
+        expect(getInstructionInTemplate(template1)).toHaveLength(2);
+        const template2 = "[<target>] <action>: <message>  <instruction>";
+        expect(getInstructionInTemplate(template2)).toContain("action");
+        expect(getInstructionInTemplate(template2)).toContain("target");
+        expect(getInstructionInTemplate(template2)).toContain("instruction");
+        expect(getInstructionInTemplate(template2)).toHaveLength(3);
     });
 
     test("the apply function for template to get the answer", () => {

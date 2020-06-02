@@ -278,15 +278,23 @@ export const validateConfig = (config: Config): Either<NonEmptyArray<string>, Co
 };
 
 /**
- * validate a preset according to the coherence between the template and the instructions
- * @param config 
+ * return each instruction from a template string
+ * @example getInstructionInTemplate("<foo> <message> : <bar>") => ["foo", "bar"]
+ * @param template 
  */
-export const validateCoherenceTemplateInstructions = (config: Config): Either<NonEmptyArray<string>, void> => {
-    const instructionNames = config.instructions.map((instruction) => instruction.name);
-    const instructionsInTemplate = config.template
+export const getInstructionInTemplate = (template: String): string[] =>
+    template
         .match(/<\w+>/g)
         .map((instruction) => instruction.substring(1, instruction.length - 1))
         .filter((instruction) => instruction !== "message");
+
+/**
+ * validate a preset according to the coherence between the template and the instructions
+ * @param config
+ */
+export const validateCoherenceTemplateInstructions = (config: Config): Either<NonEmptyArray<string>, void> => {
+    const instructionNames = config.instructions.map((instruction) => instruction.name);
+    const instructionsInTemplate = getInstructionInTemplate(config.template);
 
     return pipe(
         array.sequence(applicativeValidation)(
