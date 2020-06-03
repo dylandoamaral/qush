@@ -39,15 +39,15 @@ export const validateRepository: IOEither<NonEmptyArray<string>, void> = pipe(
     chain(folderIsNotUpToDate)
 );
 
-const validateArguments = (args: minimist.ParsedArgs) => (config: Config): Either<NonEmptyArray<string>, void> =>
+export const validateArgumentsCoherence = (args: minimist.ParsedArgs) => (config: Config): Either<NonEmptyArray<string>, void> =>
     args._.length !== getInstructionInTemplate(config.template).length + 1 // add the message to the instruction in template count
         ? left([errorWrongNumberOfArguments(args._, config)])
         : right(null);
 
-const validateSource = (source: string): Either<NonEmptyArray<string>, void> =>
+export const validateSource = (source: string): Either<NonEmptyArray<string>, void> =>
     fs.existsSync(source) === false ? left([errorNoFile(source)]) : right(null);
 
-const validateSources = (sources: string[]): Either<NonEmptyArray<string>, void> => {
+export const validateSources = (sources: string[]): Either<NonEmptyArray<string>, void> => {
     const validations: Either<NonEmptyArray<string>, void>[] = sources.map(validateSource);
 
     return pipe(
@@ -65,7 +65,7 @@ export const validateCommand = (args: minimist.ParsedArgs) => (config: Config): 
     return pipe(
         sequenceT(ioeitherApplicativeValidation)(
             fromEither(validateSources(getFlags(args, "S", "source"))),
-            fromEither(validateArguments(args)(config))
+            fromEither(validateArgumentsCoherence(args)(config))
         ),
         mapIOEither(() => toQush([args, config]))
     );

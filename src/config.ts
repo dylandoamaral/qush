@@ -13,7 +13,7 @@ import { IO, map } from "fp-ts/lib/IO";
 import { merge, applicativeValidation } from "./utils/functionnal";
 import config from "./asset/default.config.json";
 // eslint-disable-next-line no-unused-vars
-import { getValidation, Either, left, right, map as eitherMap, chain } from "fp-ts/lib/Either";
+import { Either, left, right, map as eitherMap, chain } from "fp-ts/lib/Either";
 import { sequenceT } from "fp-ts/lib/Apply";
 import { array } from "fp-ts/lib/Array";
 import { constVoid } from "fp-ts/lib/function";

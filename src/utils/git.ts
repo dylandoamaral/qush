@@ -3,10 +3,8 @@ import { tryCatch, IOEither, leftIO, rightIO, chain, left, right } from "fp-ts/l
 // eslint-disable-next-line no-unused-vars
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 // eslint-disable-next-line no-unused-vars
-import { IO } from "fp-ts/lib/IO";
 import { pipe } from "fp-ts/lib/pipeable";
 import { execSync } from "child_process";
-import { merge } from "./functionnal";
 import { constVoid } from "fp-ts/lib/function";
 
 import {
