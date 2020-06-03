@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import { Config, getInstructionInTemplate } from "../config";
-import { space } from './format';
+import { space } from "./format";
 
 export const errorGitIsInstalled = (): string => "the command git doesn't exist in this session";
 

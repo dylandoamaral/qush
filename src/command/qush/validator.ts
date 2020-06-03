@@ -57,9 +57,9 @@ const validateSources = (sources: string[]): Either<NonEmptyArray<string>, void>
 };
 
 /**
- * validate a command according to his preset and his arguments
+ * validate a command according to his config and his arguments
  * @param args
- * @param preset
+ * @param config
  */
 export const validateCommand = (args: minimist.ParsedArgs) => (config: Config): IOEither<NonEmptyArray<string>, Qush> => {
     return pipe(

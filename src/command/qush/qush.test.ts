@@ -19,12 +19,12 @@ describe("the addsToCommands function", () => {
         expect(addsToCommands(Qush)(branch)(["git add a", "git add b"])).toEqual([
             "git add a",
             "git add b",
-            'git commit -m "[project] add: my commit"',
+            "git commit -m \"[project] add: my commit\"",
             "git push origin master",
         ]);
         expect(addsToCommands(Qush)(branch)(["git add ."])).toEqual([
             "git add .",
-            'git commit -m "[project] add: my commit"',
+            "git commit -m \"[project] add: my commit\"",
             "git push origin master",
         ]);
     });
