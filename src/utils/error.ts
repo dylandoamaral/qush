@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Config, getInstructionInTemplate } from "../config";
+import { Config, getInstructionInTemplate, Instruction } from "../config";
 import { space } from "./format";
 
 export const errorGitIsInstalled = (): string => "the command git doesn't exist in this session";
@@ -40,3 +40,9 @@ export const errorWrongNumberOfArguments = (args: string[], config: Config): str
         `${space.replace("-", " ")}qush expect => qush ${instructionNeeded} <message>.`,
     ].join("\n");
 };
+
+export const errorArgumentNotExist = (instruction: Instruction) => (arg: string): string =>
+    [
+        `the argument "${arg}" not exists in the instruction named "${instruction.name}"`,
+        `${space.replace("-", " ")}arguments found in instruction => ${instruction.elements.map((e) => e.from).join(", ")}`,
+    ].join("\n");

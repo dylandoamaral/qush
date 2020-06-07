@@ -9,7 +9,7 @@ import { helpCommand } from "./help/help";
 import { qushCommand } from "./qush/qush";
 import { space } from "../utils/format";
 import { aloneCommand } from "./alone/alone";
-import { configCommand } from './config/config';
+import { configCommand } from "./config/config";
 
 export interface Command {
     arguments: minimist.ParsedArgs;
