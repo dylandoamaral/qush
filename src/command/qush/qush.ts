@@ -68,6 +68,7 @@ export const addsToCommands = (qush: Qush) => (branch: string) => (adds: string[
         ...adds,
         commit(qush.args._ as string[], qush.config),
         `git tag ${tags[0]}`,
+        `${push(branch)}`,
         `${push(branch)} --tag`
     ];
     
