@@ -67,8 +67,8 @@ export const addsToCommands = (qush: Qush) => (branch: string) => (adds: string[
     if(tags.length == 1) return [
         ...adds,
         commit(qush.args._ as string[], qush.config),
-        `git tag -a ${tags[0]}`,
-        push(branch),
+        `git tag ${tags[0]}`,
+        `${push(branch)} ${tags[0]}`
     ];
     
     return [
