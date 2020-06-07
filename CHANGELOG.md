@@ -51,4 +51,3 @@
 
 - (fix) more information website was pointing to the old github repository instead of qush
 - complete refont of the qush config file system
-- add tag flag

@@ -15,7 +15,7 @@ import { sequenceT } from "fp-ts/lib/Apply";
 import { array } from "fp-ts/lib/Array";
 import { getFlags } from "../command";
 import { gitUpdateRemote, folderIsGitRepo, folderDontNeedPull, folderIsNotUpToDate, gitIsInstalled } from "../../utils/git";
-import { errorNoFile, errorWrongNumberOfArguments, errorTooMuchTags } from "../../utils/error";
+import { errorNoFile, errorWrongNumberOfArguments } from "../../utils/error";
 // eslint-disable-next-line no-unused-vars
 import { Config, getInstructionInTemplate } from "../../config";
 
@@ -29,6 +29,7 @@ const ioeitherApplicativeValidation = getIOValidation(getSemigroup<string>());
 
 /**
  * Validate all validation that refer to the current repository
+ * ! Always use it after a "gitIsInstalled" function
  */
 export const validateRepository: IOEither<NonEmptyArray<string>, void> = pipe(
     gitIsInstalled,
@@ -55,11 +56,6 @@ export const validateSources = (sources: string[]): Either<NonEmptyArray<string>
     );
 };
 
-export const validateTag = (tags: string[]): Either<NonEmptyArray<string>, void> => 
-    tags.length > 1 ? left([errorTooMuchTags(tags)])
-        : right(null);
-
-
 /**
  * validate a command according to his config and his arguments
  * @param args
@@ -69,8 +65,7 @@ export const validateCommand = (args: minimist.ParsedArgs) => (config: Config): 
     return pipe(
         sequenceT(ioeitherApplicativeValidation)(
             fromEither(validateSources(getFlags(args, "S", "source"))),
-            fromEither(validateArgumentsCoherence(args)(config)),
-            fromEither(validateTag(getFlags(args, "T", "tag")))
+            fromEither(validateArgumentsCoherence(args)(config))
         ),
         mapIOEither(() => toQush([args, config]))
     );
