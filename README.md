@@ -97,6 +97,10 @@ will only commit these two files.
 
 if none of these flags are mentionned, then "git add ." will be used.
 
+### The flag -T or --tag
+
+the flag allows you to add a tag to your commit.
+
 ### The flag -Y or --yes
 
 the flag allows you to push without any confirmation to win even more time.

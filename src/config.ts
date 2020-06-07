@@ -68,7 +68,7 @@ export const readFile = (path: string): IO<string> =>
  * @param path
  */
 export const readConfig = (path: string): IOEither<NonEmptyArray<string>, Config> => {
-    const configPath = `${path}/default.config.json`;
+    const configPath = `${path}/qush.config.json`;
 
     return pipe(readFile(configPath), map(plainToConfig), map(validateConfig));
 };

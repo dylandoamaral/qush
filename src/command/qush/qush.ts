@@ -57,11 +57,26 @@ export const processQush = (qush: Qush): IO<void> =>
 export const sourcesToAdds = (sources: string[]): string[] =>
     sources.length === 0 ? [add(".")] : sources.map((source) => add(source));
 
-export const addsToCommands = (qush: Qush) => (branch: string) => (adds: string[]): string[] => [
-    ...adds,
-    commit(qush.args._ as string[], qush.config),
-    push(branch),
-];
+/**
+ * need to be improved
+ * @param qush 
+ */
+export const addsToCommands = (qush: Qush) => (branch: string) => (adds: string[]): string[] => {
+    const tags = getFlags(qush.args, "T", "tag");
+    
+    if(tags.length == 1) return [
+        ...adds,
+        commit(qush.args._ as string[], qush.config),
+        `git tag -a ${tags[0]}`,
+        push(branch),
+    ];
+    
+    return [
+        ...adds,
+        commit(qush.args._ as string[], qush.config),
+        push(branch),
+    ];
+};
 
 export const qushCommand = (args: minimist.ParsedArgs): Command => ({
     arguments: args,

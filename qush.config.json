@@ -1,45 +1,65 @@
 {
   "name": "dymoji",
   "contributors": ["dylandoamaral"],
-  "actions": {
-    "a": {
-      "value": "add",
-      "description": "to use when you add something new"
+  "version": "1.0.0",
+  "template": "<target> <action>: <message>",
+  "instructions": [
+    {
+      "name": "action",
+      "description": "the kind of action you perfom inside the commit",
+      "elements": [
+        {
+          "from": "a",
+          "to": "add",
+          "description": "to use when you add something new"
+        },
+        {
+          "from": "d",
+          "to": "delete",
+          "description": "to use when you delete something old"
+        },
+        {
+          "from": "r",
+          "to": "refactor",
+          "description": "to use when you change an intern structure"
+        },
+        {
+          "from": "f",
+          "to": "fix",
+          "description": "to use when you fix a bug"
+        },
+        {
+          "from": "s",
+          "to": "setup",
+          "description": "to use when you setup something"
+        },
+        {
+          "from": "u",
+          "to": "update",
+          "description": "to use when you update something"
+        }
+      ]
     },
-    "d": {
-      "value": "delete",
-      "description": "to use when you delete something old"
-    },
-    "r": {
-      "value": "refactor",
-      "description": "to use when you change an intern structure"
-    },
-    "f": {
-      "value": "fix",
-      "description": "to use when you fix a bug"
-    },
-    "s": {
-      "value": "setup",
-      "description": "to use when you setup something"
-    },
-    "u": {
-      "value": "update",
-      "description": "to use when you update something"
+    {
+      "name": "target",
+      "description": "the domain targeted by the commit",
+      "elements": [
+        {
+          "from" : "d",
+          "to": "📕",
+          "description": "to use when you comment some functionnalities"
+        },
+        {
+          "from": "t",
+          "to": "👓",
+          "description": "to use when you make some tests"
+        },
+        {
+          "from": "p",
+          "to": "💻",
+          "description": "to use when you do something for the project"
+        }
+      ]
     }
-  },
-  "targets": {
-    "d": {
-      "value": "📕",
-      "description": "to use when you comment some functionnalities"
-    },
-    "t": {
-      "value": "👓",
-      "description": "to use when you make some tests"
-    },
-    "p": {
-      "value": "💻",
-      "description": "to use when you do something for the project"
-    }
-  },
-  "template": "<target> <action>: <message>"
+  ]
 }

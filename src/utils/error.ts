@@ -11,7 +11,7 @@ export const errorFolderIsGitRepo = (): string => "the command is running outsid
 export const errorFolderIsNotUpToDate = (): string => "nothing to push, the repository is up to data";
 
 export const errorFolderDontNeedPull = (): string =>
-    "the current repository is not up to data, you have to pull before use this command.";
+    "the current repository is not up to data, you have to pull before use this command";
 
 export const errorNoFile = (field: string): string => `can't find the file "${field}"`;
 
@@ -36,7 +36,10 @@ export const errorWrongNumberOfArguments = (args: string[], config: Config): str
         .join(" ");
 
     return [
-        `the number of arguments is wrong, qush needs ${instructionInTemplate.length + 1} argument(s) but gets ${args.length}.`,
-        `${space.replace("-", " ")}qush expect => qush ${instructionNeeded} <message>.`,
+        `the number of arguments is wrong, qush needs ${instructionInTemplate.length + 1} argument(s) but gets ${args.length}`,
+        `${space.replace("-", " ")}qush expect => qush ${instructionNeeded} <message>`,
     ].join("\n");
 };
+
+export const errorTooMuchTags = (tags: string[]): string =>
+    `the qush command can only contains one tag, found ${tags.length} tags (${tags.join(", ")})`;
